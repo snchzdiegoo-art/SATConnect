@@ -9,18 +9,14 @@ const Hero = () => {
 
     // Array of all hero videos
     const videos = [
-        { src: '/videos/hero/12270222_3840_2160_30fps.mp4', name: 'Playa Paradisíaca' },
-        { src: '/videos/hero/12377531_3840_2160_24fps.mp4', name: 'Costa Dorada' },
-        { src: '/videos/hero/13073518_3840_2160_30fps.mp4', name: 'Atardecer Tropical' },
-        { src: '/videos/hero/13457566_3840_2160_30fps.mp4', name: 'Aguas Cristalinas' },
-        { src: '/videos/hero/14972248_1920_1080_24fps.mp4', name: 'Horizonte Infinito' },
-        { src: '/videos/hero/16679786-hd_1920_1080_24fps.mp4', name: 'Naturaleza Vibrante' },
-        { src: '/videos/hero/17480599-uhd_2562_1440_60fps.mp4', name: 'Paisaje Épico' },
-        { src: '/videos/hero/18690716-uhd_3840_2160_30fps.mp4', name: 'Aventura Mexicana' },
-        { src: '/videos/hero/3562633-hd_1920_1080_24fps.mp4', name: 'Destino Soñado' },
-        { src: '/videos/hero/6943026-hd_1920_1080_25fps.mp4', name: 'Maravilla Natural' },
-        { src: '/videos/hero/7206043-hd_1920_1080_24fps.mp4', name: 'Paraíso Escondido' },
-        { src: '/videos/hero/7613415-hd_1920_1080_24fps.mp4', name: 'Experiencia Única' }
+        { src: '/videos/hero/3562633-hd_1920_1080_24fps.mp4', name: 'Playa Paradisíaca' },
+        { src: '/videos/hero/5738684-hd_1920_1080_30fps.mp4', name: 'Costa Dorada' },
+        { src: '/videos/hero/7206023-hd_1920_1080_24fps.mp4', name: 'Atardecer Tropical' },
+        { src: '/videos/hero/7613415-hd_1920_1080_24fps.mp4', name: 'Aguas Cristalinas' },
+        { src: '/videos/hero/7772313-hd_1920_1080_24fps.mp4', name: 'Horizonte Infinito' },
+        { src: '/videos/hero/7772365-hd_1920_1080_24fps.mp4', name: 'Naturaleza Vibrante' },
+        { src: '/videos/hero/7772376-hd_1920_1080_24fps.mp4', name: 'Paisaje Épico' },
+        { src: '/videos/hero/8638793-hd_1920_1080_30fps.mp4', name: 'Aventura Mexicana' }
     ];
 
     // Handle video end event - transition to next video

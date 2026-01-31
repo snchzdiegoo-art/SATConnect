@@ -122,7 +122,11 @@ Thumbs.db
 # Vercel
 .vercel
 
+# Build Output (Vite)
+dist/
+
 # Large Video Files (>100MB)
 public/videos/hero/12270222_3840_2160_30fps.mp4
 public/videos/hero/18690716-uhd_3840_2160_30fps.mp4
 public/videos/hero/12377531_3840_2160_24fps.mp4
+
