@@ -1,128 +1,83 @@
-export default function Footer() {
-    const currentYear = new Date().getFullYear()
+import React from 'react';
 
+const Footer = () => {
     return (
-        <footer className="bg-brand-darker border-t border-white/10">
-            <div className="container-custom section">
-                <div className="grid md:grid-cols-4 gap-12">
+        <footer className="bg-gray-950 text-white pt-20 pb-10 border-t border-gray-800">
+            <div className="container mx-auto px-6">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
                     {/* Brand Column */}
-                    <div className="md:col-span-2">
-                        <h3 className="text-2xl font-bold font-display mb-4">
-                            <span className="text-gradient">SAT Connect</span>
-                        </h3>
-                        <p className="text-gray-400 mb-6 max-w-md">
-                            Plataforma B2B que conecta proveedores de tours con agentes de viajes.
-                            Auditoría inteligente, tarifas preferenciales y tecnología de clase mundial.
+                    <div className="col-span-1 md:col-span-1">
+                        <img src="/Logo-SATConnect-v3.svg" alt="SAT Connect" className="h-10 mb-6 opacity-80" />
+                        <p className="text-gray-500 text-sm leading-relaxed mb-6">
+                            El ecosistema híbrido que conecta la tecnología global con la operación local.
                         </p>
-                        <div className="flex gap-4">
-                            <a
-                                href="#"
-                                className="w-10 h-10 bg-white/5 hover:bg-brand-accent/20 border border-white/10 hover:border-brand-accent rounded-lg flex items-center justify-center transition-all"
-                                aria-label="Facebook"
-                            >
-                                <i className="fab fa-facebook-f text-gray-400 hover:text-brand-accent"></i>
-                            </a>
-                            <a
-                                href="#"
-                                className="w-10 h-10 bg-white/5 hover:bg-brand-accent/20 border border-white/10 hover:border-brand-accent rounded-lg flex items-center justify-center transition-all"
-                                aria-label="Instagram"
-                            >
-                                <i className="fab fa-instagram text-gray-400 hover:text-brand-accent"></i>
-                            </a>
-                            <a
-                                href="#"
-                                className="w-10 h-10 bg-white/5 hover:bg-brand-accent/20 border border-white/10 hover:border-brand-accent rounded-lg flex items-center justify-center transition-all"
-                                aria-label="LinkedIn"
-                            >
-                                <i className="fab fa-linkedin-in text-gray-400 hover:text-brand-accent"></i>
-                            </a>
-                            <a
-                                href="#"
-                                className="w-10 h-10 bg-white/5 hover:bg-brand-accent/20 border border-white/10 hover:border-brand-accent rounded-lg flex items-center justify-center transition-all"
-                                aria-label="Twitter"
-                            >
-                                <i className="fab fa-twitter text-gray-400 hover:text-brand-accent"></i>
-                            </a>
+                        <div className="flex space-x-4">
+                            <a href="#" className="text-gray-500 hover:text-teal-400 transition-colors"><i className="fab fa-linkedin text-xl"></i></a>
+                            <a href="#" className="text-gray-500 hover:text-teal-400 transition-colors"><i className="fab fa-instagram text-xl"></i></a>
+                            <a href="#" className="text-gray-500 hover:text-teal-400 transition-colors"><i className="fab fa-facebook text-xl"></i></a>
                         </div>
                     </div>
 
-                    {/* Quick Links */}
+                    {/* Solutions */}
                     <div>
-                        <h4 className="font-semibold text-white mb-4">Enlaces Rápidos</h4>
-                        <ul className="space-y-2">
-                            <li>
-                                <a href="#thrive" className="text-gray-400 hover:text-brand-accent transition-colors">
-                                    T.H.R.I.V.E. Engine
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#pricing" className="text-gray-400 hover:text-brand-accent transition-colors">
-                                    Precios
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#marketplace" className="text-gray-400 hover:text-brand-accent transition-colors">
-                                    Marketplace
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#onboarding" className="text-gray-400 hover:text-brand-accent transition-colors">
-                                    Registrarse
-                                </a>
-                            </li>
+                        <h4 className="text-white font-bold mb-6">Soluciones</h4>
+                        <ul className="space-y-3 text-sm text-gray-500">
+                            <li><a href="#" className="hover:text-teal-400 transition-colors">T.H.R.I.V.E. Engine</a></li>
+                            <li><a href="#" className="hover:text-teal-400 transition-colors">Marketplace B2B</a></li>
+                            <li><a href="#" className="hover:text-teal-400 transition-colors">Integración API</a></li>
+                            <li><a href="#" className="hover:text-teal-400 transition-colors">Programa de Partners</a></li>
                         </ul>
                     </div>
 
-                    {/* Legal & Contact */}
+                    {/* Legal & Support */}
                     <div>
-                        <h4 className="font-semibold text-white mb-4">Legal</h4>
-                        <ul className="space-y-2 mb-6">
-                            <li>
-                                <a href="#" className="text-gray-400 hover:text-brand-accent transition-colors">
-                                    Términos de Servicio
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" className="text-gray-400 hover:text-brand-accent transition-colors">
-                                    Política de Privacidad
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" className="text-gray-400 hover:text-brand-accent transition-colors">
-                                    FAQ
-                                </a>
-                            </li>
+                        <h4 className="text-white font-bold mb-6">Soporte</h4>
+                        <ul className="space-y-3 text-sm text-gray-500">
+                            <li><a href="#" className="hover:text-teal-400 transition-colors">Help Center</a></li>
+                            <li><a href="#" className="hover:text-teal-400 transition-colors">Términos y Condiciones</a></li>
+                            <li><a href="#" className="hover:text-teal-400 transition-colors">Política de Privacidad</a></li>
+                            <li><a href="#" className="hover:text-teal-400 transition-colors">Inventory Data Standard</a></li>
                         </ul>
+                    </div>
 
-                        <h4 className="font-semibold text-white mb-4">Contacto</h4>
-                        <ul className="space-y-2">
-                            <li className="text-gray-400 flex items-center gap-2">
-                                <i className="fas fa-envelope text-brand-accent"></i>
-                                info@satconnect.travel
-                            </li>
-                            <li className="text-gray-400 flex items-center gap-2">
-                                <i className="fas fa-phone text-brand-accent"></i>
-                                +52 (55) 1234-5678
-                            </li>
-                        </ul>
+                    {/* Contact Badge */}
+                    <div>
+                        <h4 className="text-white font-bold mb-6">Contacto</h4>
+                        <div className="bg-gray-900 rounded-lg p-4 border border-gray-800">
+                            <div className="flex items-center mb-3">
+                                <i className="fas fa-envelope text-teal-500 mr-3"></i>
+                                <a href="mailto:aliados@satconnect.travel" className="text-gray-300 hover:text-white text-sm">aliados@satconnect.travel</a>
+                            </div>
+                            <div className="flex items-center">
+                                <i className="fas fa-map-marker-alt text-teal-500 mr-3"></i>
+                                <span className="text-gray-500 text-sm">Ciudad de México, MX</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                {/* Bottom Bar */}
-                <div className="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p className="text-sm text-gray-500">
-                        © {currentYear} SAT Connect. Todos los derechos reservados.
+                {/* Trust Badges & Copyright */}
+                <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
+                    <p className="text-gray-600 text-sm">
+                        &copy; {new Date().getFullYear()} SAT Connect. Todos los derechos reservados.
                     </p>
-                    <div className="flex items-center gap-3">
-                        <span className="text-sm text-gray-500">Powered by</span>
-                        <img
-                            src="/powered-by-bokun.png"
-                            alt="Bókun"
-                            className="h-8 opacity-70 hover:opacity-100 transition-opacity"
-                        />
+
+                    {/* Certificates */}
+                    <div className="flex flex-wrap items-center gap-6 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+                        <div className="flex items-center gap-2 text-xs font-bold text-gray-400 border border-gray-700 rounded px-3 py-1">
+                            <i className="fas fa-bolt text-yellow-500"></i> Powered by Bókun
+                        </div>
+                        <div className="flex items-center gap-2 text-xs font-bold text-gray-400 border border-gray-700 rounded px-3 py-1">
+                            <i className="fas fa-check-circle text-teal-500"></i> SAT México Certified
+                        </div>
+                        <div className="flex items-center gap-2 text-xs font-bold text-gray-400 border border-gray-700 rounded px-3 py-1">
+                            <i className="fab fa-stripe text-indigo-400 text-lg"></i> Secure Payments
+                        </div>
                     </div>
                 </div>
             </div>
         </footer>
-    )
-}
+    );
+};
+
+export default Footer;

@@ -103,7 +103,7 @@ const Hero = () => {
 
                 {/* Video Name Badge */}
                 <div className="flex justify-center mb-6">
-                    <Badge variant="success" className="text-sm md:text-base px-4 py-2 animate-pulse">
+                    <Badge variant="success" className="text-sm md:text-base px-4 py-2 animate-pulse bg-teal-500/20 text-teal-300 border-teal-500/50">
                         <i className="fas fa-map-marked-alt mr-2"></i>
                         {videos[currentVideo].name}
                     </Badge>
@@ -111,110 +111,97 @@ const Hero = () => {
 
                 {/* Headline */}
                 <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-                    El <span className="text-primary-500">Marketplace B2B</span> que Conecta{' '}
-                    <span className="text-accent-500">Proveedores</span> con Agencias Globales
+                    Tu Inventario Turístico: <span className="text-teal-400">Auditado</span>, <span className="text-teal-400">Saneado</span> y <span className="text-blue-500">Conectado Globalmente</span>.
                 </h1>
 
                 {/* Subheadline */}
-                <p className="text-xl md:text-2xl text-gray-100 mb-8 max-w-3xl mx-auto">
-                    <strong className="text-white">Proveedores:</strong> Distribuye tu inventario en 62+ canales globales.{' '}
-                    <strong className="text-white">Agencias:</strong> Accede a tours verificados con auditoría T.H.R.I.V.E.
+                <p className="text-xl md:text-2xl text-gray-200 mb-8 max-w-4xl mx-auto">
+                    Deja de luchar con Excel y la invisibilidad online. <strong>SAT Connect</strong> fusiona la tecnología de <span className="text-white font-semibold">Bókun</span> con la inteligencia de mercado de <span className="text-white font-semibold">SAT México</span> para escalar tu negocio.
                 </p>
 
-                {/* Stats */}
-                <div className="flex flex-wrap justify-center gap-8 mb-8">
+                {/* Stats (Optional - Keeping generic/impressive based on prompt hint or removing if too cluttered. Keeping for credibility) */}
+                <div className="flex flex-wrap justify-center gap-8 mb-10 opacity-80 scale-90">
                     <div className="text-center">
-                        <div className="text-4xl md:text-5xl font-bold text-accent-400 mb-2">1,000+</div>
-                        <div className="text-gray-300">Tours Curados</div>
+                        <div className="text-3xl font-bold text-teal-400 mb-1">1,000+</div>
+                        <div className="text-gray-300 text-sm">Tours Auditados</div>
                     </div>
                     <div className="text-center">
-                        <div className="text-4xl md:text-5xl font-bold text-primary-400 mb-2">24/7</div>
-                        <div className="text-gray-300">API en Tiempo Real</div>
+                        <div className="text-3xl font-bold text-blue-400 mb-1">24/7</div>
+                        <div className="text-gray-300 text-sm">Sincronización</div>
                     </div>
                 </div>
 
-                {/* Channel Partners Logos */}
-                <div className="mb-12">
-                    <p className="text-sm text-gray-400 text-center mb-4 uppercase tracking-wide">
-                        Distribuye en los principales canales globales:
-                    </p>
-                    <div className="flex flex-wrap justify-center items-center gap-8 max-w-4xl mx-auto">
-                        {/* Expedia */}
-                        <div className="text-white text-2xl opacity-70 hover:opacity-100 transition-opacity">
-                            <i className="fab fa-expeditedssl"></i>
-                            <span className="ml-2 font-bold">Expedia</span>
-                        </div>
-                        {/* Booking.com */}
-                        <div className="text-white text-2xl opacity-70 hover:opacity-100 transition-opacity">
-                            <i className="fas fa-bed"></i>
-                            <span className="ml-2 font-bold">Booking.com</span>
-                        </div>
-                        {/* Airbnb */}
-                        <div className="text-white text-2xl opacity-70 hover:opacity-100 transition-opacity">
-                            <i className="fab fa-airbnb"></i>
-                            <span className="ml-2 font-bold">Airbnb</span>
-                        </div>
-                        {/* Viator */}
-                        <div className="text-white text-2xl opacity-70 hover:opacity-100 transition-opacity">
-                            <i className="fas fa-route"></i>
-                            <span className="ml-2 font-bold">Viator</span>
-                        </div>
-                        {/* GetYourGuide */}
-                        <div className="text-white text-2xl opacity-70 hover:opacity-100 transition-opacity">
-                            <i className="fas fa-map-marked-alt"></i>
-                            <span className="ml-2 font-bold">GetYourGuide</span>
-                        </div>
-                        {/* Y más... */}
-                        <div className="text-gray-400 text-lg">
-                            <span className="font-semibold">+ 50 más</span>
-                        </div>
-                    </div>
-                </div>
                 {/* CTA Buttons */}
-                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-10">
+                <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
                     <Button
                         variant="primary"
-                        onClick={() => document.getElementById('onboarding').scrollIntoView({ behavior: 'smooth' })}
-                        className="text-lg px-8 py-4 shadow-2xl hover:shadow-primary-500/50 transition-all duration-300"
+                        onClick={() => document.getElementById('pricing').scrollIntoView({ behavior: 'smooth' })}
+                        className="text-lg px-8 py-5 shadow-[0_0_20px_rgba(20,184,166,0.5)] hover:shadow-[0_0_30px_rgba(20,184,166,0.7)] bg-teal-600 hover:bg-teal-500 border-none transition-all duration-300 transform hover:-translate-y-1"
                     >
-                        <i className="fas fa-rocket mr-2"></i>
-                        Empieza Gratis Ahora
+                        <i className="fas fa-star mr-2 text-yellow-300"></i>
+                        Quiero ser Aliado Fundador
+                        <span className="block text-xs font-normal opacity-90 mt-1">(Cupos Limitados)</span>
                     </Button>
                     <Button
                         variant="ghost"
                         onClick={() => document.getElementById('thrive-engine').scrollIntoView({ behavior: 'smooth' })}
-                        className="text-lg px-8 py-4 text-white border-white hover:bg-white/10"
+                        className="text-lg px-8 py-5 text-white border-white/30 hover:bg-white/10 hover:border-white transition-all"
                     >
-                        <i className="fas fa-play-circle mr-2"></i>
-                        Ver Cómo Funciona
+                        <i className="fas fa-microchip mr-2"></i>
+                        Descubrir el Motor T.H.R.I.V.E.
                     </Button>
                 </div>
 
+                {/* Channel Partners Logos (Keep as social proof) */}
+                <div className="mb-8">
+                    <p className="text-xs text-gray-500 text-center mb-4 uppercase tracking-widest">
+                        Potenciado por Bókun, conectando con:
+                    </p>
+                    <div className="flex flex-wrap justify-center items-center gap-6 max-w-4xl mx-auto opacity-60 hover:opacity-100 transition-opacity duration-500">
+                        {/* Expedia */}
+                        <div className="text-white text-xl">
+                            <i className="fab fa-expeditedssl mr-2"></i>Expedia
+                        </div>
+                        {/* Booking.com */}
+                        <div className="text-white text-xl">
+                            <i className="fas fa-bed mr-2"></i>Booking.com
+                        </div>
+                        {/* Airbnb */}
+                        <div className="text-white text-xl">
+                            <i className="fab fa-airbnb mr-2"></i>Airbnb
+                        </div>
+                        {/* Viator */}
+                        <div className="text-white text-xl">
+                            <i className="fas fa-route mr-2"></i>Viator
+                        </div>
+                        {/* GetYourGuide */}
+                        <div className="text-white text-xl">
+                            <i className="fas fa-map-marked-alt mr-2"></i>GetYourGuide
+                        </div>
+                    </div>
+                </div>
+
                 {/* Trust Badges */}
-                <div className="flex flex-wrap justify-center items-center gap-6 text-gray-400 text-sm">
+                <div className="flex flex-wrap justify-center items-center gap-6 text-teal-200/60 text-xs tracking-wider uppercase">
                     <div className="flex items-center">
-                        <i className="fas fa-shield-alt text-accent-400 mr-2"></i>
-                        Seguro SSL 256-bit
+                        <i className="fas fa-check-circle mr-2"></i>
+                        Tecnología Oficial Bókun
                     </div>
                     <div className="flex items-center">
-                        <i className="fas fa-lock text-accent-400 mr-2"></i>
-                        Datos Encriptados
-                    </div>
-                    <div className="flex items-center">
-                        <i className="fas fa-check-circle text-accent-400 mr-2"></i>
-                        Sin Tarjeta Requerida
+                        <i className="fas fa-shield-alt mr-2"></i>
+                        Pagos Seguros
                     </div>
                 </div>
 
                 {/* Video Carousel Indicators */}
-                <div className="flex justify-center gap-2 mt-12 flex-wrap">
+                <div className="flex justify-center gap-2 mt-8 flex-wrap">
                     {videos.map((_, index) => (
                         <button
                             key={index}
                             onClick={() => goToVideo(index)}
-                            className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${index === currentVideo
-                                ? 'bg-primary-500 w-8'
-                                : 'bg-white/30 hover:bg-white/50'
+                            className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${index === currentVideo
+                                ? 'bg-teal-500 w-6'
+                                : 'bg-white/20 hover:bg-white/40'
                                 }`}
                             aria-label={`Ir a video ${index + 1}`}
                         />
@@ -223,11 +210,8 @@ const Hero = () => {
             </div>
 
             {/* Scroll Indicator */}
-            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
-                <div className="flex flex-col items-center text-white/70 hover:text-white transition-colors cursor-pointer">
-                    <span className="text-sm mb-2">Descubre Más</span>
-                    <i className="fas fa-chevron-down animate-bounce"></i>
-                </div>
+            <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-10 animate-bounce">
+                <i className="fas fa-chevron-down text-white/50 text-2xl"></i>
             </div>
         </section>
     );
