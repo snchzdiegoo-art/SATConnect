@@ -92,13 +92,15 @@ const Hero = () => {
 
             {/* Content */}
             <div className="relative z-10 container mx-auto px-6 py-20 text-center">
-                {/* Logo */}
-                <div className="flex justify-center mb-8">
-                    <img
-                        src="/Logo-SATConnect-v3.svg"
-                        alt="SAT Connect Logo"
-                        className="h-20 md:h-28 w-auto drop-shadow-2xl"
-                    />
+                {/* Glassmorphic Header/Logo */}
+                <div className="flex justify-center mb-10">
+                    <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-8 py-4 shadow-[0_4px_30px_rgba(0,0,0,0.1)] hover:bg-white/15 transition-all duration-300">
+                        <img
+                            src="/Logo-SATConnect-v3.svg"
+                            alt="SAT Connect Logo"
+                            className="h-16 md:h-20 w-auto drop-shadow-xl"
+                        />
+                    </div>
                 </div>
 
                 {/* Video Name Badge */}
