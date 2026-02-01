@@ -23,11 +23,11 @@ const ThriveEngine = () => {
                     </p>
                 </div>
 
-                {/* Bento Grid 2.0 Layout */}
-                <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr">
+                {/* Bento Grid 2.0 Layout - Explicit Positioning for Perfect Symmetry */}
+                <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-                    {/* [T] Tour Health */}
-                    <Card className="bg-gray-900/60 border-gray-800 hover:border-teal-500/50 transition-all duration-300 group backdrop-blur-md">
+                    {/* [T] Tour Health - (1,1) */}
+                    <Card className="bg-gray-900/60 border-gray-800 hover:border-teal-500/50 transition-all duration-300 group backdrop-blur-md lg:col-start-1 lg:row-start-1">
                         <div className="h-full flex flex-col p-6">
                             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-500/20 to-teal-900/20 border border-teal-500/30 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                                 <span className="text-2xl font-black text-teal-400">T</span>
@@ -39,8 +39,8 @@ const ThriveEngine = () => {
                         </div>
                     </Card>
 
-                    {/* [H] Health & Distribution */}
-                    <Card className="bg-gray-900/60 border-gray-800 hover:border-teal-500/50 transition-all duration-300 group backdrop-blur-md">
+                    {/* [H] Health & Distribution - (1,2) */}
+                    <Card className="bg-gray-900/60 border-gray-800 hover:border-teal-500/50 transition-all duration-300 group backdrop-blur-md lg:col-start-2 lg:row-start-1">
                         <div className="h-full flex flex-col p-6">
                             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-500/20 to-teal-900/20 border border-teal-500/30 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                                 <span className="text-2xl font-black text-teal-400">H</span>
@@ -52,8 +52,8 @@ const ThriveEngine = () => {
                         </div>
                     </Card>
 
-                    {/* [R] Revenue Optimization */}
-                    <Card className="bg-gray-900/60 border-gray-800 hover:border-teal-500/50 transition-all duration-300 group backdrop-blur-md">
+                    {/* [R] Revenue Optimization - (1,3) */}
+                    <Card className="bg-gray-900/60 border-gray-800 hover:border-teal-500/50 transition-all duration-300 group backdrop-blur-md lg:col-start-3 lg:row-start-1">
                         <div className="h-full flex flex-col p-6">
                             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-500/20 to-teal-900/20 border border-teal-500/30 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                                 <span className="text-2xl font-black text-teal-400">R</span>
@@ -65,8 +65,8 @@ const ThriveEngine = () => {
                         </div>
                     </Card>
 
-                    {/* [I] Inventory Standard */}
-                    <Card className="bg-gray-900/60 border-gray-800 hover:border-teal-500/50 transition-all duration-300 group backdrop-blur-md">
+                    {/* [I] Inventory Standard - (2,1) */}
+                    <Card className="bg-gray-900/60 border-gray-800 hover:border-teal-500/50 transition-all duration-300 group backdrop-blur-md lg:col-start-1 lg:row-start-2">
                         <div className="h-full flex flex-col p-6">
                             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-500/20 to-teal-900/20 border border-teal-500/30 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                                 <span className="text-2xl font-black text-teal-400">I</span>
@@ -78,7 +78,7 @@ const ThriveEngine = () => {
                         </div>
                     </Card>
 
-                    {/* THE ENGINE (Centerpiece) - Spans 2 rows on mobile if needed, or takes center stage on lg */}
+                    {/* THE ENGINE (Centerpiece) - (2,2) */}
                     <div className="lg:col-start-2 lg:row-start-2 relative flex items-center justify-center min-h-[300px] lg:min-h-0">
                         {/* Orb Animation */}
                         <div className="absolute inset-0 bg-teal-500/5 rounded-full animate-pulse-slow blur-2xl"></div>
@@ -102,20 +102,7 @@ const ThriveEngine = () => {
                         </div>
                     </div>
 
-                    {/* [V] Value & Analytics */}
-                    <Card className="bg-gray-900/60 border-gray-800 hover:border-teal-500/50 transition-all duration-300 group backdrop-blur-md">
-                        <div className="h-full flex flex-col p-6">
-                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-500/20 to-teal-900/20 border border-teal-500/30 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                <span className="text-2xl font-black text-teal-400">V</span>
-                            </div>
-                            <h3 className="text-xl font-bold text-white mb-2">Value & Analytics</h3>
-                            <p className="text-gray-400 text-sm leading-relaxed flex-grow">
-                                Tableros de inteligencia de negocios. Mide ROI, ADR y conversión por canal en tiempo real.
-                            </p>
-                        </div>
-                    </Card>
-
-                    {/* [E] Engine Automation - Reordered for Layout flow */}
+                    {/* [E] Engine Automation - (2,3) */}
                     <Card className="bg-gray-900/60 border-gray-800 hover:border-teal-500/50 transition-all duration-300 group backdrop-blur-md lg:col-start-3 lg:row-start-2">
                         <div className="h-full flex flex-col p-6">
                             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-500/20 to-teal-900/20 border border-teal-500/30 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
@@ -128,42 +115,18 @@ const ThriveEngine = () => {
                         </div>
                     </Card>
 
-                    {/* Empty cell/filler or just flow naturally. 
-                        Layout check:
-                        Row 1: T, H, R
-                        Row 2: I, ENGINE, E (Placed explicitly)
-                        Row 3: V (Flows to (3,1)?)
-                        
-                        Let's re-arrange explicitly for perfect symmetry if possible, or just let V take last spot.
-                        Current Items: T, H, R, I, ENGINE(Fixed), V, E(Fixed).
-                        Total 7 items.
-                        Grid has 3 cols.
-                        Row 1: T, H, R (3 items)
-                        Row 2: I, ENGINE, E (3 items)
-                        Row 3: V (1 item) -> V is centered? 
-                        
-                        Let's make V span 3 cols or center it.
-                        Or adding a CTA card to fill the space?
-                        
-                        Let's adjust:
-                        Row 1: T, H, R
-                        Row 2: I, ENGINE, E
-                        Row 3: V (Centered)
-                    */}
-
-                    <div className="lg:col-span-3 lg:w-1/3 lg:mx-auto">
-                        <Card className="bg-gray-900/60 border-gray-800 hover:border-teal-500/50 transition-all duration-300 group backdrop-blur-md h-full">
-                            <div className="h-full flex flex-col p-6 items-center text-center">
-                                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-500/20 to-teal-900/20 border border-teal-500/30 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                    <span className="text-2xl font-black text-teal-400">V</span>
-                                </div>
-                                <h3 className="text-xl font-bold text-white mb-2">Value & Analytics</h3>
-                                <p className="text-gray-400 text-sm leading-relaxed">
-                                    Tableros de inteligencia de negocios. Mide ROI, ADR y conversión por canal.
-                                </p>
+                    {/* [V] Value & Analytics - (3,2) Centered */}
+                    <Card className="bg-gray-900/60 border-gray-800 hover:border-teal-500/50 transition-all duration-300 group backdrop-blur-md lg:col-start-2 lg:row-start-3">
+                        <div className="h-full flex flex-col p-6 items-center text-center">
+                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-500/20 to-teal-900/20 border border-teal-500/30 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <span className="text-2xl font-black text-teal-400">V</span>
                             </div>
-                        </Card>
-                    </div>
+                            <h3 className="text-xl font-bold text-white mb-2">Value & Analytics</h3>
+                            <p className="text-gray-400 text-sm leading-relaxed">
+                                Tableros de inteligencia de negocios. Mide ROI, ADR y conversión por canal.
+                            </p>
+                        </div>
+                    </Card>
 
                 </div>
             </div>
