@@ -1,19 +1,24 @@
 import { HeroHome } from "@/components/hero-home";
 import { ThriveEngine } from "@/components/thrive-engine";
+import { ProblemSolution } from "@/components/problem-solution";
+import { PricingTable } from "@/components/pricing-table";
+import { BenchmarkingTable } from "@/components/benchmarking-table";
+import { Footer } from "@/components/footer";
 
 export default function Home() {
   return (
     <main>
       <HeroHome />
-      <ThriveEngine />
-      {/* 
-         TODO: Migrate ThreeSteps, ProblemSolution, PricingTable components 
-         and add them here to complete the page match.
-         For the "Preview", Hero + Thrive is enough to verify migration success.
-      */}
-      <div className="py-20 text-center">
-        <p className="text-gray-500">More sections coming...</p>
+      <ProblemSolution />
+      <PricingTable />
+
+      {/* Reusing the Benchmarking Table as "Guerra contra Excel" section */}
+      <div className="bg-gray-950 py-10">
+        <BenchmarkingTable />
       </div>
+
+      <ThriveEngine />
+      <Footer />
     </main>
   );
 }
