@@ -17,6 +17,8 @@ const badgeVariants = cva(
                     "bg-purple-500/10 text-purple-400 border border-purple-500/30",
                 primary:
                     "bg-teal-500/10 text-teal-400 border border-teal-500/30",
+                outline:
+                    "text-foreground",
 
             },
         },

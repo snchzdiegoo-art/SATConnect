@@ -8,15 +8,22 @@ const buttonVariants = cva(
         variants: {
             variant: {
                 primary:
-                    "bg-[##001AED] text-white hover:bg-[##001AED]/90 hover:shadow-[0_10px_15px_-3px_rgba(0,26,237,0.5)] focus:ring-[##001AED]/50",
+                    "bg-[#001AED] text-white hover:bg-[#001AED]/90 hover:shadow-[0_10px_15px_-3px_rgba(0,26,237,0.5)] focus:ring-[#001AED]/50",
                 secondary:
                     "bg-white/10 text-white border border-white/20 hover:bg-white/20 hover:border-[#00FF66] focus:ring-[#00FF66]/50",
                 ghost:
                     "bg-transparent text-white border border-[#00FF66] hover:bg-[#00FF66]/10 hover:border-[#33FF85] focus:ring-[#00FF66]/50",
             },
+            size: {
+                default: "h-10 px-4 py-2",
+                sm: "h-9 rounded-md px-3",
+                lg: "h-14 rounded-xl px-8",
+                icon: "h-10 w-10",
+            },
         },
         defaultVariants: {
             variant: "primary",
+            size: "default",
         },
     }
 )
