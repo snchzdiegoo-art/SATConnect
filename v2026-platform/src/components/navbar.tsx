@@ -5,6 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { Flag } from "lucide-react"
 
 export function Navbar() {
     const [isOpen, setIsOpen] = React.useState(false)
@@ -22,7 +23,6 @@ export function Navbar() {
                         <div className="bg-white/15 backdrop-blur-xl border border-white/20 p-2 rounded-xl group-hover:bg-white/25 transition-all shadow-[0_0_15px_rgba(255,255,255,0.1)]">
                             <img src="/Logo-SATConnect-v3.svg" alt="SAT Connect" className="h-9 w-auto" />
                         </div>
-                        {/* Removed text span to avoid repetition */}
                     </Link>
 
                     {/* Desktop Menu */}
@@ -64,7 +64,8 @@ export function Navbar() {
                     <div className="hidden md:flex items-center gap-6">
                         <div className="flex flex-col items-end">
                             <span className="text-[10px] text-gray-400 uppercase tracking-wider font-semibold flex items-center gap-1.5">
-                                <span className="text-sm">🇲🇽</span> Facturamos en México
+                                {/* Green Flag Icon as requested "banderita verde" */}
+                                <Flag className="h-3 w-3 text-green-500 fill-green-500" /> Facturamos en México
                             </span>
                         </div>
                         <Button variant="primary" className="py-2 px-4 text-sm bg-gray-800 hover:bg-gray-700 border border-gray-700 shadow-md">
@@ -115,7 +116,7 @@ export function Navbar() {
                         </Link>
                         <div className="h-px bg-gray-800 my-2"></div>
                         <p className="text-xs text-center text-gray-500 flex items-center justify-center gap-2">
-                            🇲🇽 Facturamos en MXN y USD
+                            <Flag className="h-3 w-3 text-green-500 fill-green-500" /> Facturamos en MXN y USD
                         </p>
                         <Button variant="primary" className="w-full justify-center bg-gray-800 border-gray-700">
                             Admin Access
