@@ -3,7 +3,6 @@
 import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
@@ -19,11 +18,10 @@ export function Navbar() {
                 <div className="flex items-center justify-between">
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2 group">
-                        <div className="bg-white/5 p-2 rounded-lg group-hover:bg-white/10 transition-colors">
-                            {/* Replace with actual logo path in public/ later, using text for now or verify public/ exists */}
-                            <div className="h-8 w-8 bg-teal-500 rounded-sm flex items-center justify-center font-bold text-black">SC</div>
+                        <div className="bg-white/10 backdrop-blur-md border border-white/20 p-2 rounded-lg group-hover:bg-white/20 transition-all shadow-lg shadow-teal-500/10">
+                            <img src="/Logo-SATConnect-v3.svg" alt="SAT Connect" className="h-8 w-auto" />
                         </div>
-                        <span className="font-bold text-xl tracking-tight hidden sm:block">SAT<span className="text-teal-400">CONNECT</span></span>
+                        <span className="font-bold text-xl tracking-tight hidden sm:block text-white">SAT<span className="text-teal-400">CONNECT</span></span>
                     </Link>
 
                     {/* Desktop Menu */}
@@ -68,8 +66,8 @@ export function Navbar() {
                                 Facturamos en México
                             </span>
                         </div>
-                        <Button variant="primary" className="py-2 px-4 text-sm">
-                            Acceso Clientes
+                        <Button variant="primary" className="py-2 px-4 text-sm bg-gray-800 hover:bg-gray-700 border border-gray-700">
+                            Admin Access
                         </Button>
                     </div>
 
@@ -119,8 +117,8 @@ export function Navbar() {
                         <p className="text-xs text-center text-gray-500 flex items-center justify-center gap-2">
                             Facturamos en MXN y USD
                         </p>
-                        <Button variant="primary" className="w-full justify-center">
-                            Acceso Clientes
+                        <Button variant="primary" className="w-full justify-center bg-gray-800 border-gray-700">
+                            Admin Access
                         </Button>
                     </div>
                 </div>

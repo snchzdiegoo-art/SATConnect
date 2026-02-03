@@ -12,7 +12,7 @@ export function BenchmarkingTable() {
                         Guerra contra el <span className="text-red-500 line-through">Excel</span>
                     </h2>
                     <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-                        Comparamos tu operación actual vs. el estándar T.H.R.I.V.E.
+                        Comparamos tu operación actual vs. el estándar de SAT Connect.
                     </p>
                 </div>
 
@@ -22,7 +22,7 @@ export function BenchmarkingTable() {
                             <tr>
                                 <th className="p-6 text-gray-400 font-medium border-b border-gray-800 w-1/3">Proceso Operativo</th>
                                 <th className="p-6 text-red-400 font-bold border-b border-gray-800 bg-red-900/10 w-1/3">Método Manual (Excel)</th>
-                                <th className="p-6 text-teal-400 font-bold border-b border-gray-800 bg-teal-900/10 w-1/3">SAT Connect + T.H.R.I.V.E.</th>
+                                <th className="p-6 text-teal-400 font-bold border-b border-gray-800 bg-teal-900/10 w-1/3">SAT Connect</th>
                             </tr>
                         </thead>
                         <tbody className="text-sm md:text-base">
@@ -43,7 +43,7 @@ export function BenchmarkingTable() {
                             <tr className="group hover:bg-white/5 transition-colors">
                                 <td className="p-6 border-b border-gray-800 text-white font-medium">Auditoría de Salud</td>
                                 <td className="p-6 border-b border-gray-800 text-gray-400">Imposible monitorear diario</td>
-                                <td className="p-6 border-b border-gray-800 text-white">Reporte Diario (Health Score)</td>
+                                <td className="p-6 border-b border-gray-800 text-white">Reporte Diario Automático</td>
                             </tr>
                             <tr className="group hover:bg-white/5 transition-colors">
                                 <td className="p-6 border-b border-gray-800 text-white font-medium">Distribución B2B</td>

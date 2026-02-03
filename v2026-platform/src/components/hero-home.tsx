@@ -3,7 +3,7 @@
 import * as React from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Rocket, PlayCircle, CheckCircle } from "lucide-react"
+import { Rocket, CheckCircle } from "lucide-react"
 
 export function HeroHome() {
     return (
@@ -42,7 +42,7 @@ export function HeroHome() {
                     </h1>
 
                     <p className="text-xl md:text-2xl text-gray-300 mb-10 max-w-3xl mx-auto font-light leading-relaxed">
-                        Administra tus reservas, acepta pagos y conéctate con las agencias más grandes de México en un solo lugar.
+                        Administra tus reservas, acepta pagos y conéctate con las agencias más grandes del mundo en un solo lugar.
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
@@ -51,12 +51,6 @@ export function HeroHome() {
                             className="text-lg px-10 py-5 bg-teal-600 hover:bg-teal-500 shadow-lg shadow-teal-500/30 transform hover:-translate-y-1 transition-all"
                         >
                             Comienza Gratis hoy mismo
-                        </Button>
-                        <Button
-                            variant="ghost"
-                            className="text-lg px-8 py-5 border-white/20 hover:bg-white/10"
-                        >
-                            <PlayCircle className="mr-2 h-5 w-5" /> Ver Demo en 1 min
                         </Button>
                     </div>
 

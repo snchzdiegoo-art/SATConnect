@@ -25,7 +25,7 @@ export function PricingTable() {
                         Únete al Círculo Exclusivo de los <span className="text-teal-400">Primeros 100</span>
                     </h2>
                     <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-8">
-                        Asegura tu posición como Aliado Fundador y obtén beneficios vitalicios.
+                        Asegura tu posición como Aliado Fundador y obtén beneficios especiales.
                     </p>
 
                     {/* Urgency Counter / Banner */}
@@ -72,15 +72,15 @@ export function PricingTable() {
                             <ul className="space-y-4 text-gray-400 text-sm mb-8">
                                 <li className="flex items-start">
                                     <Check className="text-green-500 mr-2 h-4 w-4 shrink-0 mt-0.5" />
-                                    Facturación CFDI
+                                    Conexión Básica a 1 OTA
                                 </li>
                                 <li className="flex items-start">
                                     <Check className="text-green-500 mr-2 h-4 w-4 shrink-0 mt-0.5" />
-                                    Google Things To Do
+                                    Google Things To Do Inlcuido
                                 </li>
                                 <li className="flex items-start">
                                     <Check className="text-green-500 mr-2 h-4 w-4 shrink-0 mt-0.5" />
-                                    Soporte por Chat
+                                    Auditoría de Salud (Manual)
                                 </li>
                             </ul>
                         </div>
@@ -144,7 +144,11 @@ export function PricingTable() {
                                     </li>
                                     <li className="flex items-start">
                                         <Check className="text-teal-400 mr-2 h-4 w-4 shrink-0 mt-0.5" />
-                                        Channel Manager (Expedia/Viator)
+                                        Channel Manager (Illimitado)
+                                    </li>
+                                    <li className="flex items-start">
+                                        <Check className="text-teal-400 mr-2 h-4 w-4 shrink-0 mt-0.5" />
+                                        Auditoría Automática (Health Score)
                                     </li>
                                     <li className="flex items-start">
                                         <Check className="text-teal-400 mr-2 h-4 w-4 shrink-0 mt-0.5" />
@@ -191,7 +195,11 @@ export function PricingTable() {
                             <ul className="space-y-4 text-gray-400 text-sm mb-8">
                                 <li className="flex items-start">
                                     <Check className="text-green-500 mr-2 h-4 w-4 shrink-0 mt-0.5" />
-                                    <strong>White Label Completo</strong>
+                                    <strong>Todo lo de Pro +</strong>
+                                </li>
+                                <li className="flex items-start">
+                                    <Check className="text-green-500 mr-2 h-4 w-4 shrink-0 mt-0.5" />
+                                    White Label Completo (Sin Branding)
                                 </li>
                                 <li className="flex items-start">
                                     <Check className="text-green-500 mr-2 h-4 w-4 shrink-0 mt-0.5" />

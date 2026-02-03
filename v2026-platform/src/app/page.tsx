@@ -1,5 +1,4 @@
 import { HeroHome } from "@/components/hero-home";
-import { ThriveEngine } from "@/components/thrive-engine";
 import { ProblemSolution } from "@/components/problem-solution";
 import { PricingTable } from "@/components/pricing-table";
 import { BenchmarkingTable } from "@/components/benchmarking-table";
@@ -17,7 +16,6 @@ export default function Home() {
         <BenchmarkingTable />
       </div>
 
-      <ThriveEngine />
       <Footer />
     </main>
   );
