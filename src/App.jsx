@@ -1,22 +1,17 @@
-import Hero from './components/Hero'
-import ProblemSolution from './components/ProblemSolution'
-import ThriveEngine from './components/ThriveEngine'
-import PricingTable from './components/PricingTable'
-import MarketplacePreview from './components/MarketplacePreview'
-import OnboardingForm from './components/OnboardingForm'
-import Footer from './components/Footer'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Marketplace from './pages/Marketplace';
+import Platform from './pages/Platform';
 
 function App() {
     return (
-        <div className="min-h-screen">
-            <Hero />
-            <ProblemSolution />
-            <ThriveEngine />
-            <PricingTable />
-            <MarketplacePreview />
-            <OnboardingForm />
-            <Footer />
-        </div>
+        <Router>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/marketplace" element={<Marketplace />} />
+                <Route path="/platform" element={<Platform />} />
+            </Routes>
+        </Router>
     )
 }
 
