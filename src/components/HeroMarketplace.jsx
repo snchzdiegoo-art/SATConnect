@@ -5,8 +5,20 @@ import Badge from './ui/Badge';
 const HeroMarketplace = () => {
     return (
         <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden bg-gray-900">
-            {/* Background Image/Effect */}
-            <div className="absolute inset-0 w-full h-full bg-[url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center opacity-40"></div>
+            {/* 
+                VIDEO BACKGROUND SETUP:
+                To use a video, uncomment the <video> block below and add your file to public/videos/
+                For now, using a high-quality placeholder image as requested.
+             */}
+
+            {/* <div className="absolute inset-0 w-full h-full">
+                <video className="w-full h-full object-cover" autoPlay muted loop playsInline>
+                    <source src="/videos/marketplace-hero.mp4" type="video/mp4" />
+                </video>
+             </div> */}
+
+            {/* Background Image / Placeholder for video */}
+            <div className="absolute inset-0 w-full h-full bg-[url('https://images.unsplash.com/photo-1552083858-a937171e98bb?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center opacity-40"></div>
             <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/80 to-transparent"></div>
 
             <div className="relative z-10 container mx-auto px-6 text-center pt-20">
