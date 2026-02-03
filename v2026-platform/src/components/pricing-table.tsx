@@ -10,6 +10,10 @@ export function PricingTable() {
 
     return (
         <section id="pricing" className="py-20 bg-gray-900 relative">
+
+            {/* STANDARD DIVIDER (Green Line) */}
+            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-teal-500/50 to-transparent"></div>
+
             <div className="container mx-auto px-6 relative z-10">
                 {/* Header */}
                 <div className="text-center mb-16">

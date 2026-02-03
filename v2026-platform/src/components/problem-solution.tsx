@@ -6,12 +6,12 @@ import { FileSpreadsheet, Layers, Building2, TrendingDown } from "lucide-react"
 
 export function ProblemSolution() {
     return (
-        <section className="py-24 bg-gray-900 relative overflow-hidden" style={{ backgroundImage: "radial-gradient(ellipse at top, #1f2937 0%, #030712 100%)" }}>
+        <section className="py-24 bg-gray-900 relative overflow-hidden">
 
-            {/* Visual Separator Top - Inner shadow */}
-            <div className="absolute top-0 inset-x-0 h-24 bg-gradient-to-b from-black/40 to-transparent pointer-events-none"></div>
+            {/* STANDARD DIVIDER (Green Line) */}
+            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-teal-500/50 to-transparent"></div>
 
-            {/* Background Accents */}
+            {/* Background Accents (Kept existing ones but adjusted blend) */}
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-red-500/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
             <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
 

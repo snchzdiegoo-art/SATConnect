@@ -2,8 +2,11 @@ import Link from "next/link"
 
 export function Footer() {
     return (
-        <footer className="bg-gray-950 border-t border-gray-800 py-12">
-            <div className="container mx-auto px-6">
+        <footer className="bg-gray-950 pt-20 pb-12 relative overflow-hidden">
+            {/* STANDARD DIVIDER (Green Line) */}
+            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-teal-500/50 to-transparent"></div>
+
+            <div className="container mx-auto px-6 relative z-10">
                 <div className="flex flex-col md:flex-row justify-between items-center">
                     <div className="mb-4 md:mb-0 flex items-center gap-3">
                         <div className="bg-white/10 backdrop-blur-md border border-white/20 p-2 rounded-lg">
