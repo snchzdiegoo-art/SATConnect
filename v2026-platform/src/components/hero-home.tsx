@@ -17,46 +17,56 @@ export function HeroHome() {
                     loop
                     playsInline
                 >
-                    {/* Note: In a real migration, make sure to copy public/videos to the new project's public folder */}
-                    <source src="/videos/hero/3562633-hd_1920_1080_24fps.mp4" type="video/mp4" />
+                    {/* Updated to use the numbered video file 1.mp4 */}
+                    <source src="/videos/hero/1.mp4" type="video/mp4" />
                 </video>
                 {/* Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-b from-gray-900/80 via-gray-900/60 to-gray-900"></div>
             </div>
 
             {/* Content */}
-            <div className="relative z-10 container mx-auto px-6 py-20 text-center">
-                <div className="mt-20">
-                    <Badge
-                        variant="primary"
-                        className="mb-6 animate-pulse px-4 py-2 text-sm bg-teal-500/20 text-teal-300 border-teal-500/50"
-                    >
-                        <Rocket className="mr-2 h-4 w-4" /> El SaaS para Proveedores de Tours
+            <div className="relative z-10 container mx-auto px-6 text-center">
+
+                {/* Badge */}
+                <div className="flex justify-center mb-6">
+                    <Badge variant="outline" className="border-teal-500/30 bg-teal-500/10 text-teal-400 px-4 py-1.5 backdrop-blur-md rounded-full">
+                        <Rocket className="w-4 h-4 mr-2" />
+                        Plataforma All-In-One para Turismo
                     </Badge>
+                </div>
 
-                    <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight max-w-5xl mx-auto">
-                        Vende tus tours en todo el mundo,{" "}
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-500">
-                            sin complicaciones.
-                        </span>
-                    </h1>
+                {/* Headlines */}
+                <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-6">
+                    Vende tus tours en <br className="hidden md:block" />
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-500">
+                        todo el mundo
+                    </span>
+                </h1>
 
-                    <p className="text-xl md:text-2xl text-gray-300 mb-10 max-w-3xl mx-auto font-light leading-relaxed">
-                        Administra tus reservas, acepta pagos y conéctate con las agencias más grandes del mundo en un solo lugar.
-                    </p>
+                <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-10 leading-relaxed">
+                    Conecta con las mejores agencias, gestiona tu inventario en tiempo real y cobra sin fronteras. Todo desde un solo lugar.
+                </p>
 
-                    <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                        <Button
-                            variant="primary"
-                            className="text-lg px-10 py-5 bg-teal-600 hover:bg-teal-500 shadow-lg shadow-teal-500/30 transform hover:-translate-y-1 transition-all"
-                        >
-                            Comienza Gratis hoy mismo
-                        </Button>
+                {/* CTAs */}
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <Button variant="primary" size="lg" className="h-14 px-8 text-lg w-full sm:w-auto bg-teal-600 hover:bg-teal-500 shadow-lg shadow-teal-500/20">
+                        Empezar Gratis
+                    </Button>
+                    <Button variant="secondary" size="lg" className="h-14 px-8 text-lg w-full sm:w-auto border-gray-600 hover:border-white text-gray-300 hover:text-white bg-transparent backdrop-blur-sm">
+                        Agendar Demo
+                    </Button>
+                </div>
+
+                {/* Trust Indicators */}
+                <div className="mt-12 flex items-center justify-center gap-6 text-sm text-gray-400">
+                    <div className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-green-500" />
+                        <span>Facturación MX (SAT)</span>
                     </div>
-
-                    <p className="mt-8 text-sm text-gray-500 flex items-center justify-center">
-                        <CheckCircle className="text-teal-500 mr-2 h-4 w-4" /> Facturamos en México y en Pesos
-                    </p>
+                    <div className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-green-500" />
+                        <span>Cobro en Pesos y Dólares</span>
+                    </div>
                 </div>
             </div>
         </section>
