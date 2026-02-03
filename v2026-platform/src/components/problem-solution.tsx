@@ -2,7 +2,7 @@
 
 import React from "react"
 import { Card } from "@/components/ui/card"
-import { FileSpreadsheet, Layers, Building2, ArrowRight } from "lucide-react"
+import { FileSpreadsheet, Layers, Building2 } from "lucide-react"
 
 export function ProblemSolution() {
     return (
@@ -38,7 +38,7 @@ export function ProblemSolution() {
                             </p>
                             <div className="bg-gray-900/50 p-4 rounded-lg w-full text-left border border-gray-700">
                                 <p className="text-sm text-gray-300">
-                                    <strong className="text-white block mb-1">Solución T.H.R.I.V.E.:</strong>
+                                    <strong className="text-white block mb-1">Solución SAT Connect:</strong>
                                     Profesionalización instantánea. Motor de reservas web y auditoría de tarifas para no vender a pérdida.
                                 </p>
                             </div>

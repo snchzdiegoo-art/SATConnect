@@ -41,6 +41,16 @@ export function BenchmarkingTable() {
                                 <td className="p-6 border-b border-gray-800 text-white">Instantánea Global</td>
                             </tr>
                             <tr className="group hover:bg-white/5 transition-colors">
+                                <td className="p-6 border-b border-gray-800 text-white font-medium">Cobranza B2B</td>
+                                <td className="p-6 border-b border-gray-800 text-gray-400">Facturas individuales x Agencia</td>
+                                <td className="p-6 border-b border-gray-800 text-white">Conciliación Unificada Automática</td>
+                            </tr>
+                            <tr className="group hover:bg-white/5 transition-colors">
+                                <td className="p-6 border-b border-gray-800 text-white font-medium">Disponibilidad</td>
+                                <td className="p-6 border-b border-gray-800 text-gray-400">Offline (Riesgo de Sobreventa)</td>
+                                <td className="p-6 border-b border-gray-800 text-white">Real-Time (Channel Manager)</td>
+                            </tr>
+                            <tr className="group hover:bg-white/5 transition-colors">
                                 <td className="p-6 border-b border-gray-800 text-white font-medium">Auditoría de Salud</td>
                                 <td className="p-6 border-b border-gray-800 text-gray-400">Imposible monitorear diario</td>
                                 <td className="p-6 border-b border-gray-800 text-white">Reporte Diario Automático</td>

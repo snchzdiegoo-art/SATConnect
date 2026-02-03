@@ -3,7 +3,6 @@
 import React, { useState } from "react"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
 import { Check, Star, Hourglass, Info } from "lucide-react"
 
 export function PricingTable() {
@@ -24,9 +23,21 @@ export function PricingTable() {
                     <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
                         Únete al Círculo Exclusivo de los <span className="text-teal-400">Primeros 100</span>
                     </h2>
-                    <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-8">
-                        Asegura tu posición como Aliado Fundador y obtén beneficios especiales.
-                    </p>
+
+                    {/* GLOBAL BENEFIT BANNER */}
+                    <div className="max-w-3xl mx-auto bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-500/40 rounded-xl p-6 mb-12 backdrop-blur-sm">
+                        <div className="flex items-center justify-center gap-4 text-center flex-col md:flex-row">
+                            <div className="w-12 h-12 bg-yellow-500/20 rounded-full flex items-center justify-center shrink-0 animate-pulse">
+                                <Star className="h-6 w-6 text-yellow-500 fill-yellow-500" />
+                            </div>
+                            <div>
+                                <h3 className="text-xl font-bold text-white">Beneficio Fundador para TODOs los Planes</h3>
+                                <p className="text-yellow-200 tex-sm">
+                                    <span className="font-bold text-yellow-400">0% Booking Fee en Viator</span> durante tus primeros 6 meses.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
 
                     {/* Urgency Counter / Banner */}
                     <div className="inline-flex items-center gap-4 bg-red-500/10 border border-red-500/30 rounded-lg px-6 py-3 text-red-300 animate-pulse">
@@ -55,7 +66,7 @@ export function PricingTable() {
                                     <span className="text-4xl font-bold text-white">$599</span>
                                     <span className="text-gray-500 text-sm">MXN</span>
                                 </div>
-                                <span className="text-teal-400 text-xs font-bold">Ahorras $200/mes (Fundador)</span>
+                                <span className="text-teal-400 text-xs font-bold">Ahorras $200/mes</span>
                             </div>
 
                             <div className="border-t border-gray-700 pt-4 mb-6">
@@ -72,11 +83,19 @@ export function PricingTable() {
                             <ul className="space-y-4 text-gray-400 text-sm mb-8">
                                 <li className="flex items-start">
                                     <Check className="text-green-500 mr-2 h-4 w-4 shrink-0 mt-0.5" />
-                                    Conexión Básica a 1 OTA
+                                    Facturación CFDI
                                 </li>
                                 <li className="flex items-start">
                                     <Check className="text-green-500 mr-2 h-4 w-4 shrink-0 mt-0.5" />
                                     Google Things To Do Inlcuido
+                                </li>
+                                <li className="flex items-start">
+                                    <Check className="text-green-500 mr-2 h-4 w-4 shrink-0 mt-0.5" />
+                                    Motor de Reservas Web (Widget)
+                                </li>
+                                <li className="flex items-start">
+                                    <Check className="text-green-500 mr-2 h-4 w-4 shrink-0 mt-0.5" />
+                                    Pasarela de Pagos (Stripe/Paypal)
                                 </li>
                                 <li className="flex items-start">
                                     <Check className="text-green-500 mr-2 h-4 w-4 shrink-0 mt-0.5" />
@@ -113,7 +132,7 @@ export function PricingTable() {
                                         <span className="text-gray-500 text-xs">MXN</span>
                                     </div>
                                     <span className="text-teal-400 text-sm font-bold">
-                                        Ahorras $500/mes (Fundador)
+                                        Ahorras $500/mes
                                     </span>
                                 </div>
 
@@ -128,15 +147,6 @@ export function PricingTable() {
                                     </div>
                                 </div>
 
-                                <div className="bg-teal-500/10 border border-teal-500/30 rounded-lg p-3 mb-6">
-                                    <p className="text-sm text-teal-200 flex items-start">
-                                        <Star className="text-yellow-400 mt-0.5 mr-2 h-4 w-4 shrink-0 fill-yellow-400" />
-                                        <span>
-                                            <strong>Beneficio Fundador:</strong> 0% Fee en Viator (6 meses)
-                                        </span>
-                                    </p>
-                                </div>
-
                                 <ul className="space-y-4 text-gray-300 text-sm mb-8">
                                     <li className="flex items-start">
                                         <Check className="text-teal-400 mr-2 h-4 w-4 shrink-0 mt-0.5" />
@@ -148,11 +158,15 @@ export function PricingTable() {
                                     </li>
                                     <li className="flex items-start">
                                         <Check className="text-teal-400 mr-2 h-4 w-4 shrink-0 mt-0.5" />
+                                        Sincronización Calendario (Google Cal)
+                                    </li>
+                                    <li className="flex items-start">
+                                        <Check className="text-teal-400 mr-2 h-4 w-4 shrink-0 mt-0.5" />
                                         Auditoría Automática (Health Score)
                                     </li>
                                     <li className="flex items-start">
                                         <Check className="text-teal-400 mr-2 h-4 w-4 shrink-0 mt-0.5" />
-                                        Soporte Prioritario
+                                        Soporte Prioritario WhatsApp
                                     </li>
                                 </ul>
                             </div>
@@ -178,7 +192,7 @@ export function PricingTable() {
                                     <span className="text-4xl font-bold text-white">$4,124</span>
                                     <span className="text-gray-500 text-sm">MXN</span>
                                 </div>
-                                <span className="text-teal-400 text-xs font-bold">Ahorras $1,375/mes (Fundador)</span>
+                                <span className="text-teal-400 text-xs font-bold">Ahorras $1,375/mes</span>
                             </div>
 
                             <div className="border-t border-gray-700 pt-4 mb-6">
@@ -208,6 +222,10 @@ export function PricingTable() {
                                 <li className="flex items-start">
                                     <Check className="text-green-500 mr-2 h-4 w-4 shrink-0 mt-0.5" />
                                     Gerente de Cuenta Dedicado
+                                </li>
+                                <li className="flex items-start">
+                                    <Check className="text-green-500 mr-2 h-4 w-4 shrink-0 mt-0.5" />
+                                    SLA Garantizado 99.9%
                                 </li>
                             </ul>
                         </div>

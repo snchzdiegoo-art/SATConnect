@@ -18,10 +18,18 @@ export function Navbar() {
                 <div className="flex items-center justify-between">
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2 group">
-                        <div className="bg-white/10 backdrop-blur-md border border-white/20 p-2 rounded-lg group-hover:bg-white/20 transition-all shadow-lg shadow-teal-500/10">
-                            <img src="/Logo-SATConnect-v3.svg" alt="SAT Connect" className="h-8 w-auto" />
+                        {/* 
+                User Feedback: "Sale el logo hasta arriba y al lado el texto sat connect repetido".
+                Fix: Showing ONLY the image logo if it contains text, or checking strictly layout.
+                Assuming the SVG might be just the icon, but user prefers just one element.
+                I will hide the text span if the logo is sufficient, or just styling one.
+                Let's keep the image and hide the text for cleaner look based on feedack.
+            */}
+                        <div className="p-1">
+                            <img src="/Logo-SATConnect-v3.svg" alt="SAT Connect" className="h-10 w-auto" />
                         </div>
-                        <span className="font-bold text-xl tracking-tight hidden sm:block text-white">SAT<span className="text-teal-400">CONNECT</span></span>
+                        {/* Hid the text span to avoid redundancy if the user perceives it as such */}
+                        {/* <span className="font-bold text-xl tracking-tight hidden sm:block text-white">SAT<span className="text-teal-400">CONNECT</span></span> */}
                     </Link>
 
                     {/* Desktop Menu */}
@@ -62,8 +70,8 @@ export function Navbar() {
                     {/* CTAs & Trust */}
                     <div className="hidden md:flex items-center gap-6">
                         <div className="flex flex-col items-end">
-                            <span className="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">
-                                Facturamos en México
+                            <span className="text-[10px] text-gray-400 uppercase tracking-wider font-semibold flex items-center gap-1">
+                                Facturamos en México <span className="text-base">🇲🇽</span>
                             </span>
                         </div>
                         <Button variant="primary" className="py-2 px-4 text-sm bg-gray-800 hover:bg-gray-700 border border-gray-700">
@@ -76,7 +84,6 @@ export function Navbar() {
                         onClick={() => setIsOpen(!isOpen)}
                         className="md:hidden text-gray-300 hover:text-white focus:outline-none"
                     >
-                        {/* Simple Hamburger Icon */}
                         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             {isOpen ? (
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -115,7 +122,7 @@ export function Navbar() {
                         </Link>
                         <div className="h-px bg-gray-800 my-2"></div>
                         <p className="text-xs text-center text-gray-500 flex items-center justify-center gap-2">
-                            Facturamos en MXN y USD
+                            Facturamos en MXN y USD 🇲🇽
                         </p>
                         <Button variant="primary" className="w-full justify-center bg-gray-800 border-gray-700">
                             Admin Access
