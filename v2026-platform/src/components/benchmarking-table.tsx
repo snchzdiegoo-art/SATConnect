@@ -12,8 +12,8 @@ import {
 export function BenchmarkingTable() {
     return (
         <section className="py-24 relative bg-gray-950" id="benchmarking">
-            {/* Distinct Top Divider */}
-            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-teal-500/50 to-transparent"></div>
+            {/* Distinct Top Divider (Stronger Visibility) */}
+            <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-teal-400 to-transparent z-50 shadow-[0_0_15px_rgba(20,184,166,0.5)]"></div>
 
             {/* Ambient Background for Separation */}
             <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 mix-blend-overlay"></div>

@@ -8,8 +8,8 @@ export function ProblemSolution() {
     return (
         <section className="py-24 bg-gray-900 relative overflow-hidden">
 
-            {/* STANDARD DIVIDER (Green Line) */}
-            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-teal-500/50 to-transparent"></div>
+            {/* STANDARD DIVIDER (Stronger Visibility) */}
+            <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-teal-400 to-transparent z-50 shadow-[0_0_15px_rgba(20,184,166,0.5)]"></div>
 
             {/* Background Accents (Kept existing ones but adjusted blend) */}
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-red-500/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>

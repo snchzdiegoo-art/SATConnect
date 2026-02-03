@@ -11,8 +11,8 @@ export function PricingTable() {
     return (
         <section id="pricing" className="py-20 bg-gray-900 relative">
 
-            {/* STANDARD DIVIDER (Green Line) */}
-            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-teal-500/50 to-transparent"></div>
+            {/* STANDARD DIVIDER (Stronger Visibility) */}
+            <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-teal-400 to-transparent z-50 shadow-[0_0_15px_rgba(20,184,166,0.5)]"></div>
 
             <div className="container mx-auto px-6 relative z-10">
                 {/* Header */}
