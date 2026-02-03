@@ -16,20 +16,13 @@ export function Navbar() {
         <nav className="fixed w-full z-50 bg-gray-950/80 backdrop-blur-md border-b border-white/5">
             <div className="container mx-auto px-6 py-4">
                 <div className="flex items-center justify-between">
-                    {/* Logo */}
+                    {/* Logo with Strong Glassmorphism */}
                     <Link href="/" className="flex items-center gap-2 group">
-                        {/* 
-                User Feedback: "Sale el logo hasta arriba y al lado el texto sat connect repetido".
-                Fix: Showing ONLY the image logo if it contains text, or checking strictly layout.
-                Assuming the SVG might be just the icon, but user prefers just one element.
-                I will hide the text span if the logo is sufficient, or just styling one.
-                Let's keep the image and hide the text for cleaner look based on feedack.
-            */}
-                        <div className="p-1">
-                            <img src="/Logo-SATConnect-v3.svg" alt="SAT Connect" className="h-10 w-auto" />
+                        {/* Added stronger background (white/15) and shadow for better legibility */}
+                        <div className="bg-white/15 backdrop-blur-xl border border-white/20 p-2 rounded-xl group-hover:bg-white/25 transition-all shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+                            <img src="/Logo-SATConnect-v3.svg" alt="SAT Connect" className="h-9 w-auto" />
                         </div>
-                        {/* Hid the text span to avoid redundancy if the user perceives it as such */}
-                        {/* <span className="font-bold text-xl tracking-tight hidden sm:block text-white">SAT<span className="text-teal-400">CONNECT</span></span> */}
+                        {/* Removed text span to avoid repetition */}
                     </Link>
 
                     {/* Desktop Menu */}
@@ -70,11 +63,11 @@ export function Navbar() {
                     {/* CTAs & Trust */}
                     <div className="hidden md:flex items-center gap-6">
                         <div className="flex flex-col items-end">
-                            <span className="text-[10px] text-gray-400 uppercase tracking-wider font-semibold flex items-center gap-1">
-                                Facturamos en México <span className="text-base">🇲🇽</span>
+                            <span className="text-[10px] text-gray-400 uppercase tracking-wider font-semibold flex items-center gap-1.5">
+                                <span className="text-sm">🇲🇽</span> Facturamos en México
                             </span>
                         </div>
-                        <Button variant="primary" className="py-2 px-4 text-sm bg-gray-800 hover:bg-gray-700 border border-gray-700">
+                        <Button variant="primary" className="py-2 px-4 text-sm bg-gray-800 hover:bg-gray-700 border border-gray-700 shadow-md">
                             Admin Access
                         </Button>
                     </div>
@@ -122,7 +115,7 @@ export function Navbar() {
                         </Link>
                         <div className="h-px bg-gray-800 my-2"></div>
                         <p className="text-xs text-center text-gray-500 flex items-center justify-center gap-2">
-                            Facturamos en MXN y USD 🇲🇽
+                            🇲🇽 Facturamos en MXN y USD
                         </p>
                         <Button variant="primary" className="w-full justify-center bg-gray-800 border-gray-700">
                             Admin Access

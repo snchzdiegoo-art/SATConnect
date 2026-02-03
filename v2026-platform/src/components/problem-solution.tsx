@@ -2,7 +2,7 @@
 
 import React from "react"
 import { Card } from "@/components/ui/card"
-import { FileSpreadsheet, Layers, Building2 } from "lucide-react"
+import { FileSpreadsheet, Layers, Building2, TrendingDown } from "lucide-react"
 
 export function ProblemSolution() {
     return (
@@ -26,17 +26,27 @@ export function ProblemSolution() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
                     {/* ICP 1: Excel Hell */}
-                    <Card className="bg-gray-800/50 border-gray-700 hover:border-red-500/50 transition-colors duration-300 flex flex-col">
+                    <Card className="bg-gray-800/50 border-gray-700 hover:border-red-500/50 transition-colors duration-300 flex flex-col relative group">
                         <div className="flex flex-col items-center text-center flex-grow">
                             <div className="w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center mb-6">
                                 <FileSpreadsheet className="h-8 w-8 text-red-500" />
                             </div>
                             <h3 className="text-xl font-bold text-white mb-2">El "Excel Hell"</h3>
                             <p className="text-xs text-red-400 uppercase tracking-wide font-bold mb-4">Operador Independiente</p>
+
                             <p className="text-gray-400 mb-6 flex-grow">
                                 Gestionas todo en hojas de cálculo. No tienes motor de reservas y dependes de que las OTAs carguen por ti.
                             </p>
-                            <div className="bg-gray-900/50 p-4 rounded-lg w-full text-left border border-gray-700">
+
+                            {/* Quantified Loss Metric */}
+                            <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-3 w-full mb-6">
+                                <div className="flex items-center justify-center gap-2 text-red-300 text-sm">
+                                    <TrendingDown className="h-4 w-4" />
+                                    <span>Estimas perder <strong>+20 horas/mes</strong> en tareas manuales.</span>
+                                </div>
+                            </div>
+
+                            <div className="bg-gray-900/50 p-4 rounded-lg w-full text-left border border-gray-700 group-hover:border-red-500/30 transition-colors">
                                 <p className="text-sm text-gray-300">
                                     <strong className="text-white block mb-1">Solución SAT Connect:</strong>
                                     Profesionalización instantánea. Motor de reservas web y auditoría de tarifas para no vender a pérdida.
@@ -56,7 +66,7 @@ export function ProblemSolution() {
                             <p className="text-gray-400 mb-6 flex-grow">
                                 Ya vendes online, pero cambiar un precio te obliga a entrar a 5 extranets diferentes. Fragmentación total.
                             </p>
-                            <div className="bg-gray-900/50 p-4 rounded-lg w-full text-left border border-gray-700">
+                            <div className="bg-gray-900/50 p-4 rounded-lg w-full text-left border border-gray-700 bg-gray-900/50 hover:border-blue-500/30 transition-colors">
                                 <p className="text-sm text-gray-300">
                                     <strong className="text-white block mb-1">Solución Pro:</strong>
                                     Sincronización total. Cambia disponibilidad en SAT Connect y se actualiza en Viator, Expedia y Marketplace B2B.
@@ -76,7 +86,7 @@ export function ProblemSolution() {
                             <p className="text-gray-400 mb-6 flex-grow">
                                 Necesitas control total de marca (White Label), integración con PMS y soporte dedicado VIP.
                             </p>
-                            <div className="bg-gray-900/50 p-4 rounded-lg w-full text-left border border-gray-700">
+                            <div className="bg-gray-900/50 p-4 rounded-lg w-full text-left border border-gray-700 hover:border-purple-500/30 transition-colors">
                                 <p className="text-sm text-gray-300">
                                     <strong className="text-white block mb-1">Solución Elite:</strong>
                                     Personalización total. APIs abiertas para conectar tu PMS y un Gerente de Cuenta dedicado.

@@ -10,8 +10,8 @@ export function Footer() {
                             <img src="/Logo-SATConnect-v3.svg" alt="SAT Connect" className="h-8 w-auto" />
                         </div>
                         <div>
-                            <span className="font-bold text-xl tracking-tight text-white block">SAT<span className="text-teal-400">CONNECT</span></span>
-                            <p className="text-gray-500 text-sm mt-0.5">© 2026 SAT México. Todos los derechos reservados.</p>
+                            {/* Redundant text removed, just the copyright */}
+                            <p className="text-gray-500 text-sm mt-0.5">© 2026 SAT México. Todos los derechos reservaods.</p>
                         </div>
                     </div>
                     <div className="flex gap-6 text-sm text-gray-400">

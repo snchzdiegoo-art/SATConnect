@@ -10,12 +10,7 @@ export default function Home() {
       <HeroHome />
       <ProblemSolution />
       <PricingTable />
-
-      {/* Reusing the Benchmarking Table as "Guerra contra Excel" section */}
-      <div className="bg-gray-950 py-10">
-        <BenchmarkingTable />
-      </div>
-
+      <BenchmarkingTable />
       <Footer />
     </main>
   );
