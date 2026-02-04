@@ -8,6 +8,9 @@ export function SimpleSteps() {
     return (
         <section className="py-24 bg-gray-950 relative overflow-hidden">
 
+            {/* STANDARD DIVIDER (Stronger Visibility) */}
+            <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-teal-400 to-transparent z-50 shadow-[0_0_15px_rgba(20,184,166,0.5)]"></div>
+
             {/* Background Ambience */}
             <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
 
