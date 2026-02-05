@@ -1,0 +1,50 @@
+
+> v2026-platform@0.1.0 lint
+> eslint
+
+(node:37128) ESLintIgnoreWarning: The ".eslintignore" file is no longer supported. Switch to using the "ignores" property in "eslint.config.js": https://eslint.org/docs/latest/use/configure/migration-guide#ignoring-files
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+C:\Users\diego\Documents\SAT Connect\Antigravity\src\app\(app)\dashboard\inventory\page.tsx
+  68:9  error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\diego\Documents\SAT Connect\Antigravity\src\app\(app)\dashboard\inventory\page.tsx:68:9
+  66 |         }
+  67 |
+> 68 |         setTours(initialTours)
+     |         ^^^^^^^^ Avoid calling setState() directly within an effect
+  69 |         setConfig(initialConfig)
+  70 |         setIsLoaded(true)
+  71 |         // eslint-disable-next-line react-hooks/set-state-in-effect  react-hooks/set-state-in-effect
+  71:9  warning  Unused eslint-disable directive (no problems were reported from 'react-hooks/set-state-in-effect')
+
+C:\Users\diego\Documents\SAT Connect\Antigravity\src\components\dashboard\inventory\import-modal.tsx
+  18:10  warning  'Upload' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\diego\Documents\SAT Connect\Antigravity\src\components\dashboard\sidebar.tsx
+  64:21  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  67:25  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\diego\Documents\SAT Connect\Antigravity\src\components\dashboard\topbar.tsx
+   17:7   warning  'organizations' is assigned a value but never used                                                                                                                                                                                                                                       @typescript-eslint/no-unused-vars
+  105:25  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\diego\Documents\SAT Connect\Antigravity\src\components\footer.tsx
+  13:29  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\diego\Documents\SAT Connect\Antigravity\src\components\navbar.tsx
+  24:29  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\diego\Documents\SAT Connect\Antigravity\src\components\pricing-table.tsx
+  9:12  warning  'billingCycle' is assigned a value but never used     @typescript-eslint/no-unused-vars
+  9:26  warning  'setBillingCycle' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+✖ 11 problems (1 error, 10 warnings)
+  0 errors and 1 warning potentially fixable with the `--fix` option.
+

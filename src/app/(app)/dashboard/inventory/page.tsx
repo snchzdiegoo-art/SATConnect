@@ -18,7 +18,6 @@ const MOCK_DB: TourInput[] = [
         netRate: 1500,
         publicPrice: 3500,
         images: ["url"],
-        infantAge: "0-2",
         duration: "12 Hours",
         opsDays: "Daily",
         cxlPolicy: "24 Hours",

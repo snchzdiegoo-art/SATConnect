@@ -1,0 +1,30 @@
+
+> v2026-platform@0.1.0 lint
+> eslint
+
+(node:35004) ESLintIgnoreWarning: The ".eslintignore" file is no longer supported. Switch to using the "ignores" property in "eslint.config.js": https://eslint.org/docs/latest/use/configure/migration-guide#ignoring-files
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+C:\Users\diego\Documents\SAT Connect\Antigravity\src\app\(app)\dashboard\inventory\page.tsx
+  72:9  warning  Unused eslint-disable directive (no problems were reported from 'react-hooks/set-state-in-effect')
+
+C:\Users\diego\Documents\SAT Connect\Antigravity\src\components\dashboard\sidebar.tsx
+  64:21  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  67:25  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\diego\Documents\SAT Connect\Antigravity\src\components\dashboard\topbar.tsx
+   17:7   warning  'organizations' is assigned a value but never used                                                                                                                                                                                                                                       @typescript-eslint/no-unused-vars
+  105:25  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\diego\Documents\SAT Connect\Antigravity\src\components\footer.tsx
+  13:29  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\diego\Documents\SAT Connect\Antigravity\src\components\navbar.tsx
+  24:29  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\diego\Documents\SAT Connect\Antigravity\src\components\pricing-table.tsx
+  3:17  warning  'useState' is defined but never used  @typescript-eslint/no-unused-vars
+
+✖ 8 problems (0 errors, 8 warnings)
+  0 errors and 1 warning potentially fixable with the `--fix` option.
+

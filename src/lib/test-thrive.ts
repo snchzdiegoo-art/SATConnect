@@ -2,6 +2,7 @@ import { auditTour } from "./thrive-engine";
 
 // Mock Test
 const healthyTour = {
+    id: "tour-001",
     name: "Chichen Itza Deluxe",
     provider: "Mundo Maya",
     netRate: 1000,
@@ -11,6 +12,7 @@ const healthyTour = {
 };
 
 const riskyTour = {
+    id: "tour-002",
     name: "Cheap Tour",
     provider: "Mundo Maya",
     netRate: 1000,
