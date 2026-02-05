@@ -68,8 +68,15 @@ export function Navbar() {
                                 <Flag className="h-3 w-3 text-green-500 fill-green-500" /> Facturamos en México
                             </span>
                         </div>
+                        {process.env.NODE_ENV === "development" && (
+                            <Link href="/dashboard">
+                                <Button variant="outline" className="py-2 px-4 text-xs border-red-500/50 text-red-400 hover:bg-red-500/10">
+                                    ADMIN (DEV)
+                                </Button>
+                            </Link>
+                        )}
                         <Button variant="primary" className="py-2 px-4 text-sm bg-gray-800 hover:bg-gray-700 border border-gray-700 shadow-md">
-                            Admin Access
+                            Agendar Demo
                         </Button>
                     </div>
 

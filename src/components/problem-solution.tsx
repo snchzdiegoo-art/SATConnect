@@ -38,7 +38,7 @@ export function ProblemSolution() {
                             <div className="w-16 h-16 bg-red-500/10 rounded-2xl rotate-3 flex items-center justify-center mb-6 group-hover:rotate-0 transition-transform">
                                 <FileSpreadsheet className="h-8 w-8 text-red-500" />
                             </div>
-                            <h3 className="text-xl font-bold text-white mb-2">El "Excel Hell"</h3>
+                            <h3 className="text-xl font-bold text-white mb-2">El &quot;Excel Hell&quot;</h3>
                             <p className="text-xs text-red-400 uppercase tracking-wide font-bold mb-4">Operador Independiente</p>
 
                             <p className="text-gray-400 mb-6 flex-grow text-sm leading-relaxed">
@@ -68,7 +68,7 @@ export function ProblemSolution() {
                             <div className="w-16 h-16 bg-blue-500/10 rounded-2xl -rotate-3 flex items-center justify-center mb-6 group-hover:rotate-0 transition-transform">
                                 <Layers className="h-8 w-8 text-blue-500" />
                             </div>
-                            <h3 className="text-xl font-bold text-white mb-2">El "Channel Caos"</h3>
+                            <h3 className="text-xl font-bold text-white mb-2">El &quot;Channel Caos&quot;</h3>
                             <p className="text-xs text-blue-400 uppercase tracking-wide font-bold mb-4">DMC Regional</p>
                             <p className="text-gray-400 mb-6 flex-grow text-sm leading-relaxed">
                                 Ya vendes online, pero cambiar un precio te obliga a entrar a 5 extranets diferentes. Fragmentación total.

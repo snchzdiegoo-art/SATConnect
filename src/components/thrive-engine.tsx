@@ -3,7 +3,7 @@
 import React from "react"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Brain, Activity, DollarSign, Globe, Zap, BarChart } from "lucide-react"
+import { Brain } from "lucide-react"
 
 export function ThriveEngine() {
     return (

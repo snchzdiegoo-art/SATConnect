@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Check, Star, Hourglass, Info } from "lucide-react"
 
 export function PricingTable() {
-    const [billingCycle, setBillingCycle] = useState("monthly")
+    // const [billingCycle, setBillingCycle] = useState("monthly") - Unused
 
     return (
         <section id="pricing" className="py-20 bg-gray-900 relative">

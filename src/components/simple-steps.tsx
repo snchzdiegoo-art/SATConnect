@@ -70,7 +70,7 @@ export function SimpleSteps() {
                         No solo es software, es <span className="text-blue-400">Crecimiento</span>
                     </h3>
                     <p className="text-gray-400 italic">
-                        "Además, te llevamos de la mano con agencias y hoteles para que nunca te falten clientes."
+                        &quot;Además, te llevamos de la mano con agencias y hoteles para que nunca te falten clientes.&quot;
                     </p>
                 </div>
 

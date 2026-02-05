@@ -92,6 +92,7 @@ export default function DashboardPage() {
     )
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function StatsCard({ title, value, metric, icon: Icon, color, bg }: any) {
     return (
         <Card className="bg-gray-900 border-gray-800 p-6 hover:border-gray-700 transition-colors">
