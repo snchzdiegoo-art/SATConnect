@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_PRISMA_URL")
+}
+
+model Tour {
+  id              String   @id @default(cuid())
+  name            String
+  provider        String
+  
+  // Economics
+  netRate         Float
+  publicPrice     Float?
+  
+  // Technical Specs
+  images          String[] // Array of image URLs
+  duration        String?
+  opsDays         String?
+  cxlPolicy       String?
+  meetingPoint    String?
+  
+  // Marketing
+  landingPageUrl  String?
+  storytelling    String?
+  
+  // Relationships
+  channelLogs     ChannelLog[]
+  bookings        Booking[]
+  
+  // Metadata
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@index([provider])
+  @@index([netRate])
+}
+
+model ChannelLog {
+  id        String   @id @default(cuid())
+  tourId    String
+  tour      Tour     @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  
+  channel   String   // "expedia", "viator", "gyg", "civitatis"
+  status    String   // "Active", "Inactive"
+  
+  updatedAt DateTime @updatedAt
+  
+  @@unique([tourId, channel])
+  @@index([channel, status])
+}
+
+model Booking {
+  id            String   @id @default(cuid())
+  tourId        String
+  tour          Tour     @relation(fields: [tourId], references: [id])
+  
+  customerName  String
+  customerEmail String?
+  bookingDate   DateTime
+  tourDate      DateTime
+  
+  adults        Int      @default(1)
+  children      Int      @default(0)
+  infants       Int      @default(0)
+  
+  totalPrice    Float
+  status        String   @default("confirmed") // "pending", "confirmed", "cancelled"
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  @@index([tourId])
+  @@index([bookingDate])
+  @@index([status])
+}

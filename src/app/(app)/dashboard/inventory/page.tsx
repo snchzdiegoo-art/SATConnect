@@ -9,86 +9,60 @@ import { Plus, Globe, Trash2 } from "lucide-react"
 import { auditTour, TourInput } from "@/lib/thrive-engine"
 import { ImportModal } from "@/components/dashboard/inventory/import-modal"
 
-// MOCK DATA
-const MOCK_DB: TourInput[] = [
-    {
-        id: "1113066",
-        name: "Holbox Dream Tour (Ejemplo)",
-        provider: "Mundo Maya",
-        netRate: 1500,
-        publicPrice: 3500,
-        images: ["url"],
-        duration: "12 Hours",
-        opsDays: "Daily",
-        cxlPolicy: "24 Hours",
-        meetingPoint: "Hotel Lobby",
-        landingPageUrl: "https://sat.travel/holbox",
-        storytelling: "Experience the magic...",
-        channels: { expedia: "Active", viator: "Active", gyg: "Active", civitatis: "Active" }
-    }
-]
-
 export default function InventoryPage() {
     const [tours, setTours] = useState<TourInput[]>([])
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [config, setConfig] = useState<any[]>([])
-    const [isLoaded, setIsLoaded] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
+    const [error, setError] = useState<string | null>(null)
 
-    // Load from LocalStorage
+    // Fetch tours from API
     useEffect(() => {
-        const savedTours = localStorage.getItem("thrive_tours")
-        const savedConfig = localStorage.getItem("thrive_config")
-
-        // Use a local variable to batch updates if needed, but setState is fine here.
-        // We defer the state update to avoid 'synchronous' calling warning if it's strict,
-        // but typically this pattern is fine. We will disable the warning for this hydration pattern.
-
-        let initialTours = MOCK_DB
-        let initialConfig: any[] = [] // eslint-disable-line @typescript-eslint/no-explicit-any
-
-        if (savedTours) {
+        async function fetchTours() {
             try {
-                const parsed = JSON.parse(savedTours)
-                if (Array.isArray(parsed) && parsed.length > 0) {
-                    initialTours = parsed
+                setIsLoading(true)
+                const response = await fetch('/api/tours')
+                if (!response.ok) {
+                    throw new Error('Failed to fetch tours')
                 }
-            } catch (e) {
-                console.error("Failed to parse tours", e)
+                const data = await response.json()
+                setTours(data)
+                setError(null)
+            } catch (err) {
+                console.error('Error fetching tours:', err)
+                setError('Failed to load tours. Please refresh the page.')
+            } finally {
+                setIsLoading(false)
             }
         }
 
-        if (savedConfig) {
-            try {
-                initialConfig = JSON.parse(savedConfig)
-            } catch (e) {
-                console.error(e)
-            }
-        }
-
-        setTours(initialTours)
-        setConfig(initialConfig)
-        setIsLoaded(true)
-        // eslint-disable-next-line react-hooks/set-state-in-effect
+        fetchTours()
     }, [])
 
-    // Save to LocalStorage
+    // Load config from localStorage (keeping this for now)
     useEffect(() => {
-        if (isLoaded) {
-            localStorage.setItem("thrive_tours", JSON.stringify(tours))
+        const savedConfig = localStorage.getItem("thrive_config")
+        if (savedConfig) {
+            try {
+                setConfig(JSON.parse(savedConfig))
+            } catch (e) {
+                console.error('Failed to parse config:', e)
+            }
         }
-    }, [tours, isLoaded])
+    }, [])
+
 
     useEffect(() => {
-        if (isLoaded && config.length > 0) {
+        if (config.length > 0) {
             localStorage.setItem("thrive_config", JSON.stringify(config))
         }
-    }, [config, isLoaded])
+    }, [config])
 
-    const handleReset = () => {
+    const handleReset = async () => {
         if (confirm("¿Borrar todos los datos y reiniciar?")) {
             localStorage.removeItem("thrive_tours")
             localStorage.removeItem("thrive_config")
-            setTours(MOCK_DB)
+            setTours([])
             setConfig([])
             window.location.reload()
         }
@@ -142,7 +116,9 @@ export default function InventoryPage() {
         });
     }
 
-    if (!isLoaded) return <div className="p-10 text-white">Cargando base de datos...</div>
+    if (isLoading) return <div className="p-10 text-white">Cargando base de datos...</div>
+
+    if (error) return <div className="p-10 text-red-400">{error}</div>
 
     return (
         <div className="space-y-6">
