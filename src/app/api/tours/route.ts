@@ -49,7 +49,7 @@ export async function GET() {
     }
 }
 
-// POST /api/tours - Create new tour
+// POST /api/tours - Create or update tour (UPSERT)
 export async function POST(req: NextRequest) {
     try {
         const body = await req.json()
@@ -71,18 +71,44 @@ export async function POST(req: NextRequest) {
             ...tourData
         }
 
-        const tour = await prisma.tour.create({
-            data: {
-                ...tourWithDefaults,
-                channelLogs: {
-                    create: Object.entries(channels || {}).map(([channel, status]) => ({
-                        channel,
-                        status: status as string
-                    }))
-                }
-            },
-            include: { channelLogs: true }
+        // Check if tour exists first
+        const existing = await prisma.tour.findUnique({
+            where: { id: tourData.id }
         })
+
+        let tour
+
+        if (existing) {
+            // UPDATE existing tour
+            tour = await prisma.tour.update({
+                where: { id: tourData.id },
+                data: {
+                    ...tourWithDefaults,
+                    channelLogs: {
+                        deleteMany: {}, // Clear old logs
+                        create: Object.entries(channels || {}).map(([channel, status]) => ({
+                            channel,
+                            status: status as string
+                        }))
+                    }
+                },
+                include: { channelLogs: true }
+            })
+        } else {
+            // CREATE new tour
+            tour = await prisma.tour.create({
+                data: {
+                    ...tourWithDefaults,
+                    channelLogs: {
+                        create: Object.entries(channels || {}).map(([channel, status]) => ({
+                            channel,
+                            status: status as string
+                        }))
+                    }
+                },
+                include: { channelLogs: true }
+            })
+        }
 
         // Transform response
         const formatted = {
@@ -92,11 +118,13 @@ export async function POST(req: NextRequest) {
             )
         }
 
-        return NextResponse.json(formatted, { status: 201 })
+        return NextResponse.json(formatted, { status: existing ? 200 : 201 })
     } catch (error) {
         console.error('POST /api/tours error:', error)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const errorMessage = (error as any).message || 'Unknown error'
         return NextResponse.json(
-            { error: 'Failed to create tour' },
+            { error: 'Failed to create tour', details: errorMessage },
             { status: 500 }
         )
     }

@@ -1,5 +1,4 @@
 "use client"
-/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
@@ -10,24 +9,29 @@ import {
     DialogFooter,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Papa from "papaparse"
-import { FileSpreadsheet, Loader2, Database, FileText, Settings } from "lucide-react"
+import { FileSpreadsheet, Loader2 } from "lucide-react"
 import { TourInput } from "@/lib/thrive-engine"
 
 interface ImportModalProps {
-    onImport: (data: any[], type: "RATES" | "SPECS" | "LOG" | "CONFIG") => void
+    isOpen: boolean
+    onClose: () => void
+    onImport: (data: TourInput[]) => void
 }
 
-export function ImportModal({ onImport }: ImportModalProps) {
-    const [isOpen, setIsOpen] = useState(false)
+export function ImportModal({ isOpen, onClose, onImport }: ImportModalProps) {
     const [isLoading, setIsLoading] = useState(false)
-    const [importType, setImportType] = useState<"RATES" | "SPECS" | "LOG" | "CONFIG">("RATES")
     const [previewCount, setPreviewCount] = useState<number>(0)
-    const [parsedData, setParsedData] = useState<any[]>([])
+    const [parsedData, setParsedData] = useState<TourInput[]>([])
+
+    const parseCurrency = (value: any): number => {
+        if (!value) return 0
+        const cleaned = String(value).replace(/[$,]/g, '')
+        return parseFloat(cleaned) || 0
+    }
 
     const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0]
@@ -40,66 +44,48 @@ export function ImportModal({ onImport }: ImportModalProps) {
             skipEmptyLines: true,
             complete: (results) => {
                 const rows = results.data as any[][]
-                const data: any[] = []
+                const data: TourInput[] = []
 
-                if (importType === "CONFIG") {
-                    // CONFIG_SETTINGS Mapping: A=Channel, B=Commission
-                    // Skip header usually
-                    for (let i = 1; i < rows.length; i++) {
-                        const row = rows[i]
-                        if (row[0]) {
-                            data.push({
-                                channel: row[0].toString().trim(),
-                                commission: parseFloat(row[1]?.toString() || "0")
-                            })
+                // Skip header rows (rows 1-3 contain headers/metadata)
+                // Data starts at row 4 (index 3)
+                for (let i = 3; i < rows.length; i++) {
+                    const row = rows[i]
+                    const id = row[0]?.toString().trim() // Bokun ID (Col A)
+
+                    if (!id) continue
+
+                    // Map all 38 columns from your consolidated CSV
+                    const tour: TourInput = {
+                        // Core Identity (Columns A-D)
+                        id,                                                 // A: Bokun ID
+                        name: row[1]?.toString().trim() || `Tour ${id}`,  // B: Product
+                        provider: row[2]?.toString().trim() || "Por Definir", // C: Supplier
+                        location: row[3]?.toString().trim() || "",         // D: Location
+
+                        // Economics - NET RATES (Columns I-S)
+                        netRate: parseCurrency(row[8]) || 0,               // I: NET RATE
+                        publicPrice: parseCurrency(row[10]) || 0,          // K: SUGGESTED PVP
+                        infantAge: row[13]?.toString() || "",              // N: Infant Age
+
+                        // Technical Specs (Columns U-AB)
+                        images: row[20] ? [row[20].toString()] : [],       // U: Pictures
+                        duration: row[21]?.toString() || "",               // V: Duration
+                        opsDays: row[22]?.toString() || "",                // W: Days of Operation
+                        cxlPolicy: row[23]?.toString() || "",              // X: CXL Policy
+                        landingPageUrl: row[24]?.toString() || "",         // Y: Landing Page
+                        storytelling: row[25]?.toString() || "",           // Z: Storytelling Link
+                        meetingPoint: row[26]?.toString() || "",           // AA: Meeting point / Pick up
+
+                        // Distribution Channels (Columns AF, AH, AI)
+                        channels: {
+                            expedia: row[31]?.toString().trim().toLowerCase() === "active" ? "Active" : "Inactive",  // AF: EXPEDIA
+                            viator: row[34]?.toString().trim().toLowerCase() === "active" ? "Active" : "Inactive",   // AI: VIATOR
+                            gyg: "Inactive",     // Not in CSV, default to Inactive
+                            civitatis: row[36]?.toString().trim().toLowerCase() === "active" ? "Active" : "Inactive" // AK: KLOOK
                         }
                     }
-                } else {
-                    const startRow = rows[0][0]?.toString().toLowerCase().includes("id") ? 1 : 0
-                    for (let i = startRow; i < rows.length; i++) {
-                        const row = rows[i]
-                        const id = row[0]?.toString().trim()
-                        if (!id) continue
 
-                        const tour: TourInput = { id, name: "", provider: "Unknown", netRate: 0, publicPrice: 0, images: [] }
-
-                        if (importType === "RATES") {
-                            // RATE_DATABASE Mapping (from AppScript)
-                            // A=ID, B=Name, C=Supplier, D=State, E=SingleNet, F=SingleFactor, G=SingleAmount(formula), 
-                            // H=ChildNet, I=ChildAmount(formula), J=InfantAge, K=SingleMin, L=PrivateMin, 
-                            // M=PrivateNet, N=PrivateFactor, O=PrivateAmount(formula), P=Timestamp
-
-                            tour.name = row[1]?.toString().trim() || `Tour ${id}` // Col B
-                            tour.provider = row[2]?.toString().trim() || "Por Definir" // Col C (Supplier)
-                            tour.location = row[3]?.toString().trim() || "" // Col D (State/Location)
-                            tour.netRate = parseCurrency(row[4]) || 0 // Col E (Single Net)
-                            tour.publicPrice = parseCurrency(row[12]) || 0 // Col M (Private Net)
-                            tour.infantAge = row[9]?.toString() // Col J
-                        } else if (importType === "SPECS") {
-                            // TECHNICAL_SPECS Mapping (from AppScript)
-                            // A=ID, B=Pictures, C=Duration, D=OpsDays, E=Cancellation, 
-                            // F=LandingPage, G=Storytelling, H=MeetingPoint, I=Fees
-
-                            tour.images = row[1] ? [row[1].toString()] : [] // Col B (Pictures)
-                            tour.duration = row[2]?.toString() // Col C
-                            tour.opsDays = row[3]?.toString() // Col D
-                            tour.cxlPolicy = row[4]?.toString() // Col E
-                            tour.landingPageUrl = row[5]?.toString() // Col F
-                            tour.storytelling = row[6]?.toString() // Col G
-                            tour.meetingPoint = row[7]?.toString() // Col H
-                            // Note: Col I (Fees) - not currently in TourInput, could be added later
-                        } else if (importType === "LOG") {
-                            // Mapping based on user input
-                            // 20=Expedia, 24=Viator, 29=GyG, 33=Civitatis (Indices)
-                            tour.channels = {
-                                expedia: row[20]?.toString().trim() === "Active" ? "Active" : "Inactive",
-                                viator: row[24]?.toString().trim() === "Active" ? "Active" : "Inactive",
-                                gyg: row[29]?.toString().trim() === "Active" ? "Active" : "Inactive",
-                                civitatis: row[33]?.toString().trim() === "Active" ? "Active" : "Inactive"
-                            }
-                        }
-                        data.push(tour)
-                    }
+                    data.push(tour)
                 }
 
                 setParsedData(data)
@@ -108,86 +94,90 @@ export function ImportModal({ onImport }: ImportModalProps) {
             },
             error: (error) => {
                 console.error("CSV Parse Error", error)
+                alert("Error al leer el archivo CSV")
                 setIsLoading(false)
             }
         })
     }
 
-    const parseCurrency = (val: any) => {
-        if (!val) return 0
-        if (typeof val === 'number') return val
-        return parseFloat(val.toString().replace(/[^0-9.-]+/g, "")) || 0
-    }
-
-    const confirmImport = () => {
-        onImport(parsedData, importType)
-        setIsOpen(false)
+    const handleConfirmImport = () => {
+        onImport(parsedData)
+        onClose()
         setParsedData([])
         setPreviewCount(0)
     }
 
     return (
-        <Dialog open={isOpen} onOpenChange={setIsOpen}>
-            <DialogTrigger asChild>
-                <Button variant="secondary" className="border-gray-700 bg-gray-800 text-gray-300 hover:bg-white/10">
-                    <FileSpreadsheet className="mr-2 h-4 w-4" />
-                    Importar Excel
-                </Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[700px] bg-gray-900 border-gray-800 text-white">
+        <Dialog open={isOpen} onOpenChange={onClose}>
+            <DialogContent className="sm:max-w-[500px] bg-gray-900 border-gray-800 text-white">
                 <DialogHeader>
-                    <DialogTitle>Importar Ecosistema THRIVE</DialogTitle>
+                    <DialogTitle className="flex items-center gap-2">
+                        <FileSpreadsheet className="h-5 w-5 text-teal-400" />
+                        Importar Inventario
+                    </DialogTitle>
                     <DialogDescription className="text-gray-400">
-                        Sube los 4 archivos CSV clave para reconstruir la inteligencia de negocio.
+                        Sube tu archivo CSV consolidado con todos los datos de tours
                     </DialogDescription>
                 </DialogHeader>
 
-                <div className="grid gap-6 py-4">
-
-                    {/* File Type Selector Grid */}
-                    <div className="grid grid-cols-4 gap-2">
-                        <div onClick={() => setImportType("RATES")} className={`cursor-pointer p-3 rounded-lg border flex flex-col items-center gap-1 transition-all ${importType === "RATES" ? "bg-teal-500/10 border-teal-500 text-teal-400" : "bg-gray-950 border-gray-800 text-gray-500 hover:border-gray-700"}`}>
-                            <Database className="h-5 w-5" />
-                            <span className="font-bold text-[10px]">1. Rate DB</span>
-                        </div>
-
-                        <div onClick={() => setImportType("SPECS")} className={`cursor-pointer p-3 rounded-lg border flex flex-col items-center gap-1 transition-all ${importType === "SPECS" ? "bg-blue-500/10 border-blue-500 text-blue-400" : "bg-gray-950 border-gray-800 text-gray-500 hover:border-gray-700"}`}>
-                            <FileText className="h-5 w-5" />
-                            <span className="font-bold text-[10px]">2. Tech Specs</span>
-                        </div>
-
-                        <div onClick={() => setImportType("LOG")} className={`cursor-pointer p-3 rounded-lg border flex flex-col items-center gap-1 transition-all ${importType === "LOG" ? "bg-purple-500/10 border-purple-500 text-purple-400" : "bg-gray-950 border-gray-800 text-gray-500 hover:border-gray-700"}`}>
-                            <FileSpreadsheet className="h-5 w-5" />
-                            <span className="font-bold text-[10px]">3. Master Log</span>
-                        </div>
-
-                        <div onClick={() => setImportType("CONFIG")} className={`cursor-pointer p-3 rounded-lg border flex flex-col items-center gap-1 transition-all ${importType === "CONFIG" ? "bg-orange-500/10 border-orange-500 text-orange-400" : "bg-gray-950 border-gray-800 text-gray-500 hover:border-gray-700"}`}>
-                            <Settings className="h-5 w-5" />
-                            <span className="font-bold text-[10px]">4. Config</span>
-                        </div>
+                <div className="space-y-4 py-4">
+                    {/* File Upload */}
+                    <div className="space-y-2">
+                        <Label htmlFor="csvFile" className="text-gray-300">
+                            Archivo CSV
+                        </Label>
+                        <Input
+                            id="csvFile"
+                            type="file"
+                            accept=".csv"
+                            onChange={handleFileUpload}
+                            disabled={isLoading}
+                            className="bg-gray-950 border-gray-800 text-gray-300 cursor-pointer file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-teal-600 file:text-white hover:file:bg-teal-500"
+                        />
                     </div>
 
-                    <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="csv-file" className="text-right text-gray-400">CSV File</Label>
-                        <div className="col-span-3">
-                            <Input id="csv-file" type="file" accept=".csv" className="bg-gray-950 border-gray-800 text-gray-300" onChange={handleFileUpload} />
-                        </div>
-                    </div>
-
-                    {isLoading && <div className="flex justify-center py-4"><Loader2 className="h-6 w-6 animate-spin text-teal-500" /></div>}
-
+                    {/* Preview */}
                     {previewCount > 0 && (
-                        <div className={`border rounded-lg p-3 text-center ${importType === "RATES" ? "bg-teal-500/10 border-teal-500/20 text-teal-400" : importType === "SPECS" ? "bg-blue-500/10 border-blue-500/20 text-blue-400" : importType === "LOG" ? "bg-purple-500/10 border-purple-500/20 text-purple-400" : "bg-orange-500/10 border-orange-500/20 text-orange-400"}`}>
-                            <p className="font-bold text-sm">✅ {previewCount} Registros Detectados</p>
-                            <p className="text-xs opacity-70 mt-1">Listo para procesar {importType}.</p>
+                        <div className="p-4 bg-gray-950 rounded-lg border border-gray-800">
+                            <div className="flex items-center gap-2 text-sm">
+                                <FileSpreadsheet className="h-4 w-4 text-teal-400" />
+                                <span className="text-gray-300">
+                                    Listo para importar: <span className="text-teal-400 font-bold">{previewCount}</span> tours
+                                </span>
+                            </div>
                         </div>
                     )}
+
+                    {/* Column Reference Guide */}
+                    <div className="p-4 bg-blue-950/20 rounded-lg border border-blue-900/30 max-h-48 overflow-y-auto">
+                        <h4 className="text-sm font-semibold text-blue-400 mb-2">📋 Estructura CSV (38 columnas):</h4>
+                        <div className="text-xs text-gray-400 space-y-1 font-mono">
+                            <div><strong>Identidad:</strong> A=Bokun ID, B=Product, C=Supplier, D=Location</div>
+                            <div><strong>Economics:</strong> I=NET RATE, K=SUGGESTED PVP, N=Infant Age</div>
+                            <div><strong>Specs:</strong> U=Pictures, V=Duration, W=Days Op, X=CXL</div>
+                            <div><strong>Marketing:</strong> Y=Landing, Z=Storytelling, AA=Meeting</div>
+                            <div><strong>Channels:</strong> AF=Expedia, AI=Viator, AK=Klook</div>
+                        </div>
+                    </div>
                 </div>
 
                 <DialogFooter>
-                    <Button variant="outline" onClick={() => setIsOpen(false)} className="border-gray-700 text-gray-400">Cancelar</Button>
-                    <Button onClick={confirmImport} className="bg-white text-black hover:bg-gray-200">
-                        Procesar {importType}
+                    <Button variant="outline" onClick={onClose} className="border-gray-700 text-gray-400">
+                        Cancelar
+                    </Button>
+                    <Button
+                        onClick={handleConfirmImport}
+                        disabled={previewCount === 0 || isLoading}
+                        className="bg-teal-600 hover:bg-teal-500 text-white"
+                    >
+                        {isLoading ? (
+                            <>
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                Procesando...
+                            </>
+                        ) : (
+                            `Importar ${previewCount} Tours`
+                        )}
                     </Button>
                 </DialogFooter>
             </DialogContent>

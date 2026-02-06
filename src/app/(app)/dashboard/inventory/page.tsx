@@ -5,11 +5,13 @@ import { useState, useEffect, useMemo } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
-import { Plus, Globe, Trash2 } from "lucide-react"
+import { Plus, Globe, Trash2, Loader2 } from "lucide-react"
 import { auditTour, TourInput } from "@/lib/thrive-engine"
 import { ImportModal } from "@/components/dashboard/inventory/import-modal"
 import { InventoryFilters, FilterState } from "@/components/dashboard/inventory/filters"
 import { PriorityBanner } from "@/components/dashboard/inventory/priority-banner"
+import { TourDetailModal } from "@/components/dashboard/inventory/tour-detail-modal"
+import { TourEditModal } from "@/components/dashboard/inventory/tour-edit-modal"
 
 export default function InventoryPage() {
     const [tours, setTours] = useState<TourInput[]>([])
@@ -25,6 +27,12 @@ export default function InventoryPage() {
         tourTypes: [],
         priorityOnly: false
     })
+    const [selectedTour, setSelectedTour] = useState<TourInput | null>(null)
+    const [isDetailModalOpen, setIsDetailModalOpen] = useState(false)
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+    const [tourToEdit, setTourToEdit] = useState<TourInput | null>(null)
+    const [showImport, setShowImport] = useState(false)
+    const [importProgress, setImportProgress] = useState<{ current: number; total: number } | null>(null)
 
     // Fetch tours from API
     useEffect(() => {
@@ -78,94 +86,162 @@ export default function InventoryPage() {
         }
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const handleImport = async (importedData: any[], type: "RATES" | "SPECS" | "LOG" | "CONFIG") => {
-        if (type === "CONFIG") {
-            setConfig(importedData)
-            return
-        }
-
-        const tourData = importedData as TourInput[];
-
-        // Save tours to database via API
+    // Handle consolidated import with intelligent merge and change tracking
+    const handleImport = async (importedTours: TourInput[]) => {
         try {
-            // Fetch current tours from database to check for duplicates
-            const fetchResponse = await fetch('/api/tours')
-            const currentTours = fetchResponse.ok ? await fetchResponse.json() : []
+            setIsLoading(true)
+            const changes: { id: string; action: 'created' | 'updated'; fields: string[] }[] = []
 
-            const promises = tourData.map(async (tourItem) => {
-                // Check if tour exists in database (not just in state)
-                const existing = currentTours.find((t: TourInput) => t.id === tourItem.id)
+            // Fetch current tours from API to ensure we have latest data
+            const response = await fetch('/api/tours')
+            if (!response.ok) throw new Error('Failed to fetch current tours')
+            const currentTours: TourInput[] = await response.json()
+
+            for (let i = 0; i < importedTours.length; i++) {
+                const tourItem = importedTours[i]
+                setImportProgress({ current: i + 1, total: importedTours.length })
+
+                const existing = currentTours.find(t => t.id === tourItem.id)
 
                 if (existing) {
-                    // UPDATE existing tour
-                    const mergedTour = { ...existing }
+                    // UPDATE: Merge intelligently, only updating fields with new data
+                    const updatedFields: string[] = []
+                    const mergedTour: TourInput = { ...existing }
 
-                    if (type === "RATES") {
-                        // Only update fields that have values
-                        if (tourItem.name && tourItem.name !== `Tour ${tourItem.id}`) mergedTour.name = tourItem.name
-                        if (tourItem.provider && tourItem.provider !== "Por Definir") mergedTour.provider = tourItem.provider
-                        if (tourItem.netRate !== null && tourItem.netRate !== undefined) mergedTour.netRate = tourItem.netRate
-                        if (tourItem.publicPrice !== null && tourItem.publicPrice !== undefined) mergedTour.publicPrice = tourItem.publicPrice
-                        if (tourItem.infantAge) mergedTour.infantAge = tourItem.infantAge
-                    } else if (type === "SPECS") {
-                        // Only update non-empty fields
-                        if (tourItem.images?.length > 0) mergedTour.images = tourItem.images
-                        if (tourItem.duration) mergedTour.duration = tourItem.duration
-                        if (tourItem.opsDays) mergedTour.opsDays = tourItem.opsDays
-                        if (tourItem.cxlPolicy) mergedTour.cxlPolicy = tourItem.cxlPolicy
-                        if (tourItem.landingPageUrl) mergedTour.landingPageUrl = tourItem.landingPageUrl
-                        if (tourItem.storytelling) mergedTour.storytelling = tourItem.storytelling
-                        if (tourItem.meetingPoint) mergedTour.meetingPoint = tourItem.meetingPoint
-                    } else if (type === "LOG") {
-                        if (tourItem.channels) mergedTour.channels = tourItem.channels
+                    // Check and update all fields if they differ
+                    if (tourItem.name && tourItem.name !== existing.name) {
+                        mergedTour.name = tourItem.name
+                        updatedFields.push('name')
+                    }
+                    if (tourItem.provider && tourItem.provider !== existing.provider) {
+                        mergedTour.provider = tourItem.provider
+                        updatedFields.push('provider')
+                    }
+                    if (tourItem.location && tourItem.location !== existing.location) {
+                        mergedTour.location = tourItem.location
+                        updatedFields.push('location')
+                    }
+                    if (tourItem.netRate !== undefined && tourItem.netRate !== existing.netRate) {
+                        mergedTour.netRate = tourItem.netRate
+                        updatedFields.push('netRate')
+                    }
+                    if (tourItem.publicPrice !== undefined && tourItem.publicPrice !== existing.publicPrice) {
+                        mergedTour.publicPrice = tourItem.publicPrice
+                        updatedFields.push('publicPrice')
+                    }
+                    if (tourItem.infantAge && tourItem.infantAge !== existing.infantAge) {
+                        mergedTour.infantAge = tourItem.infantAge
+                        updatedFields.push('infantAge')
+                    }
+                    if (tourItem.images && tourItem.images.length > 0 && JSON.stringify(tourItem.images) !== JSON.stringify(existing.images)) {
+                        mergedTour.images = tourItem.images
+                        updatedFields.push('images')
+                    }
+                    if (tourItem.duration && tourItem.duration !== existing.duration) {
+                        mergedTour.duration = tourItem.duration
+                        updatedFields.push('duration')
+                    }
+                    if (tourItem.opsDays && tourItem.opsDays !== existing.opsDays) {
+                        mergedTour.opsDays = tourItem.opsDays
+                        updatedFields.push('opsDays')
+                    }
+                    if (tourItem.cxlPolicy && tourItem.cxlPolicy !== existing.cxlPolicy) {
+                        mergedTour.cxlPolicy = tourItem.cxlPolicy
+                        updatedFields.push('cxlPolicy')
+                    }
+                    if (tourItem.landingPageUrl && tourItem.landingPageUrl !== existing.landingPageUrl) {
+                        mergedTour.landingPageUrl = tourItem.landingPageUrl
+                        updatedFields.push('landingPageUrl')
+                    }
+                    if (tourItem.storytelling && tourItem.storytelling !== existing.storytelling) {
+                        mergedTour.storytelling = tourItem.storytelling
+                        updatedFields.push('storytelling')
+                    }
+                    if (tourItem.meetingPoint && tourItem.meetingPoint !== existing.meetingPoint) {
+                        mergedTour.meetingPoint = tourItem.meetingPoint
+                        updatedFields.push('meetingPoint')
+                    }
+                    if (tourItem.region && tourItem.region !== existing.region) {
+                        mergedTour.region = tourItem.region
+                        updatedFields.push('region')
+                    }
+                    if (tourItem.activityType && tourItem.activityType !== existing.activityType) {
+                        mergedTour.activityType = tourItem.activityType
+                        updatedFields.push('activityType')
+                    }
+                    if (tourItem.tourType && tourItem.tourType !== existing.tourType) {
+                        mergedTour.tourType = tourItem.tourType
+                        updatedFields.push('tourType')
+                    }
+                    if (tourItem.channels && JSON.stringify(tourItem.channels) !== JSON.stringify(existing.channels)) {
+                        mergedTour.channels = tourItem.channels
+                        updatedFields.push('channels')
                     }
 
-                    // PUT to update
-                    const response = await fetch(`/api/tours/${mergedTour.id}`, {
-                        method: 'PUT',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(mergedTour)
-                    })
-
-                    if (!response.ok) {
-                        const errorText = await response.text()
-                        console.error(`Failed to update tour ${mergedTour.id}:`, errorText)
-                        throw new Error(`Failed to update tour ${mergedTour.id}`)
-                    }
-                    return response.json()
-                } else {
-                    // CREATE new tour (only for RATES)
-                    if (type === "RATES") {
-                        const response = await fetch('/api/tours', {
-                            method: 'POST',
+                    // Only update if there are actual changes
+                    if (updatedFields.length > 0) {
+                        const updateResponse = await fetch(`/api/tours/${existing.id}`, {
+                            method: 'PUT',
                             headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(tourItem)
+                            body: JSON.stringify(mergedTour)
                         })
 
-                        if (!response.ok) {
-                            const errorText = await response.text()
-                            console.error(`Failed to create tour ${tourItem.id}:`, errorText)
-                            throw new Error(`Failed to create tour ${tourItem.id}`)
+                        if (!updateResponse.ok) {
+                            const errorText = await updateResponse.text()
+                            console.error(`Failed to update tour ${existing.id}:`, errorText)
+                            continue
                         }
-                        return response.json()
+
+                        changes.push({ id: existing.id, action: 'updated', fields: updatedFields })
+                        console.log(`✅ Updated ${existing.id}: ${updatedFields.join(', ')}`)
+                    } else {
+                        console.log(`ℹ️  No changes for ${existing.id}`)
                     }
+                } else {
+                    // CREATE new tour
+                    const createResponse = await fetch('/api/tours', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(tourItem)
+                    })
+
+                    if (!createResponse.ok) {
+                        const errorData = await createResponse.json()
+                        console.error(`Failed to create tour ID ${tourItem.id}:`, JSON.stringify(errorData))
+                        continue
+                    }
+
+                    changes.push({ id: tourItem.id, action: 'created', fields: ['all'] })
+                    console.log(`🚀 Created tour ${tourItem.id}`)
                 }
-            })
+            }
 
-            await Promise.all(promises)
-
-            // Refresh tours from database
-            const response = await fetch('/api/tours')
-            if (response.ok) {
-                const updatedTours = await response.json()
+            // Refresh tours list
+            const finalResponse = await fetch('/api/tours')
+            if (finalResponse.ok) {
+                const updatedTours = await finalResponse.json()
                 setTours(updatedTours)
             }
 
-            alert(`✅ ${tourData.length} tours ${type === "RATES" ? "importados" : "actualizados"} correctamente`)
+            // Show summary
+            const created = changes.filter(c => c.action === 'created').length
+            const updated = changes.filter(c => c.action === 'updated').length
+
+            alert(
+                `✅ Import Complete!\n\n` +
+                `Created: ${created} tours\n` +
+                `Updated: ${updated} tours\n` +
+                `No changes: ${importedTours.length - created - updated} tours\n\n` +
+                `Check console for detailed change log.`
+            )
+
+            setIsLoading(false)
+            setImportProgress(null)
         } catch (error) {
             console.error('Import error:', error)
-            alert(`❌ Error al importar: ${error}`)
+            alert(`❌ Import failed: ${error}`)
+            setIsLoading(false)
+            setImportProgress(null)
         }
     }
 
@@ -280,10 +356,17 @@ export default function InventoryPage() {
                     <Button variant="ghost" className="text-red-500 hover:bg-red-900/10" onClick={handleReset}>
                         <Trash2 className="h-4 w-4" />
                     </Button>
-                    <ImportModal onImport={handleImport} />
-                    <Button variant="primary" className="bg-teal-600 hover:bg-teal-500">
-                        <Plus className="h-4 w-4 mr-2" />
-                        Nuevo Tour
+                    <Button
+                        onClick={() => {
+                            setTourToEdit(null)
+                            setIsEditModalOpen(true)
+                        }}
+                        className="bg-blue-600 hover:bg-blue-500 text-white"
+                    >
+                        <Plus className="mr-2 h-4 w-4" /> Nuevo Tour
+                    </Button>
+                    <Button onClick={() => setShowImport(true)} className="bg-teal-600 hover:bg-teal-500 text-white">
+                        <Plus className="mr-2 h-4 w-4" /> Importar Excel
                     </Button>
                 </div>
             </div>
@@ -311,15 +394,22 @@ export default function InventoryPage() {
 
             {/* Grid */}
             <div className="grid gap-4 opacity-0 animate-in fade-in slide-in-from-bottom-4 duration-700 fill-mode-forwards" style={{ opacity: 1 }}>
-                {sortedTours.map((tour, idx) => {
+                {sortedTours.map((tour) => {
                     const diagnosis = auditTour(tour)
                     const { health, distribution, economics } = diagnosis
 
                     return (
-                        <Card key={tour.id || idx} className="p-5 bg-gray-900 border-gray-800 hover:border-gray-700 transition-all group">
-                            <div className="flex flex-col md:flex-row gap-6">
-                                <div className="flex-1">
-                                    <div className="flex items-center gap-2 mb-2">
+                        <Card
+                            key={tour.id}
+                            className="group bg-gray-900 border-gray-800 hover:border-teal-600 transition-all cursor-pointer"
+                            onClick={() => {
+                                setSelectedTour(tour)
+                                setIsDetailModalOpen(true)
+                            }}
+                        >
+                            <div className="flex flex-col md:flex-row items-start md:items-stretch gap-4 p-5">
+                                <div className="flex-1 min-w-0">
+                                    <div className="flex items-center gap-2 mb-2 flex-wrap">
                                         <Badge variant="outline" className="text-xs bg-gray-950 text-gray-500 font-mono">ID: {tour.id}</Badge>
                                         {economics.status === "B2C_ONLY" && (
                                             <Badge variant="outline" className="text-xs bg-yellow-500/10 text-yellow-500 border-yellow-500/30">B2C ONLY</Badge>
@@ -363,12 +453,78 @@ export default function InventoryPage() {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </Card>
+                            </div >
+                        </Card >
                     )
                 })}
-            </div>
-        </div>
+            </div >
+
+            {/* Tour Detail Modal */}
+            <TourDetailModal
+                tour={selectedTour}
+                isOpen={isDetailModalOpen}
+                onClose={() => setIsDetailModalOpen(false)}
+            />
+
+            {/* Tour Edit/Create Modal */}
+            <TourEditModal
+                tour={tourToEdit}
+                isOpen={isEditModalOpen}
+                onClose={() => {
+                    setIsEditModalOpen(false)
+                    setTourToEdit(null)
+                }}
+                onSave={async () => {
+                    // Refresh tours after save
+                    const response = await fetch('/api/tours')
+                    if (response.ok) {
+                        const updated = await response.json()
+                        setTours(updated)
+                    }
+                }}
+            />
+
+
+            {/* Import Modal */}
+            <ImportModal
+                isOpen={showImport}
+                onClose={() => setShowImport(false)}
+                onImport={handleImport}
+            />
+            {/* Loading Overlay */}
+            {importProgress && (
+                <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center">
+                    <div className="bg-gray-900 border border-gray-800 p-8 rounded-xl max-w-md w-full text-center shadow-2xl">
+                        <div className="mb-6 flex justify-center">
+                            <div className="relative">
+                                <div className="absolute inset-0 bg-teal-500/20 blur-xl rounded-full animate-pulse"></div>
+                                <Loader2 className="h-16 w-16 text-teal-400 animate-spin relative z-10" />
+                            </div>
+                        </div>
+                        <h3 className="text-2xl font-bold text-white mb-2">Procesando Inventario</h3>
+                        <p className="text-gray-400 mb-6">
+                            Actualizando base de datos central...
+                        </p>
+
+                        <div className="w-full bg-gray-800 rounded-full h-4 mb-3 overflow-hidden">
+                            <div
+                                className="bg-gradient-to-r from-teal-600 to-teal-400 h-full transition-all duration-300 ease-out"
+                                style={{ width: `${(importProgress.current / importProgress.total) * 100}%` }}
+                            ></div>
+                        </div>
+
+                        <div className="flex justify-between text-sm">
+                            <span className="text-teal-400 font-mono font-bold">
+                                {Math.round((importProgress.current / importProgress.total) * 100)}%
+                            </span>
+                            <span className="text-gray-500">
+                                Tour {importProgress.current} de {importProgress.total}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </div >
     )
 }
 
