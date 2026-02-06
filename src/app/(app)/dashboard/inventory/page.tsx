@@ -1,13 +1,15 @@
 "use client"
 /* eslint-disable react-hooks/set-state-in-effect */
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
 import { Plus, Globe, Trash2 } from "lucide-react"
 import { auditTour, TourInput } from "@/lib/thrive-engine"
 import { ImportModal } from "@/components/dashboard/inventory/import-modal"
+import { InventoryFilters, FilterState } from "@/components/dashboard/inventory/filters"
+import { PriorityBanner } from "@/components/dashboard/inventory/priority-banner"
 
 export default function InventoryPage() {
     const [tours, setTours] = useState<TourInput[]>([])
@@ -15,6 +17,14 @@ export default function InventoryPage() {
     const [config, setConfig] = useState<any[]>([])
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
+    const [filters, setFilters] = useState<FilterState>({
+        search: '',
+        providers: [],
+        locations: [],
+        activityTypes: [],
+        tourTypes: [],
+        priorityOnly: false
+    })
 
     // Fetch tours from API
     useEffect(() => {
@@ -69,7 +79,7 @@ export default function InventoryPage() {
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const handleImport = (importedData: any[], type: "RATES" | "SPECS" | "LOG" | "CONFIG") => {
+    const handleImport = async (importedData: any[], type: "RATES" | "SPECS" | "LOG" | "CONFIG") => {
         if (type === "CONFIG") {
             setConfig(importedData)
             return
@@ -77,51 +87,187 @@ export default function InventoryPage() {
 
         const tourData = importedData as TourInput[];
 
-        setTours((prevTours) => {
-            const newState = [...prevTours];
+        // Save tours to database via API
+        try {
+            // Fetch current tours from database to check for duplicates
+            const fetchResponse = await fetch('/api/tours')
+            const currentTours = fetchResponse.ok ? await fetchResponse.json() : []
 
-            tourData.forEach((item) => {
-                const existingIndex = newState.findIndex(t => t.id === item.id);
+            const promises = tourData.map(async (tourItem) => {
+                // Check if tour exists in database (not just in state)
+                const existing = currentTours.find((t: TourInput) => t.id === tourItem.id)
 
-                if (existingIndex > -1) {
-                    // MERGE Logic
+                if (existing) {
+                    // UPDATE existing tour
+                    const mergedTour = { ...existing }
+
                     if (type === "RATES") {
-                        newState[existingIndex] = { ...newState[existingIndex], ...item };
+                        // Only update fields that have values
+                        if (tourItem.name && tourItem.name !== `Tour ${tourItem.id}`) mergedTour.name = tourItem.name
+                        if (tourItem.provider && tourItem.provider !== "Por Definir") mergedTour.provider = tourItem.provider
+                        if (tourItem.netRate !== null && tourItem.netRate !== undefined) mergedTour.netRate = tourItem.netRate
+                        if (tourItem.publicPrice !== null && tourItem.publicPrice !== undefined) mergedTour.publicPrice = tourItem.publicPrice
+                        if (tourItem.infantAge) mergedTour.infantAge = tourItem.infantAge
                     } else if (type === "SPECS") {
-                        newState[existingIndex] = {
-                            ...newState[existingIndex],
-                            // Only update if value exists
-                            images: item.images?.length > 0 ? item.images : newState[existingIndex].images,
-                            duration: item.duration || newState[existingIndex].duration,
-                            opsDays: item.opsDays || newState[existingIndex].opsDays,
-                            cxlPolicy: item.cxlPolicy || newState[existingIndex].cxlPolicy,
-                            landingPageUrl: item.landingPageUrl || newState[existingIndex].landingPageUrl,
-                            storytelling: item.storytelling || newState[existingIndex].storytelling,
-                            meetingPoint: item.meetingPoint || newState[existingIndex].meetingPoint
-                        };
+                        // Only update non-empty fields
+                        if (tourItem.images?.length > 0) mergedTour.images = tourItem.images
+                        if (tourItem.duration) mergedTour.duration = tourItem.duration
+                        if (tourItem.opsDays) mergedTour.opsDays = tourItem.opsDays
+                        if (tourItem.cxlPolicy) mergedTour.cxlPolicy = tourItem.cxlPolicy
+                        if (tourItem.landingPageUrl) mergedTour.landingPageUrl = tourItem.landingPageUrl
+                        if (tourItem.storytelling) mergedTour.storytelling = tourItem.storytelling
+                        if (tourItem.meetingPoint) mergedTour.meetingPoint = tourItem.meetingPoint
                     } else if (type === "LOG") {
-                        newState[existingIndex] = {
-                            ...newState[existingIndex],
-                            channels: item.channels || newState[existingIndex].channels
-                        }
+                        if (tourItem.channels) mergedTour.channels = tourItem.channels
                     }
+
+                    // PUT to update
+                    const response = await fetch(`/api/tours/${mergedTour.id}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(mergedTour)
+                    })
+
+                    if (!response.ok) {
+                        const errorText = await response.text()
+                        console.error(`Failed to update tour ${mergedTour.id}:`, errorText)
+                        throw new Error(`Failed to update tour ${mergedTour.id}`)
+                    }
+                    return response.json()
                 } else {
-                    // CREATE logic
+                    // CREATE new tour (only for RATES)
                     if (type === "RATES") {
-                        newState.unshift(item);
+                        const response = await fetch('/api/tours', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(tourItem)
+                        })
+
+                        if (!response.ok) {
+                            const errorText = await response.text()
+                            console.error(`Failed to create tour ${tourItem.id}:`, errorText)
+                            throw new Error(`Failed to create tour ${tourItem.id}`)
+                        }
+                        return response.json()
                     }
                 }
-            });
-            return newState;
-        });
+            })
+
+            await Promise.all(promises)
+
+            // Refresh tours from database
+            const response = await fetch('/api/tours')
+            if (response.ok) {
+                const updatedTours = await response.json()
+                setTours(updatedTours)
+            }
+
+            alert(`✅ ${tourData.length} tours ${type === "RATES" ? "importados" : "actualizados"} correctamente`)
+        } catch (error) {
+            console.error('Import error:', error)
+            alert(`❌ Error al importar: ${error}`)
+        }
     }
 
-    if (isLoading) return <div className="p-10 text-white">Cargando base de datos...</div>
+    // Extract unique values for filters
+    const uniqueProviders = useMemo(() =>
+        [...new Set(tours.map(t => t.provider))].sort(),
+        [tours])
+
+    const uniqueLocations = useMemo(() =>
+        [...new Set(tours.map(t => t.location).filter(Boolean) as string[])].sort(),
+        [tours])
+
+    const uniqueActivityTypes = useMemo(() =>
+        [...new Set(tours.map(t => t.activityType).filter(Boolean) as string[])].sort(),
+        [tours])
+
+    const uniqueTourTypes = useMemo(() =>
+        [...new Set(tours.map(t => t.tourType).filter(Boolean) as string[])].sort(),
+        [tours])
+
+    // Apply filters
+    const filteredTours = useMemo(() => {
+        let result = tours
+
+        // Search filter (name, provider)
+        if (filters.search) {
+            const searchLower = filters.search.toLowerCase()
+            result = result.filter(t =>
+                t.name.toLowerCase().includes(searchLower) ||
+                t.provider.toLowerCase().includes(searchLower)
+            )
+        }
+
+        // Provider filter
+        if (filters.providers.length > 0) {
+            result = result.filter(t => filters.providers.includes(t.provider))
+        }
+
+        // Location filter
+        if (filters.locations.length > 0) {
+            result = result.filter(t => t.location && filters.locations.includes(t.location))
+        }
+
+        // Activity type filter
+        if (filters.activityTypes.length > 0) {
+            result = result.filter(t =>
+                t.activityType && filters.activityTypes.includes(t.activityType)
+            )
+        }
+
+        // Tour type filter
+        if (filters.tourTypes.length > 0) {
+            result = result.filter(t => t.tourType && filters.tourTypes.includes(t.tourType))
+        }
+
+        // Priority filter (critical or incomplete)
+        if (filters.priorityOnly) {
+            result = result.filter(t => {
+                const diag = auditTour(t)
+                return diag.health.score === 'CRITICAL' || diag.health.score === 'INCOMPLETE'
+            })
+        }
+
+        return result
+    }, [tours, filters])
+
+    // Sort by priority (Critical > Incomplete > Healthy)
+    const sortedTours = useMemo(() => {
+        return [...filteredTours].sort((a, b) => {
+            const diagA = auditTour(a)
+            const diagB = auditTour(b)
+
+            // Priority order: CRITICAL (3) > INCOMPLETE (2) > HEALTHY (1)
+            const priorityOrder = { CRITICAL: 3, INCOMPLETE: 2, HEALTHY: 1 }
+            const scoreA = priorityOrder[diagA.health.score]
+            const scoreB = priorityOrder[diagB.health.score]
+
+            if (scoreA !== scoreB) {
+                return scoreB - scoreA // Higher priority first
+            }
+
+            // Secondary sort: by distribution (fewer active channels first)
+            if (diagA.distribution.activeCount !== diagB.distribution.activeCount) {
+                return diagA.distribution.activeCount - diagB.distribution.activeCount
+            }
+
+            // Tertiary sort: by margin (lower margin first)
+            return diagA.economics.multiplier - diagB.economics.multiplier
+        })
+    }, [filteredTours])
+
+    const handlePriorityClick = () => {
+        setFilters({ ...filters, priorityOnly: true })
+    }
+
+    if (isLoading) return <div className="p-10 text-white">Cargando inventario...</div>
 
     if (error) return <div className="p-10 text-red-400">{error}</div>
 
     return (
         <div className="space-y-6">
+            {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                     <h1 className="text-3xl font-bold text-white">Inventario (Tours)</h1>
@@ -142,9 +288,30 @@ export default function InventoryPage() {
                 </div>
             </div>
 
+            {/* Priority Banner */}
+            <PriorityBanner tours={tours} onPriorityClick={handlePriorityClick} />
+
+            {/* Filters */}
+            <InventoryFilters
+                filters={filters}
+                onFilterChange={setFilters}
+                uniqueProviders={uniqueProviders}
+                uniqueLocations={uniqueLocations}
+                uniqueActivityTypes={uniqueActivityTypes}
+                uniqueTourTypes={uniqueTourTypes}
+            />
+
+            {/* Results Counter */}
+            <div className="flex items-center justify-between text-sm">
+                <div className="text-gray-400">
+                    Mostrando <span className="text-teal-400 font-bold">{sortedTours.length}</span> de {tours.length} tours
+                    {filters.priorityOnly && <span className="text-red-400 ml-2">• Solo Prioritarios</span>}
+                </div>
+            </div>
+
             {/* Grid */}
             <div className="grid gap-4 opacity-0 animate-in fade-in slide-in-from-bottom-4 duration-700 fill-mode-forwards" style={{ opacity: 1 }}>
-                {tours.map((tour, idx) => {
+                {sortedTours.map((tour, idx) => {
                     const diagnosis = auditTour(tour)
                     const { health, distribution, economics } = diagnosis
 

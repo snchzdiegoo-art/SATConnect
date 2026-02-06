@@ -24,6 +24,13 @@ export interface TourInput {
     landingPageUrl?: string | null; // Col 6
     storytelling?: string | null;   // Col 7
 
+    // Categorization & Filtering
+    location?: string | null;        // "Quintana Roo", "CDMX", "Oaxaca"
+    region?: string | null;          // "Riviera Maya", "Valle de Bravo"
+    activityType?: string | null;    // "Extrema", "Cultural", "Acuática"
+    tourType?: string | null;        // "Compartido", "Privado", "Semi-Privado"
+    tags?: string[];                 // ["Adventure", "Premium"]
+
     // Distribution (AUDIT_MASTER_LOG Checks)
     channels?: {
         expedia: "Active" | "Inactive";

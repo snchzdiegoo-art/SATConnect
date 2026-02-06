@@ -64,19 +64,30 @@ export function ImportModal({ onImport }: ImportModalProps) {
                         const tour: TourInput = { id, name: "", provider: "Unknown", netRate: 0, publicPrice: 0, images: [] }
 
                         if (importType === "RATES") {
-                            tour.name = row[1]?.toString().trim() || "Unknown"
-                            tour.provider = row[2]?.toString().trim() || "Imported"
-                            tour.netRate = parseCurrency(row[4])
-                            tour.infantAge = row[9]?.toString()
-                            tour.publicPrice = parseCurrency(row[6])
+                            // RATE_DATABASE Mapping (from AppScript)
+                            // A=ID, B=Name, C=Supplier, D=State, E=SingleNet, F=SingleFactor, G=SingleAmount(formula), 
+                            // H=ChildNet, I=ChildAmount(formula), J=InfantAge, K=SingleMin, L=PrivateMin, 
+                            // M=PrivateNet, N=PrivateFactor, O=PrivateAmount(formula), P=Timestamp
+
+                            tour.name = row[1]?.toString().trim() || `Tour ${id}` // Col B
+                            tour.provider = row[2]?.toString().trim() || "Por Definir" // Col C (Supplier)
+                            tour.location = row[3]?.toString().trim() || "" // Col D (State/Location)
+                            tour.netRate = parseCurrency(row[4]) || 0 // Col E (Single Net)
+                            tour.publicPrice = parseCurrency(row[12]) || 0 // Col M (Private Net)
+                            tour.infantAge = row[9]?.toString() // Col J
                         } else if (importType === "SPECS") {
-                            tour.images = row[1] ? [row[1].toString()] : []
-                            tour.duration = row[2]?.toString()
-                            tour.opsDays = row[3]?.toString()
-                            tour.cxlPolicy = row[4]?.toString()
-                            tour.landingPageUrl = row[5]?.toString()
-                            tour.storytelling = row[6]?.toString()
-                            tour.meetingPoint = row[7]?.toString()
+                            // TECHNICAL_SPECS Mapping (from AppScript)
+                            // A=ID, B=Pictures, C=Duration, D=OpsDays, E=Cancellation, 
+                            // F=LandingPage, G=Storytelling, H=MeetingPoint, I=Fees
+
+                            tour.images = row[1] ? [row[1].toString()] : [] // Col B (Pictures)
+                            tour.duration = row[2]?.toString() // Col C
+                            tour.opsDays = row[3]?.toString() // Col D
+                            tour.cxlPolicy = row[4]?.toString() // Col E
+                            tour.landingPageUrl = row[5]?.toString() // Col F
+                            tour.storytelling = row[6]?.toString() // Col G
+                            tour.meetingPoint = row[7]?.toString() // Col H
+                            // Note: Col I (Fees) - not currently in TourInput, could be added later
                         } else if (importType === "LOG") {
                             // Mapping based on user input
                             // 20=Expedia, 24=Viator, 29=GyG, 33=Civitatis (Indices)

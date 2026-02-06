@@ -28,6 +28,12 @@ export async function GET() {
             meetingPoint: tour.meetingPoint,
             landingPageUrl: tour.landingPageUrl,
             storytelling: tour.storytelling,
+            // Filter fields
+            location: tour.location,
+            region: tour.region,
+            activityType: tour.activityType,
+            tourType: tour.tourType,
+            tags: tour.tags,
             channels: Object.fromEntries(
                 tour.channelLogs.map((log: { channel: string; status: string }) => [log.channel, log.status])
             ) as Record<string, "Active" | "Inactive">
@@ -49,17 +55,25 @@ export async function POST(req: NextRequest) {
         const body = await req.json()
         const { channels, ...tourData } = body
 
-        // Validate required fields
-        if (!tourData.name || !tourData.provider || !tourData.netRate) {
+        // Validate only ID is required
+        if (!tourData.id) {
             return NextResponse.json(
-                { error: 'Missing required fields: name, provider, netRate' },
+                { error: 'Missing required field: id' },
                 { status: 400 }
             )
         }
 
+        // Apply defaults for missing required database fields
+        const tourWithDefaults = {
+            name: tourData.name || `Tour ${tourData.id}`,
+            provider: tourData.provider || "Por Definir",
+            netRate: tourData.netRate ?? 0,
+            ...tourData
+        }
+
         const tour = await prisma.tour.create({
             data: {
-                ...tourData,
+                ...tourWithDefaults,
                 channelLogs: {
                     create: Object.entries(channels || {}).map(([channel, status]) => ({
                         channel,

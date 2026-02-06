@@ -27,6 +27,14 @@ model Tour {
   landingPageUrl  String?
   storytelling    String?
   
+  // Categorization & Filtering
+  location        String?   // "Quintana Roo", "CDMX", "Oaxaca"
+  region          String?   // "Riviera Maya", "Valle de Bravo"
+  activityType    String?   // "Extrema", "Cultural", "Acuática", etc.
+  tourType        String?   // "Compartido", "Privado", "Semi-Privado"
+  tags            String[]  // ["Adventure", "Family-Friendly", "Premium"]
+  infantAge       String?   // Infant age limit for pricing (from THRIVE Col J)
+  
   // Relationships
   channelLogs     ChannelLog[]
   bookings        Booking[]
@@ -37,6 +45,9 @@ model Tour {
   
   @@index([provider])
   @@index([netRate])
+  @@index([location])
+  @@index([activityType])
+  @@index([tourType])
 }
 
 model ChannelLog {
