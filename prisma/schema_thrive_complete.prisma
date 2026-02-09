@@ -31,9 +31,6 @@ model Tour {
   assets                    TourAssets?
   distribution              TourDistribution?
   audit                     TourAudit?
-  
-  // Relación 1:N con historial de cambios
-  change_logs               TourChangeLog[]
 
   createdAt                 DateTime  @default(now())
 
@@ -166,34 +163,6 @@ model TourAudit {
   is_suitable_for_global_distribution Boolean @default(false)
 
   @@map("tour_audit")
-}
-
-// ============================================================================
-// ENTIDAD 7: TourChangeLog (Audit Trail - Change History)
-// ============================================================================
-model TourChangeLog {
-  id          Int      @id @default(autoincrement())
-  tour_id     Int
-  tour        Tour     @relation(fields: [tour_id], references: [id], onDelete: Cascade)
-  
-  // Change metadata
-  change_type String   // "notes_added", "notes_edited", "tour_created", "pricing_updated", etc.
-  field_name  String?  // e.g., "notes", "net_rate_adult"
-  old_value   String?  @db.Text // Previous value (JSON for complex objects)
-  new_value   String?  @db.Text // New value (JSON for complex objects)
-  
-  // User tracking (Clerk integration)
-  user_id     String   // Clerk user ID
-  user_name   String?  // User's display name
-  user_email  String?  // User's email
-  
-  // Timestamps
-  created_at  DateTime @default(now())
-  
-  @@index([tour_id])
-  @@index([user_id])
-  @@index([created_at])
-  @@map("tour_change_logs")
 }
 
 // ============================================================================

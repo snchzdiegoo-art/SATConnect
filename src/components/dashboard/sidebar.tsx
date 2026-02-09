@@ -26,9 +26,9 @@ export function Sidebar() {
             icon: LayoutDashboard,
         },
         {
-            title: "Inventario",
-            href: "/dashboard/inventory",
-            icon: Package,
+            title: "T.H.R.I.V.E. Engine",
+            href: "/thrive",
+            icon: Settings,
         },
         {
             title: "Reservas",

@@ -29,8 +29,19 @@ export function ImportModal({ isOpen, onClose, onImport }: ImportModalProps) {
 
     const parseCurrency = (value: any): number => {
         if (!value) return 0
-        const cleaned = String(value).replace(/[$,]/g, '')
+        // Remove currency symbols (US$, $, €, etc.) and whitespace
+        let cleaned = String(value).replace(/US\$|[$€£¥]/g, '').trim()
+        // Replace comma with dot for decimal (handles both US$85,00 and US$1.234,56 formats)
+        // First remove thousand separators (dots followed by 3 digits), then replace comma decimal
+        cleaned = cleaned.replace(/\.(?=\d{3})/g, '').replace(/,/g, '.')
         return parseFloat(cleaned) || 0
+    }
+
+    const parseNumber = (value: any): string => {
+        if (!value) return ""
+        // Extract just the number (with sign) from strings like "-US$4,00" -> "-4"
+        const match = String(value).match(/(-?\d+)/)
+        return match ? match[1] : ""
     }
 
     const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,19 +73,41 @@ export function ImportModal({ isOpen, onClose, onImport }: ImportModalProps) {
                         provider: row[2]?.toString().trim() || "Por Definir", // C: Supplier
                         location: row[3]?.toString().trim() || "",         // D: Location
 
-                        // Economics - NET RATES (Columns I-S)
-                        netRate: parseCurrency(row[8]) || 0,               // I: NET RATE
-                        publicPrice: parseCurrency(row[10]) || 0,          // K: SUGGESTED PVP
-                        infantAge: row[13]?.toString() || "",              // N: Infant Age
+                        // Economics - SHARED ADULT (Columns I-K)
+                        netRate: parseCurrency(row[8]) || 0,                       // I: NET RATE (Shared Adult)
+                        factorShared: parseFloat(row[9]?.toString().replace(',', '.')) || 0,  // J: FACTOR (1.5 - 1.99)
+                        publicPrice: parseCurrency(row[10]) || 0,                  // K: SUGGESTED PVP
+
+                        // Economics - CHILD (Columns L-M)
+                        netChild: parseCurrency(row[11]) || 0,                     // L: NET CHILD
+                        publicChild: parseCurrency(row[12]) || 0,                  // M: SUGGESTED CHILD PUBLIC
+
+                        // Operational - Infant & Minimum PAX (Columns N-P)
+                        infantAge: parseNumber(row[13]) || "",                     // N: Infant Age (e.g., "-4" for under 4 years)
+                        minPaxShared: parseInt(row[14]?.toString()) || 1,          // O: SHARED MINIMUM PAX
+                        minPaxPrivate: parseInt(row[15]?.toString()) || 1,         // P: PRIVATE MINIMUM PAX
+
+                        // Economics - PRIVATE (Columns Q-S)
+                        netPrivate: parseCurrency(row[16]) || 0,                   // Q: NET PRIVATE
+                        factorPrivate: parseFloat(row[17]?.toString().replace(',', '.')) || 0, // R: FACTOR PRIVATE
+                        publicPrivate: parseCurrency(row[18]) || 0,                // S: SUGGESTED PRIVATE PUBLIC RATE
+
+                        // Metadata (Column T)
+                        lastUpdate: row[19]?.toString().trim() || "",              // T: LAST UPDATE
 
                         // Technical Specs (Columns U-AB)
-                        images: row[20] ? [row[20].toString()] : [],       // U: Pictures
-                        duration: row[21]?.toString() || "",               // V: Duration
-                        opsDays: row[22]?.toString() || "",                // W: Days of Operation
-                        cxlPolicy: row[23]?.toString() || "",              // X: CXL Policy
-                        landingPageUrl: row[24]?.toString() || "",         // Y: Landing Page
-                        storytelling: row[25]?.toString() || "",           // Z: Storytelling Link
-                        meetingPoint: row[26]?.toString() || "",           // AA: Meeting point / Pick up
+                        images: row[20]
+                            ? row[20].toString().split(/[,\n]/).map((url: string) => url.trim()).filter((url: string) => url.length > 0)
+                            : [],       // U: Pictures
+                        duration: row[21]?.toString().trim() || "",               // V: Duration
+                        opsDays: row[22]?.toString().trim() || "",                // W: Days of Operation
+                        cxlPolicy: row[23]?.toString().trim() || "",              // X: CXL Policy
+                        landingPageUrl: row[24]?.toString().trim() || "",         // Y: Landing Page
+                        storytelling: row[25]?.toString().trim() || "",           // Z: Storytelling Link
+                        meetingPoint: row[26]?.toString().trim() || "",           // AA: Meeting point / Pick up
+
+                        // Extras (Column AB)
+                        extraFees: row[27]?.toString().trim() || "",              // AB: Extra Fees
 
                         // Distribution Channels (Columns AF, AH, AI)
                         channels: {
@@ -82,7 +115,15 @@ export function ImportModal({ isOpen, onClose, onImport }: ImportModalProps) {
                             viator: row[34]?.toString().trim().toLowerCase() === "active" ? "Active" : "Inactive",   // AI: VIATOR
                             gyg: "Inactive",     // Not in CSV, default to Inactive
                             civitatis: row[36]?.toString().trim().toLowerCase() === "active" ? "Active" : "Inactive" // AK: KLOOK
-                        }
+                        },
+
+                        // Audit Notes (Column AL)
+                        auditNotes: row[37]?.toString().trim() || ""               // AL: AUDIT NOTES
+                    }
+
+                    // Debug log for Holbox to verify parsing
+                    if (tour.name.toLowerCase().includes("holbox")) {
+                        console.log("🔍 IMPORT DEBUG - Holbox Tour Parsed:", tour)
                     }
 
                     data.push(tour)

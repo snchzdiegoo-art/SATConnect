@@ -8,28 +8,49 @@ export interface TourInput {
     name: string;
     provider: string; // e.g., "Mundo Maya"
 
-    // Economics (RATE_DATABASE)
-    netRate: number | null;      // Col 5
-    publicPrice: number | null;  // Col 13 (Calculated usually)
-    infantAge?: string | null;   // Col 10
+    // Economics - SHARED (Adult)
+    netRate: number | null;         // Col I - Shared Adult Net
+    publicPrice: number | null;     // Col K - Suggested PVP
 
-    // Tech Specs (TECHNICAL_SPECS)
-    images: string[];           // Col 2 (Pictures)
-    duration?: string | null;   // Col 3
-    opsDays?: string | null;    // Col 4
-    cxlPolicy?: string | null;  // Col 5
-    meetingPoint?: string | null; // Col 8
+    // Economics - CHILD
+    netChild?: number | null;       // Col L - Net Child
+    publicChild?: number | null;    // Col M - Suggested Child Public
 
-    // Warnings (Tech Specs)
-    landingPageUrl?: string | null; // Col 6
-    storytelling?: string | null;   // Col 7
+    // Economics - PRIVATE
+    netPrivate?: number | null;     // Col Q - Net Private
+    publicPrivate?: number | null;  // Col S - Suggested Private Public Rate
+
+    // Operational Limits
+    minPaxShared?: number | null;   // Col O - Shared Minimum PAX
+    minPaxPrivate?: number | null;  // Col P - Private Minimum PAX
+    infantAge?: string | null;      // Col N - Infant Age
+
+    // Pricing Factors
+    factorShared?: number | null;   // Col J - Factor (1.5 - 1.99)
+    factorPrivate?: number | null;  // Col R - Factor Private
+
+    // Tech Specs
+    images: string[];               // Col U - Pictures
+    duration?: string | null;       // Col V - Duration
+    opsDays?: string | null;        // Col W - Days of Operation
+    cxlPolicy?: string | null;      // Col X - CXL Policy
+    meetingPoint?: string | null;   // Col AA - Meeting point / Pick up
+
+    // Marketing
+    landingPageUrl?: string | null; // Col Y - Landing Page
+    storytelling?: string | null;   // Col Z - Storytelling Link
+
+    // Extras & Metadata
+    extraFees?: string | null;      // Col AB - Extra Fees
+    lastUpdate?: string | null;     // Col T - Last Update
+    auditNotes?: string | null;     // Col AL - Audit Notes
 
     // Categorization & Filtering
-    location?: string | null;        // "Quintana Roo", "CDMX", "Oaxaca"
-    region?: string | null;          // "Riviera Maya", "Valle de Bravo"
-    activityType?: string | null;    // "Extrema", "Cultural", "Acuática"
-    tourType?: string | null;        // "Compartido", "Privado", "Semi-Privado"
-    tags?: string[];                 // ["Adventure", "Premium"]
+    location?: string | null;       // Col D - Location
+    region?: string | null;
+    activityType?: string | null;
+    tourType?: string | null;
+    tags?: string[];
 
     // Distribution (AUDIT_MASTER_LOG Checks)
     channels?: {
