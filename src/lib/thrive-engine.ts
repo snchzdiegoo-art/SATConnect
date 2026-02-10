@@ -62,6 +62,21 @@ export interface TourInput {
 
     // Global Dist Strategy (AUDIT_MASTER_LOG Col 9)
     globalStrategy?: "B2B_READY" | "B2C_ONLY" | "PENDING_AUDIT";
+
+    // New Features
+    variants?: Array<{
+        id?: number;
+        name: string;
+        description?: string | null;
+        net_rate_adult: number;
+        net_rate_child?: number | null;
+        duration?: string | null;
+        is_active?: boolean;
+    }>;
+    custom_fields?: Array<{
+        definition_id: number;
+        value: string;
+    }>;
 }
 
 export interface TourDiagnostics {

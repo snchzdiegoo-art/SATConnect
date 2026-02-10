@@ -33,9 +33,9 @@ export function calculateSuggestedPVP(
     const rate = new Decimal(netRate);
     const pricingFactor = factor ? new Decimal(factor) : new Decimal(1.5);
 
-    // Validación: factor debe estar entre 1.0 y 2.0
-    if (pricingFactor.lessThan(1.0) || pricingFactor.greaterThan(2.0)) {
-        throw new Error('Pricing factor must be between 1.0 and 2.0');
+    // Validación: factor debe estar entre 0.5 y 10.0 (relaxed for flexibility)
+    if (pricingFactor.lessThan(0.5) || pricingFactor.greaterThan(10.0)) {
+        throw new Error('Pricing factor must be between 0.5 and 10.0');
     }
 
     return rate.mul(pricingFactor);

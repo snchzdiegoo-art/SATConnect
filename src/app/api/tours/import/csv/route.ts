@@ -1,204 +1,367 @@
-/**
- * SAT Connect - CSV Import API
- * POST: Upload CSV file and create/update tours
- */
-
 import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient, Prisma } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
+import { parse } from 'csv-parse/sync';
+import * as XLSX from 'xlsx';
+import { assessProductHealth } from '@/services/healthService';
+import { calculateOTADistributionScore, checkGlobalSuitability } from '@/services/distributionService';
+import { calculateTourPricing } from '@/services/pricingService';
 
 const prisma = new PrismaClient();
 
+// Configuration of available system fields
+// This maps CSV column headers to internal field names
+const SYSTEM_FIELDS = {
+    // Core Tour Fields
+    bokun_id: 'Bókun ID / SKU',
+    product_name: 'Product Name',
+    supplier: 'Supplier',
+    location: 'LOCATION',
+    bokun_marketplace: 'Bokun MarketPlace',
+    bokun_status: 'BOKUN STATUS',
+    is_active: 'Active',
+    is_audited: 'Audited',
+    last_update: 'Last Update',
+
+    // Pricing Fields
+    net_rate_adult: 'Net Rate (Adult)',
+    net_rate_child: 'Net Rate (Child)',
+    net_rate_private: 'Net Rate (Private)',
+    shared_factor: 'Shared Factor',
+    private_factor: 'Private Factor',
+    min_pax_shared: 'Min Pax (Shared)',
+    min_pax_private: 'Min Pax (Private)',
+    infant_age_threshold: 'Infant Age Threshold',
+    extra_fees: 'Extra Fees',
+
+    // Logistics Fields
+    duration: 'Duration',
+    days_of_operation: 'Days of Operation',
+    cxl_policy: 'Cancelation Policy',
+    meeting_point_info: 'Meeting point / Pick up',
+
+    // Assets Fields
+    pictures_url: 'Pictures URL',
+    landing_page_url: 'Landing Page URL',
+    storytelling_url: 'Storytelling URL',
+    notes: 'Notes',
+
+    // Distribution Fields
+    viator_id: 'VIATOR ID',
+    viator_status: 'Viator Status',
+    viator_commission: '% Comision Viator',
+    expedia_id: 'EXPEDIA ID',
+    expedia_status: 'Expedia Status',
+    gyg_id: 'Proj. Exp ID',
+    gyg_status: 'Proj. Exp Status',
+    klook_id: 'KLOOK ID',
+    klook_status: 'Klook Status'
+};
+
+const encoder = new TextEncoder();
+
 export async function POST(request: NextRequest) {
     try {
+        // Fetch active custom fields to checking mapping
+        const customFieldDefs = await prisma.customFieldDefinition.findMany({
+            where: { is_active: true }
+        });
+
         const formData = await request.formData();
         const file = formData.get('file') as File;
+        const mappingJson = formData.get('mapping') as string;
+        const headerRowIndexStr = formData.get('headerRowIndex') as string;
 
-        if (!file) {
-            return NextResponse.json({ success: false, error: 'No file uploaded' }, { status: 400 });
+        if (!file || !mappingJson) {
+            return NextResponse.json({ success: false, error: 'File and mapping are required' }, { status: 400 });
         }
 
-        // Read CSV content
-        const text = await file.text();
-        const lines = text.split('\n');
-        if (lines.length < 2) {
-            return NextResponse.json({ success: false, error: 'CSV file is empty' }, { status: 400 });
-        }
+        const mapping = JSON.parse(mappingJson);
+        const headerRowIndex = parseInt(headerRowIndexStr || '0');
 
-        // Parse headers
-        const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
+        const buffer = Buffer.from(await file.arrayBuffer());
+        const fileName = file.name.toLowerCase();
 
-        let created = 0;
-        let updated = 0;
-        let errors = 0;
-
-        // Process each row
-        for (let i = 1; i < lines.length; i++) {
-            const line = lines[i].trim();
-            if (!line) continue;
-
-            const values = parseCSVLine(line);
-            if (values.length !== headers.length) {
-                console.warn(`Skipping row ${i + 1}: column count mismatch`);
-                errors++;
-                continue;
-            }
-
-            // Map CSV to object
-            const row: Record<string, string> = {};
-            headers.forEach((header, idx) => {
-                row[header] = values[idx];
-            });
-
-            try {
-                // Check if tour exists by bokun_id
-                const bokunId = row.bokun_id_txt ? parseInt(row.bokun_id_txt) : undefined;
-                const existing = bokunId ? await prisma.tour.findUnique({ where: { bokun_id: bokunId } }) : null;
-
-                const tourData = {
-                    product_name: row.product_name,
-                    supplier: row.supplier,
-                    location: row.location,
-                    bokun_id: bokunId,
-                    is_active: row.is_active?.toLowerCase() === 'true' || row.is_active === '1',
-                    is_audited: false,
+        // Create a streaming response
+        const stream = new ReadableStream({
+            async start(controller) {
+                const sendUpdate = (data: any) => {
+                    controller.enqueue(encoder.encode(JSON.stringify(data) + '\n'));
                 };
 
-                if (existing) {
-                    // UPDATE
-                    await prisma.tour.update({
-                        where: { id: existing.id },
-                        data: {
-                            ...tourData,
-                            pricing: {
+                try {
+                    let records: string[][];
+
+                    // Check file type and parse accordingly
+                    if (fileName.endsWith('.xlsx') || fileName.endsWith('.xls')) {
+                        // Parse XLSX file
+                        const workbook = XLSX.read(buffer, { type: 'buffer' });
+                        const sheetName = workbook.SheetNames[0];
+                        const worksheet = workbook.Sheets[sheetName];
+
+                        // Convert to array of arrays with raw:false to preserve decimal formatting
+                        const allRecords = XLSX.utils.sheet_to_json(worksheet, { header: 1, defval: '', raw: false });
+
+                        // Skip header row and empty lines
+                        records = allRecords.slice(headerRowIndex + 1).filter((row: any) =>
+                            row.some((cell: any) => cell?.toString().trim())
+                        ) as string[][];
+                    } else {
+                        // Parse CSV file
+                        const content = buffer.toString('utf-8');
+                        records = parse(content, {
+                            columns: false,
+                            from_line: headerRowIndex + 2,
+                            skip_empty_lines: true,
+                            relax_quotes: true,
+                            relax_column_count: true
+                        });
+                    }
+
+                    sendUpdate({ type: 'start', total: records.length });
+
+                    let updatedCount = 0;
+                    let errorCount = 0;
+
+                    for (let i = 0; i < records.length; i++) {
+                        const row = records[i];
+
+                        try {
+                            const getVal = (fieldKey: string) => {
+                                const colIndex = mapping[fieldKey];
+                                if (colIndex === undefined || colIndex === null || colIndex === -1) return null;
+                                return row[colIndex]?.trim();
+                            };
+
+                            const bokunIdStr = getVal('bokun_id');
+                            if (!bokunIdStr) {
+                                // Only log if we expect data here. The parser skips empty lines, so this might be a mapped column issue.
+                                sendUpdate({ type: 'log', message: `Row ${i + 1}: Skipped - 'bokun_id' column is empty. (Raw row length: ${Object.keys(row).length})` });
+                                continue;
+                            }
+
+                            // Remove non-numeric chars but keep invalid ones for logging check
+                            const cleanId = bokunIdStr.replace(/[^0-9]/g, '');
+                            const bokunId = parseInt(cleanId);
+
+                            if (isNaN(bokunId) || cleanId === '') {
+                                sendUpdate({ type: 'log', message: `Row ${i + 1}: Skipped - Invalid Bokun ID '${bokunIdStr}' -> Parsed: ${cleanId}` });
+                                continue;
+                            }
+
+                            // Helpers
+                            const parseCurrency = (val: string | null) => {
+                                if (!val) return null;
+                                // Handle both comma and period as decimal separators (European vs US format)
+                                const clean = val.replace(/[^0-9.,]/g, '').replace(',', '.');
+                                return clean ? parseFloat(clean) : null;
+                            };
+                            const parseDecimal = (val: string | null) => {
+                                // For decimal values like factors (1,25 or 1.25)
+                                // Handle European format (comma) and US format (period)
+                                if (!val) return null;
+                                const clean = val.trim().replace(/[^0-9.,]/g, '').replace(',', '.');
+                                return clean ? parseFloat(clean) : null;
+                            };
+                            const parseIntSafe = (val: string | null) => {
+                                if (!val) return null;
+                                const clean = val.replace(/[^0-9]/g, '');
+                                return clean ? parseInt(clean) : null;
+                            };
+                            const parseBoolean = (val: string | null) => {
+                                if (!val) return null;
+                                const upper = val.toUpperCase().trim();
+                                return upper === 'TRUE' || upper === '1' || upper === 'YES';
+                            };
+                            const parseDate = (val: string | null): Date | undefined => {
+                                if (!val) return undefined;
+                                try {
+                                    const parsed = new Date(val);
+                                    return isNaN(parsed.getTime()) ? undefined : parsed;
+                                } catch {
+                                    return undefined;
+                                }
+                            };
+
+                            const tourData = {
+                                bokun_id: bokunId,
+                                product_name: getVal('product_name') || `Tour ${bokunId}`,
+                                supplier: getVal('supplier') || 'Unknown',
+                                location: getVal('location') || 'Unknown',
+                                bokun_marketplace_status: getVal('bokun_marketplace'),
+                                bokun_status: getVal('bokun_status'),
+                                is_active: parseBoolean(getVal('is_active')) ?? true,
+                                is_audited: parseBoolean(getVal('is_audited')) ?? false,
+                                last_update: parseDate(getVal('last_update'))
+                            };
+
+                            const pricingData = {
+                                net_rate_adult: parseCurrency(getVal('net_rate_adult')) || 0,
+                                net_rate_child: parseCurrency(getVal('net_rate_child')),
+                                net_rate_private: parseCurrency(getVal('net_rate_private')),
+                                shared_factor: parseDecimal(getVal('shared_factor')) || 1.5,
+                                private_factor: parseDecimal(getVal('private_factor')) || 1.5,
+                                shared_min_pax: parseIntSafe(getVal('min_pax_shared')),
+                                private_min_pax: parseIntSafe(getVal('min_pax_private')),
+                                infant_age_threshold: parseIntSafe(getVal('infant_age_threshold')),
+                                extra_fees: getVal('extra_fees')
+                            };
+
+                            const logisticsData = {
+                                duration: getVal('duration'),
+                                days_of_operation: getVal('days_of_operation'),
+                                cxl_policy: getVal('cxl_policy'),
+                                meeting_point_info: getVal('meeting_point_info')
+                            };
+
+                            const assetsData = {
+                                pictures_url: getVal('pictures_url'),
+                                landing_page_url: getVal('landing_page_url'),
+                                storytelling_url: getVal('storytelling_url'),
+                                notes: getVal('notes'),
+                            };
+
+                            const distributionData = {
+                                viator_id: getVal('viator_id'),
+                                viator_status: getVal('viator_status'),
+                                viator_commission_percent: parseDecimal(getVal('viator_commission')),
+                                expedia_id: getVal('expedia_id'),
+                                expedia_status: getVal('expedia_status'),
+                                project_expedition_id: getVal('gyg_id'),
+                                project_expedition_status: getVal('gyg_status'),
+                                klook_id: getVal('klook_id'),
+                                klook_status: getVal('klook_status')
+                            };
+
+                            // Upsert Tour & Relations
+                            // We capture the result to get the ID for custom fields
+                            const upsertedTour = await prisma.tour.upsert({
+                                where: { bokun_id: bokunId },
+                                create: {
+                                    ...tourData,
+                                    pricing: { create: pricingData },
+                                    logistics: { create: logisticsData },
+                                    assets: { create: assetsData },
+                                    distribution: { create: distributionData },
+                                    audit: { create: { product_health_score: "INCOMPLETE" } }
+                                },
                                 update: {
-                                    net_rate_adult: parseDecimal(row.net_rate_adult),
-                                    shared_factor: parseDecimal(row.shared_factor) || new Prisma.Decimal(1.5),
-                                    net_rate_child: row.net_rate_child ? parseDecimal(row.net_rate_child) : undefined,
-                                    infant_age_threshold: row.infant_age_threshold ? parseInt(row.infant_age_threshold) : undefined,
-                                    shared_min_pax: row.shared_min_pax ? parseInt(row.shared_min_pax) : undefined,
-                                    net_rate_private: row.private_min_pax_net_rate ? parseDecimal(row.private_min_pax_net_rate) : undefined,
-                                    private_factor: parseDecimal(row.private_factor) || new Prisma.Decimal(1.5),
-                                    private_min_pax: row.private_min_pax ? parseInt(row.private_min_pax) : undefined,
-                                    extra_fees: row.extra_fees || undefined,
+                                    ...tourData,
+                                    pricing: { upsert: { create: pricingData, update: pricingData } },
+                                    logistics: { upsert: { create: logisticsData, update: logisticsData } },
+                                    assets: { upsert: { create: assetsData, update: assetsData } },
+                                    distribution: { upsert: { create: distributionData, update: distributionData } }
+                                }
+                            });
+
+                            // Fetch complete tour for health assessment
+                            const completeTour = await prisma.tour.findUnique({
+                                where: { id: upsertedTour.id },
+                                include: {
+                                    pricing: true,
+                                    logistics: true,
+                                    assets: true,
+                                    distribution: true,
+                                    audit: true,
                                 },
-                            },
-                            logistics: {
-                                update: {
-                                    duration: row.duration || undefined,
-                                    days_of_operation: row.days_of_operation || undefined,
-                                    cxl_policy: row.cxl_policy || undefined,
-                                    meeting_point_info: row.meeting_point_info || undefined,
-                                    pickup_info: row.pickup_info || undefined,
-                                },
-                            },
-                            assets: {
-                                update: {
-                                    pictures_url: row.pictures_url || undefined,
-                                    landing_page_url: row.landing_page_url || undefined,
-                                    storytelling_url: row.storytelling_url || undefined,
-                                    notes: row.notes || undefined,
-                                },
-                            },
-                        },
-                    });
-                    updated++;
-                } else {
-                    // CREATE
-                    await prisma.tour.create({
-                        data: {
-                            ...tourData,
-                            pricing: {
-                                create: {
-                                    net_rate_adult: parseDecimal(row.net_rate_adult) || new Prisma.Decimal(0),
-                                    shared_factor: parseDecimal(row.shared_factor) || new Prisma.Decimal(1.5),
-                                    net_rate_child: row.net_rate_child ? parseDecimal(row.net_rate_child) : undefined,
-                                    infant_age_threshold: row.infant_age_threshold ? parseInt(row.infant_age_threshold) : undefined,
-                                    shared_min_pax: row.shared_min_pax ? parseInt(row.shared_min_pax) : undefined,
-                                    net_rate_private: row.private_min_pax_net_rate ? parseDecimal(row.private_min_pax_net_rate) : undefined,
-                                    private_factor: parseDecimal(row.private_factor) || new Prisma.Decimal(1.5),
-                                    private_min_pax: row.private_min_pax ? parseInt(row.private_min_pax) : undefined,
-                                    extra_fees: row.extra_fees || undefined,
-                                },
-                            },
-                            logistics: {
-                                create: {
-                                    duration: row.duration || undefined,
-                                    days_of_operation: row.days_of_operation || undefined,
-                                    cxl_policy: row.cxl_policy || undefined,
-                                    meeting_point_info: row.meeting_point_info || undefined,
-                                    pickup_info: row.pickup_info || undefined,
-                                },
-                            },
-                            assets: {
-                                create: {
-                                    pictures_url: row.pictures_url || undefined,
-                                    landing_page_url: row.landing_page_url || undefined,
-                                    storytelling_url: row.storytelling_url || undefined,
-                                    notes: row.notes || undefined,
-                                },
-                            },
-                            distribution: {
-                                create: {},
-                            },
-                            audit: {
-                                create: {
-                                    product_health_score: 'INCOMPLETE',
-                                    otas_distribution_score: 0,
-                                    global_distribution_ready: false,
-                                },
-                            },
-                        },
-                    });
-                    created++;
+                            });
+
+                            if (completeTour) {
+                                // 10. Assess product health
+                                const healthCheck = assessProductHealth(completeTour);
+
+                                // 11. Calculate OTA score
+                                const otaScore = completeTour.distribution
+                                    ? calculateOTADistributionScore(completeTour.distribution)
+                                    : 0;
+
+                                // 12. Check global suitability
+                                const isSuitable = checkGlobalSuitability(
+                                    healthCheck.status,
+                                    completeTour.pricing
+                                        ? {
+                                            suggested_pvp_adult: calculateTourPricing({
+                                                net_rate_adult: completeTour.pricing.net_rate_adult,
+                                                shared_factor: completeTour.pricing.shared_factor,
+                                                net_rate_child: completeTour.pricing.net_rate_child,
+                                                net_rate_private: completeTour.pricing.net_rate_private,
+                                                private_factor: completeTour.pricing.private_factor,
+                                                private_min_pax: completeTour.pricing.private_min_pax,
+                                                private_min_pax_net_rate: completeTour.pricing.private_min_pax_net_rate,
+                                            }).suggestedPvpAdult,
+                                            net_rate_adult: completeTour.pricing.net_rate_adult,
+                                        }
+                                        : undefined,
+                                    completeTour.logistics?.cxl_policy
+                                );
+
+                                // 13. Update audit with calculated values
+                                await prisma.tourAudit.upsert({
+                                    where: { tour_id: completeTour.id },
+                                    create: {
+                                        tour_id: completeTour.id,
+                                        product_health_score: healthCheck.status,
+                                        otas_distribution_score: otaScore,
+                                        is_suitable_for_global_distribution: isSuitable,
+                                    },
+                                    update: {
+                                        product_health_score: healthCheck.status,
+                                        otas_distribution_score: otaScore,
+                                        is_suitable_for_global_distribution: isSuitable,
+                                    }
+                                });
+                            }
+
+                            // Process Custom Fields
+                            for (const def of customFieldDefs) {
+                                const mapKey = `custom_${def.key}`; // Key used in CsvMapperModal
+                                const val = getVal(mapKey);
+
+                                if (val !== null && val !== undefined) {
+                                    await prisma.tourCustomFieldValue.upsert({
+                                        where: {
+                                            tour_id_definition_id: {
+                                                tour_id: upsertedTour.id,
+                                                definition_id: def.id
+                                            }
+                                        },
+                                        create: {
+                                            tour_id: upsertedTour.id,
+                                            definition_id: def.id,
+                                            value: val
+                                        },
+                                        update: {
+                                            value: val
+                                        }
+                                    });
+                                }
+                            }
+
+                            updatedCount++;
+                            sendUpdate({ type: 'progress', current: i + 1, total: records.length });
+
+                        } catch (e: any) {
+                            console.error(`Row ${i} Error:`, e);
+                            sendUpdate({ type: 'log', message: `Row ${i + 1} Error: ${e.message}` });
+                            errorCount++;
+                        }
+                    }
+
+                    sendUpdate({ type: 'complete', updated: updatedCount, errors: errorCount });
+
+                } catch (err: any) {
+                    sendUpdate({ type: 'error', message: err.message });
+                } finally {
+                    controller.close();
                 }
-            } catch (err) {
-                console.error(`Error processing row ${i + 1}:`, err);
-                errors++;
             }
-        }
-
-        return NextResponse.json({
-            success: true,
-            created,
-            updated,
-            errors,
-            message: `Import complete: ${created} created, ${updated} updated, ${errors} errors`,
         });
-    } catch (error) {
-        console.error('CSV Import Error:', error);
-        return NextResponse.json(
-            { success: false, error: 'Failed to process CSV file' },
-            { status: 500 }
-        );
+
+        return new Response(stream, {
+            headers: { 'Content-Type': 'application/x-ndjson' }
+        });
+
+    } catch (error: any) {
+        console.error('Import API Error:', error);
+        return NextResponse.json({ success: false, error: error.message }, { status: 500 });
     }
-}
-
-// Helper: Parse CSV line handling quoted values
-function parseCSVLine(line: string): string[] {
-    const result: string[] = [];
-    let current = '';
-    let inQuotes = false;
-
-    for (let i = 0; i < line.length; i++) {
-        const char = line[i];
-
-        if (char === '"') {
-            inQuotes = !inQuotes;
-        } else if (char === ',' && !inQuotes) {
-            result.push(current.trim());
-            current = '';
-        } else {
-            current += char;
-        }
-    }
-    result.push(current.trim());
-
-    return result;
-}
-
-// Helper: Parse decimal values
-function parseDecimal(value: string | undefined): Prisma.Decimal | undefined {
-    if (!value || value === '') return undefined;
-    const num = parseFloat(value);
-    return isNaN(num) ? undefined : new Prisma.Decimal(num);
 }

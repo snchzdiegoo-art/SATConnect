@@ -6,10 +6,14 @@ async function checkHolbox() {
     try {
         const holbox = await prisma.tour.findMany({
             where: {
-                name: {
+                product_name: {
                     contains: 'Holbox',
                     mode: 'insensitive'
                 }
+            },
+            include: {
+                pricing: true,
+                logistics: true
             }
         })
 
@@ -20,23 +24,29 @@ async function checkHolbox() {
             holbox.forEach((tour, idx) => {
                 console.log(`\n--- Tour ${idx + 1} ---`)
                 console.log(`ID: ${tour.id}`)
-                console.log(`Name: ${tour.name}`)
-                console.log(`Provider: ${tour.provider}`)
-                console.log(`\nECONOMICS - SHARED:`)
-                console.log(`  Net Rate: $${tour.netRate}`)
-                console.log(`  Public Price: $${tour.publicPrice}`)
-                console.log(`  Factor Shared: ${tour.factorShared}`)
-                console.log(`\nECONOMICS - CHILD:`)
-                console.log(`  Net Child: $${tour.netChild}`)
-                console.log(`  Public Child: $${tour.publicChild}`)
-                console.log(`\nECONOMICS - PRIVATE:`)
-                console.log(`  Net Private: $${tour.netPrivate}`)
-                console.log(`  Public Private: $${tour.publicPrivate}`)
-                console.log(`  Factor Private: ${tour.factorPrivate}`)
-                console.log(`\nOPERATIONAL:`)
-                console.log(`  Min Pax Shared: ${tour.minPaxShared}`)
-                console.log(`  Min Pax Private: ${tour.minPaxPrivate}`)
-                console.log(`  Infant Age: ${tour.infantAge}`)
+                console.log(`Name: ${tour.product_name}`)
+                console.log(`Provider: ${tour.supplier}`)
+                
+                if (tour.pricing) {
+                    console.log(`\nECONOMICS - SHARED:`)
+                    console.log(`  Net Rate: $${tour.pricing.net_rate_adult}`)
+                    console.log(`  Factor Shared: ${tour.pricing.shared_factor}`)
+                    console.log(`  Calculated Public: $${Number(tour.pricing.net_rate_adult) * Number(tour.pricing.shared_factor)}`)
+                    
+                    console.log(`\nECONOMICS - CHILD:`)
+                    console.log(`  Net Child: $${tour.pricing.net_rate_child}`)
+                    
+                    console.log(`\nECONOMICS - PRIVATE:`)
+                    console.log(`  Net Private: $${tour.pricing.net_rate_private}`)
+                    console.log(`  Factor Private: ${tour.pricing.private_factor}`)
+                    
+                    console.log(`\nOPERATIONAL:`)
+                    console.log(`  Min Pax Shared: ${tour.pricing.shared_min_pax}`)
+                    console.log(`  Min Pax Private: ${tour.pricing.private_min_pax}`)
+                    console.log(`  Infant Age: ${tour.pricing.infant_age_threshold}`)
+                } else {
+                    console.log('\n❌ No Pricing Data Linked')
+                }
             })
         }
     } catch (error) {

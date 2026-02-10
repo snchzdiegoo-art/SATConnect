@@ -34,6 +34,10 @@ model Tour {
   
   // Relación 1:N con historial de cambios
   change_logs               TourChangeLog[]
+  
+  // Relaciones 1:N con variantes y campos personalizados
+  variants                  TourVariant[]
+  custom_fields             TourCustomFieldValue[]
 
   createdAt                 DateTime  @default(now())
 
@@ -53,7 +57,7 @@ model TourPricing {
 
   // SHARED RATES
   net_rate_adult            Decimal   @db.Decimal(10, 2)        // Col I - Shared Adult Net
-  shared_factor             Decimal   @default(1.5) @db.Decimal(4, 2) // Col J - Shared Factor (1.5-1.99)
+  shared_factor             Decimal   @default(1.5) @db.Decimal(10, 5) // Col J - Shared Factor (1.5-1.99)
   // CALCULATED: suggested_pvp_adult = net_rate_adult * shared_factor (Col K)
   
   net_rate_child            Decimal?  @db.Decimal(10, 2)        // Col L - Shared Child Net
@@ -64,7 +68,7 @@ model TourPricing {
 
   // PRIVATE RATES
   net_rate_private          Decimal?  @db.Decimal(10, 2)        // Col Q - Private Net
-  private_factor            Decimal   @default(1.5) @db.Decimal(4, 2) // Col R - Private Factor
+  private_factor            Decimal   @default(1.5) @db.Decimal(10, 5) // Col R - Private Factor
   private_min_pax           Int?                                // Col P - Private Min Pax
   private_min_pax_net_rate  Decimal?  @db.Decimal(10, 2)        // Private Min Pax Net Rate (base calculation)
   // CALCULATED: suggested_pvp_private = private_min_pax_net_rate * private_factor (Col S)
@@ -123,12 +127,14 @@ model TourDistribution {
   marketplace_b2b_markup        Decimal?  @db.Decimal(5, 2)     // Marketplace B2B Markup %
 
   // OTA CHANNELS - Project Expedition
-  project_expedition_id         Int?                            // Col AC - Project Expedition ID
+  project_expedition_id         String?                         // Col AC - Project Expedition ID
   project_expedition_status     String?                         // Col AD - Project Expedition Status
+  project_expedition_commission Decimal?  @db.Decimal(5, 2)     // Project Expedition Commission %
 
   // OTA CHANNELS - Expedia
-  expedia_id                    Int?                            // Col AE - Expedia ID
+  expedia_id                    String?                         // Col AE - Expedia ID
   expedia_status                String?                         // Col AF - Expedia Status
+  expedia_commission            Decimal?  @db.Decimal(5, 2)     // Expedia Commission %
 
   // OTA CHANNELS - Viator
   viator_id                     String?                         // Col AG - Viator ID
@@ -136,14 +142,22 @@ model TourDistribution {
   viator_status                 String?                         // Col AH - Viator Status
 
   // OTA CHANNELS - Klook
-  klook_id                      Int?                            // Col AI - Klook ID
+  klook_id                      String?                         // Col AI - Klook ID
   klook_status                  String?                         // Col AJ - Klook Status
+  klook_commission              Decimal?  @db.Decimal(5, 2)     // Klook Commission %
 
   // OTA CHANNELS - Additional Channels
   tur_com_status                String?                         // Tur.com Status
+  tur_com_commission            Decimal?  @db.Decimal(5, 2)     // Tur.com Commission %
+  
   tourist_com_status            String?                         // Tourist.com Status
+  tourist_com_commission        Decimal?  @db.Decimal(5, 2)     // Tourist.com Commission %
+  
   headout_status                String?                         // Headout Status
+  headout_commission            Decimal?  @db.Decimal(5, 2)     // Headout Commission %
+  
   tourradar_status              String?                         // TourRadar Status
+  tourradar_commission          Decimal?  @db.Decimal(5, 2)     // TourRadar Commission %
 
   @@map("tour_distribution")
 }
@@ -237,4 +251,68 @@ model Booking {
   @@index([bookingDate])
   @@index([status])
   @@map("bookings")
+}
+// ============================================================================
+// ENTIDAD 7: Tour Variants (Pricing Options)
+// ============================================================================
+model TourVariant {
+  id                Int       @id @default(autoincrement())
+  tour_id           Int
+  tour              Tour      @relation(fields: [tour_id], references: [id], onDelete: Cascade)
+  
+  name              String    // e.g., "All Inclusive", "Ticket Only"
+  description       String?   @db.Text
+  
+  // Pricing specific to this variant
+  net_rate_adult    Decimal   @db.Decimal(10, 2)
+  net_rate_child    Decimal?  @db.Decimal(10, 2)
+  
+  // Logistics overrides (optional)
+  duration          String?
+  
+  is_active         Boolean   @default(true)
+  
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  @@map("tour_variants")
+}
+
+// ============================================================================
+// ENTIDAD 8: Custom Fields System
+// ============================================================================
+model CustomFieldDefinition {
+  id          Int       @id @default(autoincrement())
+  key         String    @unique // e.g., "difficulty_level"
+  label       String    // e.g., "Difficulty Level"
+  type        String    // "text", "number", "boolean", "select"
+  options     String?   // JSON array for select options
+  is_active   Boolean   @default(true)
+  
+  values      TourCustomFieldValue[]
+
+  @@map("custom_field_definitions")
+}
+
+model GlobalOTASettings {
+  id                Int      @id @default(autoincrement())
+  channel_key       String   @unique // e.g. "viator", "expedia", "getyourguide", "klook"
+  channel_name      String
+  default_commission Decimal @default(0.00) @db.Decimal(5, 2)
+  is_active         Boolean  @default(true)
+  
+  @@map("global_ota_settings")
+}
+
+model TourCustomFieldValue {
+  id              Int                   @id @default(autoincrement())
+  tour_id         Int
+  tour            Tour                  @relation(fields: [tour_id], references: [id], onDelete: Cascade)
+  definition_id   Int
+  definition      CustomFieldDefinition @relation(fields: [definition_id], references: [id])
+  
+  value           String                @db.Text // Stored as string, parsed based on definition.type
+
+  @@unique([tour_id, definition_id])
+  @@map("tour_custom_field_values")
 }

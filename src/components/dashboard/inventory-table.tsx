@@ -12,6 +12,7 @@ import type { HealthStatus } from '@/components/ui/health-badge';
 
 interface TourListItem {
     id: number;
+    bokun_id: number;
     product_name: string;
     supplier: string;
     location: string;
@@ -96,7 +97,7 @@ export function InventoryTable({ onTourClick }: InventoryTableProps) {
                 <table className="w-full">
                     <thead className="bg-gray-100 border-b-2 border-gray-300">
                         <tr>
-                            <th className="px-4 py-3 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">ID</th>
+                            <th className="px-4 py-3 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">Bokun ID</th>
                             <th className="px-4 py-3 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">Product Name</th>
                             <th className="px-4 py-3 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">Provider</th>
                             <th className="px-4 py-3 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">Location</th>
@@ -126,7 +127,7 @@ export function InventoryTable({ onTourClick }: InventoryTableProps) {
                                     onClick={() => onTourClick?.(tour.id)}
                                     className="hover:bg-gray-50 cursor-pointer transition-colors"
                                 >
-                                    <td className="px-4 py-3 text-sm font-mono text-gray-600">{tour.id}</td>
+                                    <td className="px-4 py-3 text-sm font-mono text-gray-600">{tour.bokun_id}</td>
                                     <td className="px-4 py-3 text-sm font-medium text-gray-900">{tour.product_name}</td>
                                     <td className="px-4 py-3 text-sm text-gray-600">{tour.supplier}</td>
                                     <td className="px-4 py-3 text-sm text-gray-600">{tour.location}</td>

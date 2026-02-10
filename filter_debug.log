@@ -1,0 +1,1348 @@
+
+[2026-02-09T19:52:18.906Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T19:52:18.912Z] WHERE: {}
+
+[2026-02-09T19:52:18.922Z] Params: {"limit":"1000"}
+[2026-02-09T19:52:18.923Z] WHERE: {}
+
+[2026-02-09T19:52:19.797Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T19:52:19.798Z] WHERE: {}
+
+[2026-02-09T19:52:20.081Z] Params: {"limit":"1000"}
+[2026-02-09T19:52:20.082Z] WHERE: {}
+
+[2026-02-09T19:52:20.289Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T19:52:20.291Z] WHERE: {}
+
+[2026-02-09T19:52:20.546Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T19:52:20.550Z] WHERE: {}
+
+[2026-02-09T19:52:20.797Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T19:52:20.798Z] WHERE: {}
+
+[2026-02-09T19:52:24.753Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T19:52:24.755Z] WHERE: {}
+
+[2026-02-09T19:52:24.786Z] Params: {"page":"1","limit":"20","locations":"Holbox Island, Quintana Roo"}
+[2026-02-09T19:52:24.788Z] Parsed Locations: ["Holbox Island, Quintana Roo"]
+[2026-02-09T19:52:24.789Z] WHERE: {"location":{"in":["Holbox Island, Quintana Roo"]}}
+
+[2026-02-09T19:52:25.040Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T19:52:25.042Z] WHERE: {}
+
+[2026-02-09T19:52:30.109Z] Params: {"page":"1","limit":"20","locations":"Holbox Island, Quintana Roo"}
+[2026-02-09T19:52:30.110Z] Parsed Locations: ["Holbox Island, Quintana Roo"]
+[2026-02-09T19:52:30.111Z] WHERE: {"location":{"in":["Holbox Island, Quintana Roo"]}}
+
+[2026-02-09T19:52:30.146Z] Params: {"page":"1","limit":"20","locations":"Holbox Island, Quintana Roo|Tulum, Quintana Roo"}
+[2026-02-09T19:52:30.147Z] Parsed Locations: ["Holbox Island, Quintana Roo","Tulum, Quintana Roo"]
+[2026-02-09T19:52:30.148Z] WHERE: {"location":{"in":["Holbox Island, Quintana Roo","Tulum, Quintana Roo"]}}
+
+[2026-02-09T19:52:30.582Z] Params: {"page":"1","limit":"20","locations":"Holbox Island, Quintana Roo"}
+[2026-02-09T19:52:30.582Z] Parsed Locations: ["Holbox Island, Quintana Roo"]
+[2026-02-09T19:52:30.584Z] WHERE: {"location":{"in":["Holbox Island, Quintana Roo"]}}
+
+[2026-02-09T19:52:34.361Z] Params: {"page":"1","limit":"20","locations":"Holbox Island, Quintana Roo|Tulum, Quintana Roo"}
+[2026-02-09T19:52:34.361Z] Parsed Locations: ["Holbox Island, Quintana Roo","Tulum, Quintana Roo"]
+[2026-02-09T19:52:34.362Z] WHERE: {"location":{"in":["Holbox Island, Quintana Roo","Tulum, Quintana Roo"]}}
+
+[2026-02-09T19:52:34.391Z] Params: {"page":"1","limit":"20","locations":"Holbox Island, Quintana Roo|Tulum, Quintana Roo|Valladolid, Yucatan"}
+[2026-02-09T19:52:34.392Z] Parsed Locations: ["Holbox Island, Quintana Roo","Tulum, Quintana Roo","Valladolid, Yucatan"]
+[2026-02-09T19:52:34.394Z] WHERE: {"location":{"in":["Holbox Island, Quintana Roo","Tulum, Quintana Roo","Valladolid, Yucatan"]}}
+
+[2026-02-09T19:52:34.832Z] Params: {"page":"1","limit":"20","locations":"Holbox Island, Quintana Roo|Tulum, Quintana Roo"}
+[2026-02-09T19:52:34.832Z] Parsed Locations: ["Holbox Island, Quintana Roo","Tulum, Quintana Roo"]
+[2026-02-09T19:52:34.834Z] WHERE: {"location":{"in":["Holbox Island, Quintana Roo","Tulum, Quintana Roo"]}}
+
+[2026-02-09T19:52:37.118Z] Params: {"page":"1","limit":"20","locations":"Holbox Island, Quintana Roo|Tulum, Quintana Roo|Valladolid, Yucatan"}
+[2026-02-09T19:52:37.118Z] Parsed Locations: ["Holbox Island, Quintana Roo","Tulum, Quintana Roo","Valladolid, Yucatan"]
+[2026-02-09T19:52:37.120Z] WHERE: {"location":{"in":["Holbox Island, Quintana Roo","Tulum, Quintana Roo","Valladolid, Yucatan"]}}
+
+[2026-02-09T19:52:37.145Z] Params: {"page":"1","limit":"20","locations":"Holbox Island, Quintana Roo|Tulum, Quintana Roo|Valladolid, Yucatan|Cancun, Quintana Roo"}
+[2026-02-09T19:52:37.146Z] Parsed Locations: ["Holbox Island, Quintana Roo","Tulum, Quintana Roo","Valladolid, Yucatan","Cancun, Quintana Roo"]
+[2026-02-09T19:52:37.147Z] WHERE: {"location":{"in":["Holbox Island, Quintana Roo","Tulum, Quintana Roo","Valladolid, Yucatan","Cancun, Quintana Roo"]}}
+
+[2026-02-09T19:52:37.613Z] Params: {"page":"1","limit":"20","locations":"Holbox Island, Quintana Roo|Tulum, Quintana Roo|Valladolid, Yucatan"}
+[2026-02-09T19:52:37.614Z] Parsed Locations: ["Holbox Island, Quintana Roo","Tulum, Quintana Roo","Valladolid, Yucatan"]
+[2026-02-09T19:52:37.617Z] WHERE: {"location":{"in":["Holbox Island, Quintana Roo","Tulum, Quintana Roo","Valladolid, Yucatan"]}}
+
+[2026-02-09T19:52:40.402Z] Params: {"page":"1","limit":"20","locations":"Holbox Island, Quintana Roo|Tulum, Quintana Roo|Valladolid, Yucatan|Cancun, Quintana Roo"}
+[2026-02-09T19:52:40.404Z] Parsed Locations: ["Holbox Island, Quintana Roo","Tulum, Quintana Roo","Valladolid, Yucatan","Cancun, Quintana Roo"]
+[2026-02-09T19:52:40.405Z] WHERE: {"location":{"in":["Holbox Island, Quintana Roo","Tulum, Quintana Roo","Valladolid, Yucatan","Cancun, Quintana Roo"]}}
+
+[2026-02-09T19:52:40.429Z] Params: {"page":"1","limit":"20","locations":"Holbox Island, Quintana Roo|Tulum, Quintana Roo|Valladolid, Yucatan"}
+[2026-02-09T19:52:40.430Z] Parsed Locations: ["Holbox Island, Quintana Roo","Tulum, Quintana Roo","Valladolid, Yucatan"]
+[2026-02-09T19:52:40.431Z] WHERE: {"location":{"in":["Holbox Island, Quintana Roo","Tulum, Quintana Roo","Valladolid, Yucatan"]}}
+
+[2026-02-09T19:52:40.702Z] Params: {"page":"1","limit":"20","locations":"Holbox Island, Quintana Roo|Tulum, Quintana Roo|Valladolid, Yucatan|Cancun, Quintana Roo"}
+[2026-02-09T19:52:40.702Z] Parsed Locations: ["Holbox Island, Quintana Roo","Tulum, Quintana Roo","Valladolid, Yucatan","Cancun, Quintana Roo"]
+[2026-02-09T19:52:40.705Z] WHERE: {"location":{"in":["Holbox Island, Quintana Roo","Tulum, Quintana Roo","Valladolid, Yucatan","Cancun, Quintana Roo"]}}
+
+[2026-02-09T19:52:41.139Z] Params: {"page":"1","limit":"20","locations":"Holbox Island, Quintana Roo|Tulum, Quintana Roo|Valladolid, Yucatan"}
+[2026-02-09T19:52:41.140Z] Parsed Locations: ["Holbox Island, Quintana Roo","Tulum, Quintana Roo","Valladolid, Yucatan"]
+[2026-02-09T19:52:41.141Z] WHERE: {"location":{"in":["Holbox Island, Quintana Roo","Tulum, Quintana Roo","Valladolid, Yucatan"]}}
+
+[2026-02-09T19:52:41.166Z] Params: {"page":"1","limit":"20","locations":"Tulum, Quintana Roo|Valladolid, Yucatan"}
+[2026-02-09T19:52:41.167Z] Parsed Locations: ["Tulum, Quintana Roo","Valladolid, Yucatan"]
+[2026-02-09T19:52:41.168Z] WHERE: {"location":{"in":["Tulum, Quintana Roo","Valladolid, Yucatan"]}}
+
+[2026-02-09T19:52:41.390Z] Params: {"page":"1","limit":"20","locations":"Holbox Island, Quintana Roo|Tulum, Quintana Roo|Valladolid, Yucatan"}
+[2026-02-09T19:52:41.391Z] Parsed Locations: ["Holbox Island, Quintana Roo","Tulum, Quintana Roo","Valladolid, Yucatan"]
+[2026-02-09T19:52:41.393Z] WHERE: {"location":{"in":["Holbox Island, Quintana Roo","Tulum, Quintana Roo","Valladolid, Yucatan"]}}
+
+[2026-02-09T19:52:41.847Z] Params: {"page":"1","limit":"20","locations":"Tulum, Quintana Roo|Valladolid, Yucatan"}
+[2026-02-09T19:52:41.848Z] Parsed Locations: ["Tulum, Quintana Roo","Valladolid, Yucatan"]
+[2026-02-09T19:52:41.849Z] WHERE: {"location":{"in":["Tulum, Quintana Roo","Valladolid, Yucatan"]}}
+
+[2026-02-09T19:52:41.877Z] Params: {"page":"1","limit":"20","locations":"Valladolid, Yucatan"}
+[2026-02-09T19:52:41.877Z] Parsed Locations: ["Valladolid, Yucatan"]
+[2026-02-09T19:52:41.879Z] WHERE: {"location":{"in":["Valladolid, Yucatan"]}}
+
+[2026-02-09T19:52:42.092Z] Params: {"page":"1","limit":"20","locations":"Tulum, Quintana Roo|Valladolid, Yucatan"}
+[2026-02-09T19:52:42.093Z] Parsed Locations: ["Tulum, Quintana Roo","Valladolid, Yucatan"]
+[2026-02-09T19:52:42.094Z] WHERE: {"location":{"in":["Tulum, Quintana Roo","Valladolid, Yucatan"]}}
+
+[2026-02-09T19:52:42.807Z] Params: {"page":"1","limit":"20","locations":"Valladolid, Yucatan"}
+[2026-02-09T19:52:42.809Z] Parsed Locations: ["Valladolid, Yucatan"]
+[2026-02-09T19:52:42.810Z] WHERE: {"location":{"in":["Valladolid, Yucatan"]}}
+
+[2026-02-09T19:52:42.841Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T19:52:42.843Z] WHERE: {}
+
+[2026-02-09T19:52:43.304Z] Params: {"page":"1","limit":"20","locations":"Valladolid, Yucatan"}
+[2026-02-09T19:52:43.305Z] Parsed Locations: ["Valladolid, Yucatan"]
+[2026-02-09T19:52:43.306Z] WHERE: {"location":{"in":["Valladolid, Yucatan"]}}
+
+[2026-02-09T19:52:50.224Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T19:52:50.225Z] WHERE: {}
+
+[2026-02-09T19:52:50.246Z] Params: {"page":"1","limit":"20","providers":"Cancun Explorer Tours"}
+[2026-02-09T19:52:50.247Z] WHERE: {"supplier":{"in":["Cancun Explorer Tours"]}}
+
+[2026-02-09T19:52:50.530Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T19:52:50.531Z] WHERE: {}
+
+[2026-02-09T19:52:56.134Z] Params: {"page":"1","limit":"20","providers":"Cancun Explorer Tours"}
+[2026-02-09T19:52:56.135Z] WHERE: {"supplier":{"in":["Cancun Explorer Tours"]}}
+
+[2026-02-09T19:52:56.167Z] Params: {"page":"1","limit":"20","providers":"Cancun Explorer Tours|Yucatan Dreams"}
+[2026-02-09T19:52:56.168Z] WHERE: {"supplier":{"in":["Cancun Explorer Tours","Yucatan Dreams"]}}
+
+[2026-02-09T19:52:56.416Z] Params: {"page":"1","limit":"20","providers":"Cancun Explorer Tours"}
+[2026-02-09T19:52:56.417Z] WHERE: {"supplier":{"in":["Cancun Explorer Tours"]}}
+
+[2026-02-09T20:03:12.115Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T20:03:12.116Z] WHERE: {}
+
+[2026-02-09T20:03:12.129Z] Params: {"limit":"1000"}
+[2026-02-09T20:03:12.129Z] WHERE: {}
+
+[2026-02-09T20:03:13.974Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T20:03:13.975Z] WHERE: {}
+
+[2026-02-09T20:03:13.982Z] Params: {"limit":"1000"}
+[2026-02-09T20:03:13.983Z] WHERE: {}
+
+[2026-02-09T20:03:14.246Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T20:03:14.246Z] WHERE: {}
+
+[2026-02-09T20:03:17.648Z] Params: {"page":"1","limit":"20","locations":"Holbox Island, Quintana Roo"}
+[2026-02-09T20:03:17.649Z] Parsed Locations: ["Holbox Island, Quintana Roo"]
+[2026-02-09T20:03:17.651Z] WHERE: {"location":{"in":["Holbox Island, Quintana Roo"]}}
+
+[2026-02-09T20:03:20.978Z] Params: {"page":"1","limit":"20","locations":"Holbox Island, Quintana Roo|Cancun, Quintana Roo"}
+[2026-02-09T20:03:20.979Z] Parsed Locations: ["Holbox Island, Quintana Roo","Cancun, Quintana Roo"]
+[2026-02-09T20:03:20.979Z] WHERE: {"location":{"in":["Holbox Island, Quintana Roo","Cancun, Quintana Roo"]}}
+
+[2026-02-09T20:03:24.281Z] Params: {"page":"1","limit":"20","locations":"Holbox Island, Quintana Roo"}
+[2026-02-09T20:03:24.282Z] Parsed Locations: ["Holbox Island, Quintana Roo"]
+[2026-02-09T20:03:24.282Z] WHERE: {"location":{"in":["Holbox Island, Quintana Roo"]}}
+
+[2026-02-09T20:03:26.723Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T20:03:26.724Z] WHERE: {}
+
+[2026-02-09T20:03:28.526Z] Params: {"page":"1","limit":"20","health":"global_ready"}
+[2026-02-09T20:03:28.528Z] WHERE: {}
+
+[2026-02-09T20:03:29.931Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T20:03:29.932Z] WHERE: {}
+
+[2026-02-09T20:03:31.082Z] Params: {"page":"1","limit":"20","health":"incomplete"}
+[2026-02-09T20:03:31.083Z] WHERE: {}
+
+[2026-02-09T20:03:32.901Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T20:03:32.902Z] WHERE: {}
+
+[2026-02-09T20:03:35.326Z] Params: {"page":"1","limit":"20","health":"audit_required"}
+[2026-02-09T20:03:35.326Z] WHERE: {}
+
+[2026-02-09T20:03:36.848Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T20:03:36.850Z] WHERE: {}
+
+[2026-02-09T20:03:38.416Z] Params: {"page":"1","limit":"20","health":"healthy"}
+[2026-02-09T20:03:38.418Z] WHERE: {}
+
+[2026-02-09T20:03:40.660Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T20:03:40.661Z] WHERE: {}
+
+[2026-02-09T20:03:45.561Z] Params: {"page":"1","limit":"20","providers":"Yucatan Dreams"}
+[2026-02-09T20:03:45.561Z] WHERE: {"supplier":{"in":["Yucatan Dreams"]}}
+
+[2026-02-09T20:03:47.924Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T20:03:47.925Z] WHERE: {}
+
+[2026-02-09T20:03:49.395Z] Params: {"page":"1","limit":"20","providers":"Cancun Explorer Tours"}
+[2026-02-09T20:03:49.396Z] WHERE: {"supplier":{"in":["Cancun Explorer Tours"]}}
+
+[2026-02-09T20:03:51.479Z] Params: {"page":"1","limit":"20","providers":"Cancun Explorer Tours|Underground Wonders"}
+[2026-02-09T20:03:51.480Z] WHERE: {"supplier":{"in":["Cancun Explorer Tours","Underground Wonders"]}}
+
+[2026-02-09T20:03:52.749Z] Params: {"page":"1","limit":"20","providers":"Underground Wonders"}
+[2026-02-09T20:03:52.751Z] WHERE: {"supplier":{"in":["Underground Wonders"]}}
+
+[2026-02-09T20:03:53.708Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T20:03:53.710Z] WHERE: {}
+
+[2026-02-09T20:07:07.831Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T20:07:07.832Z] WHERE: {}
+
+[2026-02-09T20:07:07.839Z] Params: {"limit":"1000"}
+[2026-02-09T20:07:07.840Z] WHERE: {}
+
+[2026-02-09T20:07:08.376Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T20:07:08.377Z] WHERE: {}
+
+[2026-02-09T20:07:13.392Z] Params: {"page":"1","limit":"20","providers":"-"}
+[2026-02-09T20:07:13.393Z] WHERE: {"supplier":{"in":["-"]}}
+
+[2026-02-09T20:07:25.791Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T20:07:25.791Z] WHERE: {}
+
+[2026-02-09T20:07:29.363Z] Params: {"page":"1","limit":"20","providers":"SABORES MEXICO"}
+[2026-02-09T20:07:29.363Z] WHERE: {"supplier":{"in":["SABORES MEXICO"]}}
+
+[2026-02-09T20:07:30.873Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T20:07:30.874Z] WHERE: {}
+
+[2026-02-09T20:07:36.160Z] Params: {"page":"1","limit":"20","providers":"COBA SUNSET"}
+[2026-02-09T20:07:36.162Z] WHERE: {"supplier":{"in":["COBA SUNSET"]}}
+
+[2026-02-09T20:09:54.459Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T20:09:54.460Z] WHERE: {}
+
+[2026-02-09T20:09:57.989Z] Params: {"page":"1","limit":"20","locations":"Unknown"}
+[2026-02-09T20:09:57.991Z] Parsed Locations: ["Unknown"]
+[2026-02-09T20:09:57.992Z] WHERE: {"location":{"in":["Unknown"]}}
+
+[2026-02-09T20:10:06.426Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T20:10:06.427Z] WHERE: {}
+
+[2026-02-09T20:15:33.551Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T20:15:33.552Z] WHERE: {}
+
+[2026-02-09T20:15:33.561Z] Params: {"limit":"1000"}
+[2026-02-09T20:15:33.562Z] WHERE: {}
+
+[2026-02-09T20:15:35.118Z] Params: {"limit":"1000"}
+[2026-02-09T20:15:35.119Z] WHERE: {}
+
+[2026-02-09T20:15:35.544Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T20:15:35.544Z] WHERE: {}
+
+[2026-02-09T20:15:35.886Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T20:15:35.887Z] WHERE: {}
+
+[2026-02-09T20:15:46.241Z] Params: {"page":"1","limit":"20","providers":"COBA SUNSET"}
+[2026-02-09T20:15:46.242Z] WHERE: {"supplier":{"in":["COBA SUNSET"]}}
+
+[2026-02-09T20:16:55.096Z] Params: {"page":"1","limit":"20","providers":"COBA SUNSET"}
+[2026-02-09T20:16:55.098Z] WHERE: {"supplier":{"in":["COBA SUNSET"]}}
+
+[2026-02-09T20:16:55.108Z] Params: {"limit":"1000"}
+[2026-02-09T20:16:55.109Z] WHERE: {}
+
+[2026-02-09T20:16:55.408Z] Params: {"page":"1","limit":"20","providers":"COBA SUNSET"}
+[2026-02-09T20:16:55.409Z] WHERE: {"supplier":{"in":["COBA SUNSET"]}}
+
+[2026-02-09T20:17:34.380Z] Params: {"page":"1","limit":"20","providers":"COBA SUNSET"}
+[2026-02-09T20:17:34.383Z] WHERE: {"supplier":{"in":["COBA SUNSET"]}}
+
+[2026-02-09T20:17:34.390Z] Params: {"limit":"1000"}
+[2026-02-09T20:17:34.391Z] WHERE: {}
+
+[2026-02-09T20:17:34.951Z] Params: {"page":"1","limit":"20","providers":"COBA SUNSET"}
+[2026-02-09T20:17:34.952Z] WHERE: {"supplier":{"in":["COBA SUNSET"]}}
+
+[2026-02-09T20:17:36.509Z] Params: {"page":"1","limit":"20","providers":"COBA SUNSET"}
+[2026-02-09T20:17:36.511Z] WHERE: {"supplier":{"in":["COBA SUNSET"]}}
+
+[2026-02-09T20:17:36.520Z] Params: {"limit":"1000"}
+[2026-02-09T20:17:36.521Z] WHERE: {}
+
+[2026-02-09T20:17:36.772Z] Params: {"page":"1","limit":"20","providers":"COBA SUNSET"}
+[2026-02-09T20:17:36.773Z] WHERE: {"supplier":{"in":["COBA SUNSET"]}}
+
+[2026-02-09T20:17:38.608Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T20:17:38.609Z] WHERE: {}
+
+[2026-02-09T20:17:38.618Z] Params: {"limit":"1000"}
+[2026-02-09T20:17:38.619Z] WHERE: {}
+
+[2026-02-09T20:17:38.903Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T20:17:38.904Z] WHERE: {}
+
+[2026-02-09T20:17:38.995Z] Params: {"limit":"1000"}
+[2026-02-09T20:17:38.996Z] WHERE: {}
+
+[2026-02-09T20:17:39.178Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T20:17:39.179Z] WHERE: {}
+
+[2026-02-09T20:17:52.420Z] Params: {"page":"1","limit":"20","health":"healthy"}
+[2026-02-09T20:17:52.421Z] WHERE: {}
+
+[2026-02-09T20:17:54.929Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T20:17:54.930Z] WHERE: {}
+
+[2026-02-09T20:17:56.040Z] Params: {"page":"1","limit":"20","health":"incomplete"}
+[2026-02-09T20:17:56.042Z] WHERE: {}
+
+[2026-02-09T20:18:02.564Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T20:18:02.566Z] WHERE: {}
+
+[2026-02-09T20:21:07.478Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T20:21:07.480Z] WHERE: {}
+
+[2026-02-09T20:21:07.486Z] Params: {"limit":"1000"}
+[2026-02-09T20:21:07.486Z] WHERE: {}
+
+[2026-02-09T20:21:08.689Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T20:21:08.690Z] WHERE: {}
+
+[2026-02-09T20:21:40.420Z] Params: {"page":"1","limit":"20","providers":"COBA SUNSET"}
+[2026-02-09T20:21:40.421Z] WHERE: {"supplier":{"in":["COBA SUNSET"]}}
+
+[2026-02-09T20:22:04.273Z] Params: {"page":"1","limit":"20","providers":"COBA SUNSET"}
+[2026-02-09T20:22:04.275Z] WHERE: {"supplier":{"in":["COBA SUNSET"]}}
+
+[2026-02-09T20:22:04.286Z] Params: {"limit":"1000"}
+[2026-02-09T20:22:04.287Z] WHERE: {}
+
+[2026-02-09T20:22:04.566Z] Params: {"page":"1","limit":"20","providers":"COBA SUNSET"}
+[2026-02-09T20:22:04.568Z] WHERE: {"supplier":{"in":["COBA SUNSET"]}}
+
+[2026-02-09T20:22:41.860Z] Params: {"page":"1","limit":"20","providers":"COBA SUNSET"}
+[2026-02-09T20:22:41.861Z] WHERE: {"supplier":{"in":["COBA SUNSET"]}}
+
+[2026-02-09T20:22:42.769Z] Params: {"page":"1","limit":"20","providers":"COBA SUNSET"}
+[2026-02-09T20:22:42.770Z] WHERE: {"supplier":{"in":["COBA SUNSET"]}}
+
+[2026-02-09T20:22:43.024Z] Params: {"page":"1","limit":"20","providers":"COBA SUNSET"}
+[2026-02-09T20:22:43.024Z] WHERE: {"supplier":{"in":["COBA SUNSET"]}}
+
+[2026-02-09T20:22:46.462Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T20:22:46.463Z] WHERE: {}
+
+[2026-02-09T20:23:12.859Z] Params: {"page":"1","limit":"20","search":"h"}
+[2026-02-09T20:23:12.861Z] WHERE: {}
+
+[2026-02-09T20:23:12.946Z] Params: {"page":"1","limit":"20","search":"ho"}
+[2026-02-09T20:23:12.947Z] WHERE: {}
+
+[2026-02-09T20:23:13.178Z] Params: {"page":"1","limit":"20","search":"hol"}
+[2026-02-09T20:23:13.179Z] WHERE: {}
+
+[2026-02-09T20:23:13.296Z] Params: {"page":"1","limit":"20","search":"holb"}
+[2026-02-09T20:23:13.298Z] WHERE: {}
+
+[2026-02-09T20:23:13.452Z] Params: {"page":"1","limit":"20","search":"holbo"}
+[2026-02-09T20:23:13.453Z] WHERE: {}
+
+[2026-02-09T20:23:13.552Z] Params: {"page":"1","limit":"20","search":"holbox"}
+[2026-02-09T20:23:13.553Z] WHERE: {}
+
+[2026-02-09T20:28:29.770Z] Params: {"page":"1","limit":"20","search":"holbox"}
+[2026-02-09T20:28:29.771Z] WHERE: {}
+
+[2026-02-09T20:29:26.578Z] Params: {"limit":"1000"}
+[2026-02-09T20:29:26.579Z] WHERE: {}
+
+[2026-02-09T20:29:26.596Z] Params: {"page":"1","limit":"20","search":"holbox"}
+[2026-02-09T20:29:26.598Z] WHERE: {}
+
+[2026-02-09T20:29:26.929Z] Params: {"page":"1","limit":"20","search":"holbox"}
+[2026-02-09T20:29:26.930Z] WHERE: {}
+
+[2026-02-09T20:29:26.935Z] Params: {"limit":"1000"}
+[2026-02-09T20:29:26.936Z] WHERE: {}
+
+[2026-02-09T20:29:27.410Z] Params: {"page":"1","limit":"20","search":"holbox"}
+[2026-02-09T20:29:27.411Z] WHERE: {}
+
+[2026-02-09T20:30:16.877Z] Params: {"page":"1","limit":"20","search":"holbox"}
+[2026-02-09T20:30:16.879Z] WHERE: {}
+
+[2026-02-09T20:30:16.886Z] Params: {"limit":"1000"}
+[2026-02-09T20:30:16.887Z] WHERE: {}
+
+[2026-02-09T20:30:17.004Z] Params: {"page":"1","limit":"20","search":"holbox"}
+[2026-02-09T20:30:17.005Z] WHERE: {}
+
+[2026-02-09T20:31:47.998Z] Params: {"page":"1","limit":"20","search":"holbox"}
+[2026-02-09T20:31:47.999Z] WHERE: {}
+
+[2026-02-09T20:31:48.004Z] Params: {"limit":"1000"}
+[2026-02-09T20:31:48.005Z] WHERE: {}
+
+[2026-02-09T20:31:48.136Z] Params: {"page":"1","limit":"20","search":"holbox"}
+[2026-02-09T20:31:48.138Z] WHERE: {}
+
+[2026-02-09T20:32:33.415Z] Params: {"page":"1","limit":"20","search":"holbox"}
+[2026-02-09T20:32:33.416Z] WHERE: {}
+
+[2026-02-09T20:32:33.423Z] Params: {"limit":"1000"}
+[2026-02-09T20:32:33.424Z] WHERE: {}
+
+[2026-02-09T20:32:33.506Z] Params: {"page":"1","limit":"20","search":"holbox"}
+[2026-02-09T20:32:33.507Z] WHERE: {}
+
+[2026-02-09T20:32:54.053Z] Params: {"page":"1","limit":"20","search":"holbox"}
+[2026-02-09T20:32:54.054Z] WHERE: {}
+
+[2026-02-09T20:32:54.057Z] Params: {"limit":"1000"}
+[2026-02-09T20:32:54.058Z] WHERE: {}
+
+[2026-02-09T20:32:54.232Z] Params: {"page":"1","limit":"20","search":"holbox"}
+[2026-02-09T20:32:54.233Z] WHERE: {}
+
+[2026-02-09T20:34:01.057Z] Params: {"page":"1","limit":"20","search":"holbox"}
+[2026-02-09T20:34:01.060Z] WHERE: {}
+
+[2026-02-09T20:34:01.066Z] Params: {"limit":"1000"}
+[2026-02-09T20:34:01.067Z] WHERE: {}
+
+[2026-02-09T20:34:01.152Z] Params: {"page":"1","limit":"20","search":"holbox"}
+[2026-02-09T20:34:01.153Z] WHERE: {}
+
+[2026-02-09T22:39:19.838Z] Params: {"page":"1","limit":"20","search":"holbox"}
+[2026-02-09T22:39:19.840Z] WHERE: {}
+
+[2026-02-09T22:39:19.848Z] Params: {"limit":"1000"}
+[2026-02-09T22:39:19.848Z] WHERE: {}
+
+[2026-02-09T22:39:21.471Z] Params: {"page":"1","limit":"20","search":"holbox"}
+[2026-02-09T22:39:21.471Z] WHERE: {}
+
+[2026-02-09T22:52:13.468Z] Params: {"page":"1","limit":"20","search":"holbox"}
+[2026-02-09T22:52:13.469Z] WHERE: {}
+
+[2026-02-09T22:52:13.477Z] Params: {"limit":"1000"}
+[2026-02-09T22:52:13.478Z] WHERE: {}
+
+[2026-02-09T22:52:15.096Z] Params: {"page":"1","limit":"20","search":"holbox"}
+[2026-02-09T22:52:15.098Z] WHERE: {}
+
+[2026-02-09T22:52:16.403Z] Params: {"page":"1","limit":"20","search":"holbox"}
+[2026-02-09T22:52:16.404Z] WHERE: {}
+
+[2026-02-09T22:52:16.412Z] Params: {"limit":"1000"}
+[2026-02-09T22:52:16.413Z] WHERE: {}
+
+[2026-02-09T22:52:16.487Z] Params: {"page":"1","limit":"20","search":"holbox"}
+[2026-02-09T22:52:16.488Z] WHERE: {}
+
+[2026-02-09T22:57:46.454Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T22:57:46.456Z] WHERE: {}
+
+[2026-02-09T22:57:46.465Z] Params: {"limit":"1000"}
+[2026-02-09T22:57:46.467Z] WHERE: {}
+
+[2026-02-09T22:57:47.834Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T22:57:47.835Z] WHERE: {}
+
+[2026-02-09T22:57:48.025Z] Params: {"limit":"1000"}
+[2026-02-09T22:57:48.027Z] WHERE: {}
+
+[2026-02-09T22:57:48.714Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T22:57:48.715Z] WHERE: {}
+
+[2026-02-09T22:58:02.193Z] Params: {"page":"1","limit":"20","search":"h"}
+[2026-02-09T22:58:02.195Z] WHERE: {}
+
+[2026-02-09T22:58:02.297Z] Params: {"page":"1","limit":"20","search":"ho"}
+[2026-02-09T22:58:02.298Z] WHERE: {}
+
+[2026-02-09T22:58:02.504Z] Params: {"page":"1","limit":"20","search":"hol"}
+[2026-02-09T22:58:02.505Z] WHERE: {}
+
+[2026-02-09T22:58:02.668Z] Params: {"page":"1","limit":"20","search":"holb"}
+[2026-02-09T22:58:02.670Z] WHERE: {}
+
+[2026-02-09T22:58:07.130Z] Params: {"page":"1","limit":"20","search":"holbo"}
+[2026-02-09T22:58:07.131Z] WHERE: {}
+
+[2026-02-09T22:58:07.257Z] Params: {"page":"1","limit":"20","search":"holbox"}
+[2026-02-09T22:58:07.259Z] WHERE: {}
+
+[2026-02-09T22:58:10.363Z] Params: {"page":"1","limit":"20","search":"holbo"}
+[2026-02-09T22:58:10.365Z] WHERE: {}
+
+[2026-02-09T22:58:10.579Z] Params: {"page":"1","limit":"20","search":"holb"}
+[2026-02-09T22:58:10.580Z] WHERE: {}
+
+[2026-02-09T22:58:10.738Z] Params: {"page":"1","limit":"20","search":"hol"}
+[2026-02-09T22:58:10.740Z] WHERE: {}
+
+[2026-02-09T22:58:12.233Z] Params: {"page":"1","limit":"20","search":"holb"}
+[2026-02-09T22:58:12.234Z] WHERE: {}
+
+[2026-02-09T22:58:19.714Z] Params: {"page":"1","limit":"20","search":"holbo"}
+[2026-02-09T22:58:19.715Z] WHERE: {}
+
+[2026-02-09T22:58:19.866Z] Params: {"page":"1","limit":"20","search":"holbox"}
+[2026-02-09T22:58:19.867Z] WHERE: {}
+
+[2026-02-09T22:58:21.051Z] Params: {"page":"1","limit":"20","search":"holbo"}
+[2026-02-09T22:58:21.052Z] WHERE: {}
+
+[2026-02-09T22:58:21.656Z] Params: {"page":"1","limit":"20","search":"h"}
+[2026-02-09T22:58:21.657Z] WHERE: {}
+
+[2026-02-09T22:58:21.704Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T22:58:21.705Z] WHERE: {}
+
+[2026-02-09T22:59:16.630Z] Params: {"page":"1","limit":"20","providers":"RUTAS MAYAS"}
+[2026-02-09T22:59:16.632Z] WHERE: {"supplier":{"in":["RUTAS MAYAS"]}}
+
+[2026-02-09T22:59:20.716Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T22:59:20.718Z] WHERE: {}
+
+[2026-02-09T23:02:00.341Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T23:02:00.342Z] WHERE: {}
+
+[2026-02-09T23:02:00.347Z] Params: {"limit":"1000"}
+[2026-02-09T23:02:00.348Z] WHERE: {}
+
+[2026-02-09T23:02:00.630Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T23:02:00.630Z] WHERE: {}
+
+[2026-02-09T23:02:00.635Z] Params: {"limit":"1000"}
+[2026-02-09T23:02:00.636Z] WHERE: {}
+
+[2026-02-09T23:02:01.165Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T23:02:01.165Z] WHERE: {}
+
+[2026-02-09T23:05:27.126Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T23:05:27.128Z] WHERE: {}
+
+[2026-02-09T23:05:27.134Z] Params: {"limit":"1000"}
+[2026-02-09T23:05:27.135Z] WHERE: {}
+
+[2026-02-09T23:05:27.756Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T23:05:27.757Z] WHERE: {}
+
+[2026-02-09T23:12:51.443Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T23:12:51.444Z] WHERE: {}
+
+[2026-02-09T23:12:51.453Z] Params: {"limit":"1000"}
+[2026-02-09T23:12:51.454Z] WHERE: {}
+
+[2026-02-09T23:12:52.873Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T23:12:52.874Z] WHERE: {}
+
+[2026-02-09T23:13:40.743Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T23:13:40.744Z] WHERE: {}
+
+[2026-02-09T23:13:40.751Z] Params: {"limit":"1000"}
+[2026-02-09T23:13:40.752Z] WHERE: {}
+
+[2026-02-09T23:13:40.953Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T23:13:40.954Z] WHERE: {}
+
+[2026-02-09T23:20:20.761Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T23:20:20.762Z] WHERE: {}
+
+[2026-02-09T23:20:20.771Z] Params: {"limit":"1000"}
+[2026-02-09T23:20:20.772Z] WHERE: {}
+
+[2026-02-09T23:20:21.675Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T23:20:21.676Z] WHERE: {}
+
+[2026-02-09T23:20:26.407Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T23:20:26.408Z] WHERE: {}
+
+[2026-02-09T23:20:26.412Z] Params: {"limit":"1000"}
+[2026-02-09T23:20:26.412Z] WHERE: {}
+
+[2026-02-09T23:20:26.778Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T23:20:26.779Z] WHERE: {}
+
+[2026-02-09T23:20:36.305Z] Params: {"page":"1","limit":"20","health":"healthy"}
+[2026-02-09T23:20:36.306Z] WHERE: {}
+
+[2026-02-09T23:20:37.058Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T23:20:37.060Z] WHERE: {}
+
+[2026-02-09T23:20:37.774Z] Params: {"page":"1","limit":"20","health":"incomplete"}
+[2026-02-09T23:20:37.776Z] WHERE: {}
+
+[2026-02-09T23:20:38.917Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T23:20:38.919Z] WHERE: {}
+
+[2026-02-09T23:21:29.616Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T23:21:29.617Z] WHERE: {}
+
+[2026-02-09T23:25:45.118Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T23:25:45.119Z] WHERE: {}
+
+[2026-02-09T23:25:45.126Z] Params: {"limit":"1000"}
+[2026-02-09T23:25:45.127Z] WHERE: {}
+
+[2026-02-09T23:25:46.542Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T23:25:46.543Z] WHERE: {}
+
+[2026-02-09T23:25:50.380Z] Params: {"page":"1","limit":"20","search":"h"}
+[2026-02-09T23:25:50.381Z] WHERE: {}
+
+[2026-02-09T23:25:50.485Z] Params: {"page":"1","limit":"20","search":"ho"}
+[2026-02-09T23:25:50.486Z] WHERE: {}
+
+[2026-02-09T23:25:50.726Z] Params: {"page":"1","limit":"20","search":"hol"}
+[2026-02-09T23:25:50.727Z] WHERE: {}
+
+[2026-02-09T23:25:51.041Z] Params: {"page":"1","limit":"20","search":"holbo"}
+[2026-02-09T23:25:51.042Z] WHERE: {}
+
+[2026-02-09T23:25:51.128Z] Params: {"page":"1","limit":"20","search":"holbox"}
+[2026-02-09T23:25:51.129Z] WHERE: {}
+
+[2026-02-09T23:25:54.291Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T23:25:54.293Z] WHERE: {}
+
+[2026-02-09T23:47:45.999Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T23:47:46.000Z] WHERE: {}
+
+[2026-02-09T23:47:46.009Z] Params: {"limit":"1000"}
+[2026-02-09T23:47:46.010Z] WHERE: {}
+
+[2026-02-09T23:47:47.683Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T23:47:47.685Z] WHERE: {}
+
+[2026-02-09T23:58:06.713Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T23:58:06.714Z] WHERE: {}
+
+[2026-02-09T23:58:06.719Z] Params: {"limit":"1000"}
+[2026-02-09T23:58:06.720Z] WHERE: {}
+
+[2026-02-09T23:58:07.406Z] Params: {"page":"1","limit":"20"}
+[2026-02-09T23:58:07.408Z] WHERE: {}
+
+[2026-02-10T00:03:20.861Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T00:03:20.862Z] WHERE: {}
+
+[2026-02-10T00:03:20.870Z] Params: {"limit":"1000"}
+[2026-02-10T00:03:20.871Z] WHERE: {}
+
+[2026-02-10T00:03:22.027Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T00:03:22.028Z] WHERE: {}
+
+[2026-02-10T00:06:36.509Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T00:06:36.510Z] WHERE: {}
+
+[2026-02-10T00:06:36.519Z] Params: {"limit":"1000"}
+[2026-02-10T00:06:36.520Z] WHERE: {}
+
+[2026-02-10T00:06:36.738Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T00:06:36.739Z] WHERE: {}
+
+[2026-02-10T00:06:45.974Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T00:06:45.977Z] WHERE: {}
+
+[2026-02-10T00:06:45.987Z] Params: {"limit":"1000"}
+[2026-02-10T00:06:45.988Z] WHERE: {}
+
+[2026-02-10T00:06:46.059Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T00:06:46.061Z] WHERE: {}
+
+[2026-02-10T00:14:32.027Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T00:14:32.028Z] WHERE: {}
+
+[2026-02-10T00:14:32.037Z] Params: {"limit":"1000"}
+[2026-02-10T00:14:32.038Z] WHERE: {}
+
+[2026-02-10T00:14:33.865Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T00:14:33.867Z] WHERE: {}
+
+[2026-02-10T00:14:48.918Z] Params: {"page":"1","limit":"20","health":"healthy"}
+[2026-02-10T00:14:48.919Z] WHERE: {}
+
+[2026-02-10T00:14:51.122Z] Params: {"page":"1","limit":"20","health":"healthy|incomplete"}
+[2026-02-10T00:14:51.123Z] WHERE: {}
+
+[2026-02-10T00:14:52.531Z] Params: {"page":"1","limit":"20","health":"incomplete"}
+[2026-02-10T00:14:52.532Z] WHERE: {}
+
+[2026-02-10T00:14:53.746Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T00:14:53.748Z] WHERE: {}
+
+[2026-02-10T00:14:55.944Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T00:14:55.945Z] WHERE: {}
+
+[2026-02-10T00:14:55.959Z] Params: {"limit":"1000"}
+[2026-02-10T00:14:55.962Z] WHERE: {}
+
+[2026-02-10T00:14:56.527Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T00:14:56.528Z] WHERE: {}
+
+[2026-02-10T00:16:40.105Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T00:16:40.106Z] WHERE: {}
+
+[2026-02-10T00:16:40.117Z] Params: {"limit":"1000"}
+[2026-02-10T00:16:40.118Z] WHERE: {}
+
+[2026-02-10T00:16:41.506Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T00:16:41.507Z] WHERE: {}
+
+[2026-02-10T00:16:44.118Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T00:16:44.119Z] WHERE: {}
+
+[2026-02-10T00:16:44.128Z] Params: {"limit":"1000"}
+[2026-02-10T00:16:44.129Z] WHERE: {}
+
+[2026-02-10T00:16:45.009Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T00:16:45.010Z] WHERE: {}
+
+[2026-02-10T00:20:30.415Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T00:20:30.416Z] WHERE: {}
+
+[2026-02-10T00:20:30.425Z] Params: {"limit":"1000"}
+[2026-02-10T00:20:30.426Z] WHERE: {}
+
+[2026-02-10T00:20:31.042Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T00:20:31.043Z] WHERE: {}
+
+[2026-02-10T00:20:37.518Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T00:20:37.519Z] WHERE: {}
+
+[2026-02-10T00:20:37.529Z] Params: {"limit":"1000"}
+[2026-02-10T00:20:37.530Z] WHERE: {}
+
+[2026-02-10T00:20:38.236Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T00:20:38.237Z] WHERE: {}
+
+[2026-02-10T00:23:57.256Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T00:23:57.257Z] WHERE: {}
+
+[2026-02-10T00:23:57.265Z] Params: {"limit":"1000"}
+[2026-02-10T00:23:57.267Z] WHERE: {}
+
+[2026-02-10T00:23:58.698Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T00:23:58.701Z] WHERE: {}
+
+[2026-02-10T00:24:01.316Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T00:24:01.317Z] WHERE: {}
+
+[2026-02-10T00:24:01.328Z] Params: {"limit":"1000"}
+[2026-02-10T00:24:01.329Z] WHERE: {}
+
+[2026-02-10T00:24:01.959Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T00:24:01.960Z] WHERE: {}
+
+[2026-02-10T00:29:50.845Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T00:29:50.846Z] WHERE: {}
+
+[2026-02-10T00:29:50.854Z] Params: {"limit":"1000"}
+[2026-02-10T00:29:50.855Z] WHERE: {}
+
+[2026-02-10T00:29:52.435Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T00:29:52.436Z] WHERE: {}
+
+[2026-02-10T00:32:53.585Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T00:32:53.586Z] WHERE: {}
+
+[2026-02-10T00:32:53.595Z] Params: {"limit":"1000"}
+[2026-02-10T00:32:53.597Z] WHERE: {}
+
+[2026-02-10T00:32:54.292Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T00:32:54.293Z] WHERE: {}
+
+[2026-02-10T00:33:06.190Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T00:33:06.192Z] WHERE: {}
+
+[2026-02-10T00:33:06.200Z] Params: {"limit":"1000"}
+[2026-02-10T00:33:06.201Z] WHERE: {}
+
+[2026-02-10T00:33:06.811Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T00:33:06.813Z] WHERE: {}
+
+[2026-02-10T00:36:56.557Z] Params: {"limit":"1000"}
+[2026-02-10T00:36:56.559Z] WHERE: {}
+
+[2026-02-10T00:36:56.566Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T00:36:56.567Z] WHERE: {}
+
+[2026-02-10T00:36:58.091Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T00:36:58.092Z] WHERE: {}
+
+[2026-02-10T00:36:58.100Z] Params: {"limit":"1000"}
+[2026-02-10T00:36:58.102Z] WHERE: {}
+
+[2026-02-10T00:36:58.571Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T00:36:58.572Z] WHERE: {}
+
+[2026-02-10T00:59:37.877Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T00:59:37.878Z] WHERE: {}
+
+[2026-02-10T00:59:37.885Z] Params: {"limit":"1000"}
+[2026-02-10T00:59:37.885Z] WHERE: {}
+
+[2026-02-10T00:59:40.471Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T00:59:40.474Z] WHERE: {}
+
+[2026-02-10T01:04:12.536Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T01:04:12.538Z] WHERE: {}
+
+[2026-02-10T01:04:12.571Z] Params: {"limit":"1000"}
+[2026-02-10T01:04:12.574Z] WHERE: {}
+
+[2026-02-10T01:04:13.367Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T01:04:13.370Z] WHERE: {}
+
+[2026-02-10T01:04:16.125Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T01:04:16.128Z] WHERE: {}
+
+[2026-02-10T01:04:16.184Z] Params: {"limit":"1000"}
+[2026-02-10T01:04:16.186Z] WHERE: {}
+
+[2026-02-10T01:04:16.762Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T01:04:16.767Z] WHERE: {}
+
+[2026-02-10T01:07:10.682Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T01:07:10.687Z] WHERE: {}
+
+[2026-02-10T01:07:10.696Z] Params: {"limit":"1000"}
+[2026-02-10T01:07:10.699Z] WHERE: {}
+
+[2026-02-10T01:07:11.305Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T01:07:11.307Z] WHERE: {}
+
+[2026-02-10T01:31:08.512Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T01:31:08.513Z] WHERE: {}
+
+[2026-02-10T01:31:08.528Z] Params: {"limit":"1000"}
+[2026-02-10T01:31:08.530Z] WHERE: {}
+
+[2026-02-10T01:31:10.247Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T01:31:10.248Z] WHERE: {}
+
+[2026-02-10T01:31:54.729Z] Params: {"limit":"1"}
+[2026-02-10T01:31:54.729Z] WHERE: {}
+
+[2026-02-10T01:40:32.315Z] Params: {"limit":"1000"}
+[2026-02-10T01:40:32.315Z] WHERE: {}
+
+[2026-02-10T01:40:32.324Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T01:40:32.325Z] WHERE: {}
+
+[2026-02-10T01:40:33.949Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T01:40:33.950Z] WHERE: {}
+
+[2026-02-10T01:44:53.418Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T01:44:53.419Z] WHERE: {}
+
+[2026-02-10T01:44:53.434Z] Params: {"limit":"1000"}
+[2026-02-10T01:44:53.436Z] WHERE: {}
+
+[2026-02-10T01:44:54.521Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T01:44:54.522Z] WHERE: {}
+
+[2026-02-10T01:45:05.189Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T01:45:05.190Z] WHERE: {}
+
+[2026-02-10T01:45:15.609Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T01:45:15.610Z] WHERE: {}
+
+[2026-02-10T01:46:35.011Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T01:46:35.012Z] WHERE: {}
+
+[2026-02-10T01:46:35.016Z] Params: {"limit":"1000"}
+[2026-02-10T01:46:35.016Z] WHERE: {}
+
+[2026-02-10T01:46:35.157Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T01:46:35.158Z] WHERE: {}
+
+[2026-02-10T01:49:58.960Z] Params: {"limit":"1000"}
+[2026-02-10T01:49:58.961Z] WHERE: {}
+
+[2026-02-10T01:49:58.969Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T01:49:58.970Z] WHERE: {}
+
+[2026-02-10T01:50:00.066Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T01:50:00.067Z] WHERE: {}
+
+[2026-02-10T01:50:14.178Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T01:50:14.181Z] WHERE: {}
+
+[2026-02-10T01:50:14.209Z] Params: {"limit":"1000"}
+[2026-02-10T01:50:14.210Z] WHERE: {}
+
+[2026-02-10T01:50:14.308Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T01:50:14.310Z] WHERE: {}
+
+[2026-02-10T01:50:33.015Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T01:50:33.016Z] WHERE: {}
+
+[2026-02-10T01:50:33.020Z] Params: {"limit":"1000"}
+[2026-02-10T01:50:33.021Z] WHERE: {}
+
+[2026-02-10T01:50:33.177Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T01:50:33.177Z] WHERE: {}
+
+[2026-02-10T01:51:11.911Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T01:51:11.912Z] WHERE: {}
+
+[2026-02-10T01:51:11.916Z] Params: {"limit":"1000"}
+[2026-02-10T01:51:11.917Z] WHERE: {}
+
+[2026-02-10T01:51:12.061Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T01:51:12.062Z] WHERE: {}
+
+[2026-02-10T01:51:57.764Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T01:51:57.764Z] WHERE: {}
+
+[2026-02-10T01:51:57.770Z] Params: {"limit":"1000"}
+[2026-02-10T01:51:57.771Z] WHERE: {}
+
+[2026-02-10T01:51:57.919Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T01:51:57.919Z] WHERE: {}
+
+[2026-02-10T01:55:01.448Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T01:55:01.450Z] WHERE: {}
+
+[2026-02-10T01:55:01.466Z] Params: {"limit":"1000"}
+[2026-02-10T01:55:01.468Z] WHERE: {}
+
+[2026-02-10T01:55:02.198Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T01:55:02.201Z] WHERE: {}
+
+[2026-02-10T01:55:57.826Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T01:55:57.827Z] WHERE: {}
+
+[2026-02-10T01:55:57.832Z] Params: {"limit":"1000"}
+[2026-02-10T01:55:57.832Z] WHERE: {}
+
+[2026-02-10T01:55:58.002Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T01:55:58.002Z] WHERE: {}
+
+[2026-02-10T02:00:02.497Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:00:02.497Z] WHERE: {}
+
+[2026-02-10T02:00:02.546Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:00:02.547Z] WHERE: {}
+
+[2026-02-10T02:00:13.563Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:00:13.563Z] WHERE: {}
+
+[2026-02-10T02:00:13.568Z] Params: {"limit":"1000"}
+[2026-02-10T02:00:13.569Z] WHERE: {}
+
+[2026-02-10T02:00:13.703Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:00:13.703Z] WHERE: {}
+
+[2026-02-10T02:03:56.147Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:03:56.149Z] WHERE: {}
+
+[2026-02-10T02:08:45.646Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:08:45.647Z] WHERE: {}
+
+[2026-02-10T02:08:46.057Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:08:46.057Z] WHERE: {}
+
+[2026-02-10T02:08:46.063Z] Params: {"limit":"1000"}
+[2026-02-10T02:08:46.063Z] WHERE: {}
+
+[2026-02-10T02:08:46.730Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:08:46.730Z] WHERE: {}
+
+[2026-02-10T02:10:03.779Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:10:03.780Z] WHERE: {}
+
+[2026-02-10T02:10:03.807Z] Params: {"limit":"1000"}
+[2026-02-10T02:10:03.808Z] WHERE: {}
+
+[2026-02-10T02:10:03.857Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:10:03.857Z] WHERE: {}
+
+[2026-02-10T02:10:03.866Z] Params: {"limit":"1000"}
+[2026-02-10T02:10:03.866Z] WHERE: {}
+
+[2026-02-10T02:10:04.891Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:10:04.892Z] WHERE: {}
+
+[2026-02-10T02:10:04.903Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:10:04.905Z] WHERE: {}
+
+[2026-02-10T02:10:49.273Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:10:49.275Z] WHERE: {}
+
+[2026-02-10T02:10:49.301Z] Params: {"limit":"1000"}
+[2026-02-10T02:10:49.309Z] WHERE: {}
+
+[2026-02-10T02:10:49.627Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:10:49.629Z] WHERE: {}
+
+[2026-02-10T02:12:01.526Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:12:01.526Z] WHERE: {}
+
+[2026-02-10T02:12:01.736Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:12:01.737Z] WHERE: {}
+
+[2026-02-10T02:12:01.811Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:12:01.812Z] WHERE: {}
+
+[2026-02-10T02:14:02.003Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:14:02.004Z] WHERE: {}
+
+[2026-02-10T02:14:02.011Z] Params: {"limit":"1000"}
+[2026-02-10T02:14:02.012Z] WHERE: {}
+
+[2026-02-10T02:14:02.170Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:14:02.171Z] WHERE: {}
+
+[2026-02-10T02:16:37.976Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:16:37.977Z] WHERE: {}
+
+[2026-02-10T02:16:38.002Z] Params: {"limit":"1000"}
+[2026-02-10T02:16:38.003Z] WHERE: {}
+
+[2026-02-10T02:16:38.700Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:16:38.702Z] WHERE: {}
+
+[2026-02-10T02:16:38.726Z] Params: {"limit":"1000"}
+[2026-02-10T02:16:38.727Z] WHERE: {}
+
+[2026-02-10T02:16:38.857Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:16:38.858Z] WHERE: {}
+
+[2026-02-10T02:37:43.344Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:37:43.345Z] WHERE: {}
+
+[2026-02-10T02:37:43.356Z] Params: {"limit":"1000"}
+[2026-02-10T02:37:43.357Z] WHERE: {}
+
+[2026-02-10T02:37:45.010Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:37:45.011Z] WHERE: {}
+
+[2026-02-10T02:39:30.509Z] Params: {"limit":"1000"}
+[2026-02-10T02:39:30.516Z] WHERE: {}
+
+[2026-02-10T02:39:30.538Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:39:30.540Z] WHERE: {}
+
+[2026-02-10T02:39:30.775Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:39:30.776Z] WHERE: {}
+
+[2026-02-10T02:47:57.415Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:47:57.443Z] WHERE: {}
+
+[2026-02-10T02:47:57.452Z] Params: {"limit":"1000"}
+[2026-02-10T02:47:57.452Z] WHERE: {}
+
+[2026-02-10T02:47:58.097Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:47:58.098Z] WHERE: {}
+
+[2026-02-10T02:48:43.016Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:48:43.017Z] WHERE: {}
+
+[2026-02-10T02:48:43.177Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:48:43.179Z] WHERE: {}
+
+[2026-02-10T02:48:43.259Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:48:43.260Z] WHERE: {}
+
+[2026-02-10T02:54:02.846Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:54:02.848Z] WHERE: {}
+
+[2026-02-10T02:54:02.865Z] Params: {"limit":"1000"}
+[2026-02-10T02:54:02.865Z] WHERE: {}
+
+[2026-02-10T02:54:03.317Z] Params: {"limit":"1000"}
+[2026-02-10T02:54:03.317Z] WHERE: {}
+
+[2026-02-10T02:54:03.322Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:54:03.323Z] WHERE: {}
+
+[2026-02-10T02:54:04.069Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:54:04.070Z] WHERE: {}
+
+[2026-02-10T02:54:04.090Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:54:04.091Z] WHERE: {}
+
+[2026-02-10T02:55:15.255Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:55:15.257Z] WHERE: {}
+
+[2026-02-10T02:55:15.275Z] Params: {"limit":"1000"}
+[2026-02-10T02:55:15.279Z] WHERE: {}
+
+[2026-02-10T02:55:15.487Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:55:15.488Z] WHERE: {}
+
+[2026-02-10T02:56:35.621Z] Params: {"limit":"1000"}
+[2026-02-10T02:56:35.622Z] WHERE: {}
+
+[2026-02-10T02:56:35.641Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:56:35.642Z] WHERE: {}
+
+[2026-02-10T02:56:35.807Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:56:35.809Z] WHERE: {}
+
+[2026-02-10T02:58:29.420Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:58:29.423Z] WHERE: {}
+
+[2026-02-10T02:58:29.446Z] Params: {"limit":"1000"}
+[2026-02-10T02:58:29.449Z] WHERE: {}
+
+[2026-02-10T02:58:29.605Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T02:58:29.607Z] WHERE: {}
+
+[2026-02-10T03:08:01.531Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T03:08:01.532Z] WHERE: {}
+
+[2026-02-10T03:08:01.537Z] Params: {"limit":"1000"}
+[2026-02-10T03:08:01.538Z] WHERE: {}
+
+[2026-02-10T03:08:03.283Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T03:08:03.284Z] WHERE: {}
+
+[2026-02-10T03:09:25.891Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T03:09:25.892Z] WHERE: {}
+
+[2026-02-10T03:09:25.918Z] Params: {"limit":"1000"}
+[2026-02-10T03:09:25.919Z] WHERE: {}
+
+[2026-02-10T03:09:26.067Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T03:09:26.068Z] WHERE: {}
+
+[2026-02-10T14:10:05.329Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T14:10:05.331Z] WHERE: {}
+
+[2026-02-10T14:10:05.403Z] Params: {"limit":"1000"}
+[2026-02-10T14:10:05.404Z] WHERE: {}
+
+[2026-02-10T14:10:06.907Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T14:10:06.908Z] WHERE: {}
+
+[2026-02-10T14:13:42.261Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T14:13:42.264Z] WHERE: {}
+
+[2026-02-10T14:13:42.369Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T14:13:42.370Z] WHERE: {}
+
+[2026-02-10T14:13:42.465Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T14:13:42.467Z] WHERE: {}
+
+[2026-02-10T14:32:43.588Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T14:32:43.589Z] WHERE: {}
+
+[2026-02-10T14:32:43.627Z] Params: {"limit":"1000"}
+[2026-02-10T14:32:43.630Z] WHERE: {}
+
+[2026-02-10T14:32:44.786Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T14:32:44.788Z] WHERE: {}
+
+[2026-02-10T14:32:44.804Z] Params: {"limit":"1000"}
+[2026-02-10T14:32:44.806Z] WHERE: {}
+
+[2026-02-10T14:32:44.884Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T14:32:44.885Z] WHERE: {}
+
+[2026-02-10T14:36:42.059Z] Params: {"page":"1","limit":"20","health":"healthy"}
+[2026-02-10T14:36:42.060Z] WHERE: {}
+
+[2026-02-10T14:36:43.560Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T14:36:43.561Z] WHERE: {}
+
+[2026-02-10T14:36:44.497Z] Params: {"page":"1","limit":"20","health":"incomplete"}
+[2026-02-10T14:36:44.499Z] WHERE: {}
+
+[2026-02-10T14:36:45.194Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T14:36:45.195Z] WHERE: {}
+
+[2026-02-10T14:37:04.456Z] Params: {"page":"1","limit":"20","health":"healthy"}
+[2026-02-10T14:37:04.458Z] WHERE: {}
+
+[2026-02-10T14:37:05.652Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T14:37:05.653Z] WHERE: {}
+
+[2026-02-10T14:37:06.538Z] Params: {"page":"1","limit":"20","health":"audit_required"}
+[2026-02-10T14:37:06.541Z] WHERE: {}
+
+[2026-02-10T14:37:07.328Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T14:37:07.330Z] WHERE: {}
+
+[2026-02-10T14:37:07.984Z] Params: {"page":"1","limit":"20","health":"global_ready"}
+[2026-02-10T14:37:07.985Z] WHERE: {}
+
+[2026-02-10T14:37:08.831Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T14:37:08.832Z] WHERE: {}
+
+[2026-02-10T14:37:15.884Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T14:37:15.886Z] WHERE: {}
+
+[2026-02-10T14:37:15.910Z] Params: {"limit":"1000"}
+[2026-02-10T14:37:15.912Z] WHERE: {}
+
+[2026-02-10T14:37:16.174Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T14:37:16.176Z] WHERE: {}
+
+[2026-02-10T14:37:19.964Z] Params: {"page":"1","limit":"20","health":"healthy"}
+[2026-02-10T14:37:19.966Z] WHERE: {}
+
+[2026-02-10T14:37:21.395Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T14:37:21.396Z] WHERE: {}
+
+[2026-02-10T14:37:23.287Z] Params: {"page":"1","limit":"20","providers":"COBA SUNSET"}
+[2026-02-10T14:37:23.288Z] WHERE: {"supplier":{"in":["COBA SUNSET"]}}
+
+[2026-02-10T14:38:28.314Z] Params: {"page":"1","limit":"20","providers":"COBA SUNSET"}
+[2026-02-10T14:38:28.315Z] WHERE: {"supplier":{"in":["COBA SUNSET"]}}
+
+[2026-02-10T14:38:28.328Z] Params: {"limit":"1000"}
+[2026-02-10T14:38:28.330Z] WHERE: {}
+
+[2026-02-10T14:38:29.725Z] Params: {"page":"1","limit":"20","providers":"COBA SUNSET"}
+[2026-02-10T14:38:29.727Z] WHERE: {"supplier":{"in":["COBA SUNSET"]}}
+
+[2026-02-10T14:49:22.948Z] Params: {"page":"1","limit":"20","providers":"COBA SUNSET"}
+[2026-02-10T14:49:22.949Z] WHERE: {"supplier":{"in":["COBA SUNSET"]}}
+
+[2026-02-10T14:49:24.851Z] Params: {"page":"1","limit":"20","providers":"COBA SUNSET"}
+[2026-02-10T14:49:24.854Z] WHERE: {"supplier":{"in":["COBA SUNSET"]}}
+
+[2026-02-10T15:00:26.486Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T15:00:26.489Z] WHERE: {}
+
+[2026-02-10T15:00:53.648Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T15:00:53.649Z] WHERE: {}
+
+[2026-02-10T15:00:53.664Z] Params: {"limit":"1000"}
+[2026-02-10T15:00:53.665Z] WHERE: {}
+
+[2026-02-10T15:00:54.056Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T15:00:54.058Z] WHERE: {}
+
+[2026-02-10T15:00:54.627Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T15:00:54.629Z] WHERE: {}
+
+[2026-02-10T15:00:54.659Z] Params: {"limit":"1000"}
+[2026-02-10T15:00:54.660Z] WHERE: {}
+
+[2026-02-10T17:31:53.876Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T17:31:53.878Z] WHERE: {}
+
+[2026-02-10T17:31:53.894Z] Params: {"limit":"1000"}
+[2026-02-10T17:31:53.896Z] WHERE: {}
+
+[2026-02-10T17:31:55.691Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T17:31:55.692Z] WHERE: {}
+
+[2026-02-10T17:31:55.754Z] Params: {"limit":"1000"}
+[2026-02-10T17:31:55.757Z] WHERE: {}
+
+[2026-02-10T17:31:55.934Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T17:31:55.936Z] WHERE: {}
+
+[2026-02-10T17:32:01.651Z] Params: {"page":"1","limit":"20","search":"h"}
+[2026-02-10T17:32:01.652Z] WHERE: {}
+
+[2026-02-10T17:32:01.905Z] Params: {"page":"1","limit":"20","search":"ho"}
+[2026-02-10T17:32:01.906Z] WHERE: {}
+
+[2026-02-10T17:32:02.146Z] Params: {"page":"1","limit":"20","search":"hol"}
+[2026-02-10T17:32:02.147Z] WHERE: {}
+
+[2026-02-10T17:32:02.364Z] Params: {"page":"1","limit":"20","search":"holb"}
+[2026-02-10T17:32:02.365Z] WHERE: {}
+
+[2026-02-10T17:32:02.504Z] Params: {"page":"1","limit":"20","search":"holbo"}
+[2026-02-10T17:32:02.506Z] WHERE: {}
+
+[2026-02-10T17:32:02.558Z] Params: {"page":"1","limit":"20","search":"holbox"}
+[2026-02-10T17:32:02.559Z] WHERE: {}
+
+[2026-02-10T17:33:56.025Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T17:33:56.026Z] WHERE: {}
+
+[2026-02-10T17:34:15.972Z] Params: {"page":"1","limit":"20","health":"healthy"}
+[2026-02-10T17:34:15.973Z] WHERE: {}
+
+[2026-02-10T17:34:17.445Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T17:34:17.446Z] WHERE: {}
+
+[2026-02-10T17:34:18.274Z] Params: {"page":"1","limit":"20","health":"audit_required"}
+[2026-02-10T17:34:18.275Z] WHERE: {}
+
+[2026-02-10T17:34:22.272Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T17:34:22.274Z] WHERE: {}
+
+[2026-02-10T17:34:22.989Z] Params: {"page":"1","limit":"20","health":"incomplete"}
+[2026-02-10T17:34:22.991Z] WHERE: {}
+
+[2026-02-10T17:34:24.159Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T17:34:24.161Z] WHERE: {}
+
+[2026-02-10T17:34:25.149Z] Params: {"page":"1","limit":"20","health":"global_ready"}
+[2026-02-10T17:34:25.150Z] WHERE: {}
+
+[2026-02-10T17:34:27.451Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T17:34:27.452Z] WHERE: {}
+
+[2026-02-10T17:34:28.373Z] Params: {"page":"1","limit":"20","health":"healthy"}
+[2026-02-10T17:34:28.374Z] WHERE: {}
+
+[2026-02-10T17:34:33.615Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T17:34:33.616Z] WHERE: {}
+
+[2026-02-10T17:34:34.994Z] Params: {"page":"1","limit":"20","providers":"COBA SUNSET"}
+[2026-02-10T17:34:34.996Z] WHERE: {"supplier":{"in":["COBA SUNSET"]}}
+
+[2026-02-10T17:34:53.518Z] Params: {"page":"1","limit":"20","providers":"COBA SUNSET"}
+[2026-02-10T17:34:53.519Z] WHERE: {"supplier":{"in":["COBA SUNSET"]}}
+
+[2026-02-10T17:34:53.661Z] Params: {"page":"1","limit":"20","providers":"COBA SUNSET"}
+[2026-02-10T17:34:53.662Z] WHERE: {"supplier":{"in":["COBA SUNSET"]}}
+
+[2026-02-10T17:35:00.185Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T17:35:00.187Z] WHERE: {}
+
+[2026-02-10T17:35:06.603Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T17:35:06.605Z] WHERE: {}
+
+[2026-02-10T17:35:06.662Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T17:35:06.663Z] WHERE: {}
+
+[2026-02-10T17:35:08.751Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T17:35:08.753Z] WHERE: {}
+
+[2026-02-10T17:35:08.781Z] Params: {"limit":"1000"}
+[2026-02-10T17:35:08.783Z] WHERE: {}
+
+[2026-02-10T17:35:08.896Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T17:35:08.897Z] WHERE: {}
+
+[2026-02-10T17:37:20.930Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T17:37:20.932Z] WHERE: {}
+
+[2026-02-10T17:37:21.828Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T17:37:21.829Z] WHERE: {}
+
+[2026-02-10T17:38:07.250Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T17:38:07.251Z] WHERE: {}
+
+[2026-02-10T17:38:07.259Z] Params: {"limit":"1000"}
+[2026-02-10T17:38:07.260Z] WHERE: {}
+
+[2026-02-10T17:38:07.577Z] Params: {"page":"1","limit":"20"}
+[2026-02-10T17:38:07.579Z] WHERE: {}
+
+[2026-02-10T17:38:10.731Z] Params: {"page":"1","limit":"20","providers":"COBA SUNSET"}
+[2026-02-10T17:38:10.732Z] WHERE: {"supplier":{"in":["COBA SUNSET"]}}

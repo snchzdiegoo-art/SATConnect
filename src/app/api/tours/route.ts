@@ -5,12 +5,12 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient, Prisma } from '@prisma/client';
+import { prisma } from '@/lib/prisma';
+import { Prisma } from '@prisma/client';
 import { assessProductHealth } from '@/services/healthService';
 import { calculateTourPricing } from '@/services/pricingService';
 import { calculateOTADistributionScore, checkGlobalSuitability } from '@/services/distributionService';
-
-const prisma = new PrismaClient();
+import * as fs from 'fs';
 
 // GET /api/tours - List tours with pagination and filters
 export async function GET(request: NextRequest) {
@@ -44,6 +44,11 @@ export async function GET(request: NextRequest) {
             sortOrder
         });
 
+        try {
+            const logData = `\n[${new Date().toISOString()}] Params: ${JSON.stringify(Object.fromEntries(searchParams.entries()))}\n`;
+            fs.appendFileSync('filter_debug.log', logData);
+        } catch (e) { /* ignore */ }
+
         // Provider filter - handle both single supplier and multi-select providers
         if (providers) {
             // Split pipe-separated providers and decode URL encoding (+ becomes space)
@@ -59,16 +64,30 @@ export async function GET(request: NextRequest) {
 
         // Location filter - handle both single location and multi-select locations
         if (locations) {
+            console.log('Raw locations param:', locations);
             // Split pipe-separated locations and decode URL encoding (+ becomes space)
             const locationList = locations.split('|')
                 .map(l => decodeURIComponent(l.trim().replace(/\+/g, ' ')))
                 .filter(Boolean);
+
+            try {
+                fs.appendFileSync('filter_debug.log', `[${new Date().toISOString()}] Parsed Locations: ${JSON.stringify(locationList)}\n`);
+            } catch (e) { /* ignore */ }
+
+            console.log('Parsed locationList:', locationList);
+
             if (locationList.length > 0) {
                 where.location = { in: locationList };
             }
         } else if (location) {
             where.location = decodeURIComponent(location.replace(/\+/g, ' '));
         }
+
+        console.log('Final Prisma WHERE:', JSON.stringify(where, null, 2));
+
+        try {
+            fs.appendFileSync('filter_debug.log', `[${new Date().toISOString()}] WHERE: ${JSON.stringify(where)}\n`);
+        } catch (e) { /* ignore */ }
 
         if (isActive !== null) where.is_active = isActive === 'true';
         if (search) {
@@ -263,7 +282,33 @@ export async function POST(request: NextRequest) {
                 },
             });
 
-            // 6. Create TourAudit (will be calculated next)
+            // 6. Create Variants
+            if (body.variants && Array.isArray(body.variants)) {
+                await tx.tourVariant.createMany({
+                    data: body.variants.map((variant: any) => ({
+                        tour_id: newTour.id,
+                        name: variant.name,
+                        description: variant.description,
+                        net_rate_adult: Number(variant.net_rate_adult),
+                        net_rate_child: variant.net_rate_child ? Number(variant.net_rate_child) : null,
+                        duration: variant.duration,
+                        is_active: variant.is_active ?? true,
+                    })),
+                });
+            }
+
+            // 7. Create Custom Field Values
+            if (body.custom_fields && Array.isArray(body.custom_fields)) {
+                await tx.tourCustomFieldValue.createMany({
+                    data: body.custom_fields.map((field: any) => ({
+                        tour_id: newTour.id,
+                        definition_id: Number(field.definition_id),
+                        value: String(field.value),
+                    })),
+                });
+            }
+
+            // 8. Create TourAudit (will be calculated next)
             await tx.tourAudit.create({
                 data: {
                     tour_id: newTour.id,
@@ -273,7 +318,7 @@ export async function POST(request: NextRequest) {
             return newTour;
         });
 
-        // 7. Fetch complete tour with relations for health assessment
+        // 9. Fetch complete tour with relations for health assessment
         const completeTour = await prisma.tour.findUnique({
             where: { id: tour.id },
             include: {
@@ -289,15 +334,15 @@ export async function POST(request: NextRequest) {
             throw new Error('Failed to fetch created tour');
         }
 
-        // 8. Assess product health
+        // 10. Assess product health
         const healthCheck = assessProductHealth(completeTour);
 
-        // 9. Calculate OTA score
+        // 11. Calculate OTA score
         const otaScore = completeTour.distribution
             ? calculateOTADistributionScore(completeTour.distribution)
             : 0;
 
-        // 10. Check global suitability
+        // 12. Check global suitability
         const isSuitable = checkGlobalSuitability(
             healthCheck.status,
             completeTour.pricing
@@ -317,7 +362,7 @@ export async function POST(request: NextRequest) {
             completeTour.logistics?.cxl_policy
         );
 
-        // 11. Update audit with calculated values
+        // 13. Update audit with calculated values
         await prisma.tourAudit.update({
             where: { tour_id: completeTour.id },
             data: {
@@ -327,7 +372,7 @@ export async function POST(request: NextRequest) {
             },
         });
 
-        // 12. Fetch final tour with updated audit
+        // 14. Fetch final tour with updated audit
         const finalTour = await prisma.tour.findUnique({
             where: { id: tour.id },
             include: {
@@ -350,6 +395,26 @@ export async function POST(request: NextRequest) {
         console.error('Error creating tour:', error);
         return NextResponse.json(
             { success: false, error: 'Failed to create tour' },
+            { status: 500 }
+        );
+    }
+}
+// DELETE /api/tours - Clear all tours
+export async function DELETE(request: NextRequest) {
+    try {
+        // Optional: Add authentication/authorization check here
+
+        const deleteResult = await prisma.tour.deleteMany({});
+
+        return NextResponse.json({
+            success: true,
+            message: `Deleted ${deleteResult.count} tours`,
+            count: deleteResult.count
+        });
+    } catch (error) {
+        console.error('Error clearing tours:', error);
+        return NextResponse.json(
+            { success: false, error: 'Failed to clear tours' },
             { status: 500 }
         );
     }

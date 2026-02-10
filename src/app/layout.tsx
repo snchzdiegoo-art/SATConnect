@@ -6,7 +6,7 @@ import { Analytics } from "@vercel/analytics/next";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "SAT Connect | El SaaS para Proveedores de Tours",
+  title: "SAT Connect | El SaaS para Proveedores de Tours y Actividades",
   description: "Vende tus tours en todo el mundo, sin complicaciones.",
   icons: {
     icon: [

@@ -6,12 +6,10 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '@/lib/prisma';
 import { assessProductHealth } from '@/services/healthService';
 import { calculateTourPricing } from '@/services/pricingService';
 import { calculateOTADistributionScore, checkGlobalSuitability } from '@/services/distributionService';
-
-const prisma = new PrismaClient();
 
 // GET /api/tours/[id] - Get single tour with all relations
 export async function GET(
@@ -42,6 +40,14 @@ export async function GET(
                     orderBy: { created_at: 'desc' },
                     take: 3,
                 },
+                variants: {
+                    where: { is_active: true }
+                },
+                custom_fields: {
+                    include: {
+                        definition: true
+                    }
+                }
             },
         });
 
@@ -173,21 +179,113 @@ export async function PUT(
                         website_markup: body.distribution.website_markup,
                         marketplace_bokun_markup: body.distribution.marketplace_bokun_markup,
                         marketplace_b2b_markup: body.distribution.marketplace_b2b_markup,
+
                         project_expedition_id: body.distribution.project_expedition_id,
                         project_expedition_status: body.distribution.project_expedition_status,
+                        project_expedition_commission: body.distribution.project_expedition_commission,
+
                         expedia_id: body.distribution.expedia_id,
                         expedia_status: body.distribution.expedia_status,
+                        expedia_commission: body.distribution.expedia_commission,
+
                         viator_id: body.distribution.viator_id,
                         viator_commission_percent: body.distribution.viator_commission_percent,
                         viator_status: body.distribution.viator_status,
+
                         klook_id: body.distribution.klook_id,
                         klook_status: body.distribution.klook_status,
+                        klook_commission: body.distribution.klook_commission,
+
                         tur_com_status: body.distribution.tur_com_status,
+                        tur_com_commission: body.distribution.tur_com_commission,
+
                         tourist_com_status: body.distribution.tourist_com_status,
+                        tourist_com_commission: body.distribution.tourist_com_commission,
+
                         headout_status: body.distribution.headout_status,
+                        headout_commission: body.distribution.headout_commission,
+
                         tourradar_status: body.distribution.tourradar_status,
+                        tourradar_commission: body.distribution.tourradar_commission,
                     },
                 });
+            }
+
+            // Update Variants
+            if (body.variants && Array.isArray(body.variants)) {
+                // 1. Get existing variant IDs
+                const existingVariants = await tx.tourVariant.findMany({
+                    where: { tour_id: tourId },
+                    select: { id: true }
+                });
+                const existingIds = existingVariants.map(v => v.id);
+
+                // 2. Identify variants to delete (existing but not in body)
+                const bodyVariantIds = body.variants
+                    .map((v: any) => v.id)
+                    .filter((id: any) => id && typeof id === 'number');
+
+                const idsToDelete = existingIds.filter(id => !bodyVariantIds.includes(id));
+
+                if (idsToDelete.length > 0) {
+                    await tx.tourVariant.deleteMany({
+                        where: { id: { in: idsToDelete } }
+                    });
+                }
+
+                // 3. Upsert variants
+                for (const variant of body.variants) {
+                    if (variant.id && typeof variant.id === 'number') {
+                        // Update
+                        await tx.tourVariant.update({
+                            where: { id: variant.id },
+                            data: {
+                                name: variant.name,
+                                description: variant.description,
+                                net_rate_adult: Number(variant.net_rate_adult),
+                                net_rate_child: variant.net_rate_child ? Number(variant.net_rate_child) : null,
+                                duration: variant.duration,
+                                is_active: variant.is_active,
+                            }
+                        });
+                    } else {
+                        // Create
+                        await tx.tourVariant.create({
+                            data: {
+                                tour_id: tourId,
+                                name: variant.name,
+                                description: variant.description,
+                                net_rate_adult: Number(variant.net_rate_adult),
+                                net_rate_child: variant.net_rate_child ? Number(variant.net_rate_child) : null,
+                                duration: variant.duration,
+                                is_active: variant.is_active ?? true,
+                            }
+                        });
+                    }
+                }
+            }
+
+            // Update Custom Fields
+            if (body.custom_fields && Array.isArray(body.custom_fields)) {
+                // Upsert custom fields based on definition_id
+                for (const field of body.custom_fields) {
+                    await tx.tourCustomFieldValue.upsert({
+                        where: {
+                            tour_id_definition_id: {
+                                tour_id: tourId,
+                                definition_id: Number(field.definition_id)
+                            }
+                        },
+                        update: {
+                            value: String(field.value)
+                        },
+                        create: {
+                            tour_id: tourId,
+                            definition_id: Number(field.definition_id),
+                            value: String(field.value)
+                        }
+                    });
+                }
             }
         });
 
