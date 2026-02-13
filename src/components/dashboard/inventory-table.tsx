@@ -192,7 +192,7 @@ export function InventoryTable({ onTourClick, selectedIds = [], onSelectionChang
             {/* Toolbar - Glass Bar */}
             <div className="flex flex-wrap items-center justify-between gap-4 glass-card p-3 rounded-xl border border-gray-200 dark:border-white/10 bg-white/50 dark:bg-white/5">
                 <div className="text-sm font-display text-gray-500 dark:text-gray-300 ml-2">
-                    Showing <span className="text-gray-900 dark:text-white font-bold">{(page - 1) * pageSize + 1}</span> to <span className="text-gray-900 dark:text-white font-bold">{Math.min(page * pageSize, totalCount)}</span> of <span className="text-teal-600 dark:text-[#29FFC6] font-bold">{totalCount}</span> tours
+                    Showing <span className="text-gray-900 dark:text-white font-bold">{(page - 1) * pageSize + 1}</span> to <span className="text-gray-900 dark:text-white font-bold">{Math.min(page * pageSize, totalCount)}</span> of <span className="text-teal-600 dark:text-brand-primary font-bold">{totalCount}</span> tours
                 </div>
 
                 <div className="flex items-center gap-3">
@@ -201,16 +201,16 @@ export function InventoryTable({ onTourClick, selectedIds = [], onSelectionChang
                         <span className="text-sm text-gray-400">Rows:</span>
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <Button variant="outline" size="sm" className="h-8 border-white/10 bg-white/5 text-white hover:bg-white/10 hover:text-[#29FFC6] hover:border-[#29FFC6]/30 transition-all">
+                                <Button variant="outline" size="sm" className="h-8 border-white/10 bg-white/5 text-white hover:bg-white/10 hover:text-brand-primary hover:border-[#29FFC6]/30 transition-all">
                                     {pageSize} <ChevronDown className="ml-2 h-3 w-3" />
                                 </Button>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end" className="bg-white dark:bg-[#0B2E3C] border-gray-200 dark:border-white/10 text-gray-900 dark:text-white">
+                            <DropdownMenuContent align="end" className="bg-white dark:bg-brand-teal border-gray-200 dark:border-white/10 text-gray-900 dark:text-white">
                                 {[5, 10, 20, 25, 50, 100, 200].map((size) => (
                                     <DropdownMenuItem
                                         key={size}
                                         onClick={() => setPageSize(size)}
-                                        className={`cursor-pointer hover:bg-gray-100 dark:hover:bg-[#29FFC6]/20 focus:bg-gray-100 dark:focus:bg-[#29FFC6]/20 ${pageSize === size ? 'bg-teal-50 dark:bg-[#29FFC6]/10 text-teal-600 dark:text-[#29FFC6]' : ''}`}
+                                        className={`cursor-pointer hover:bg-gray-100 dark:hover:bg-brand-primary/20 focus:bg-gray-100 dark:focus:bg-[#29FFC6]/20 ${pageSize === size ? 'bg-teal-50 dark:bg-brand-primary/10 text-teal-600 dark:text-brand-primary' : ''}`}
                                     >
                                         {size}
                                     </DropdownMenuItem>
@@ -222,13 +222,13 @@ export function InventoryTable({ onTourClick, selectedIds = [], onSelectionChang
                     {/* Column Toggle */}
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <Button variant="outline" size="sm" className="h-8 border-gray-200 dark:border-white/10 bg-white/50 dark:bg-white/5 text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10 hover:text-teal-600 dark:hover:text-[#29FFC6] hover:border-teal-200 dark:hover:border-[#29FFC6]/30 transition-all">
+                            <Button variant="outline" size="sm" className="h-8 border-gray-200 dark:border-white/10 bg-white/50 dark:bg-white/5 text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10 hover:text-teal-600 dark:hover:text-brand-primary hover:border-teal-200 dark:hover:border-brand-primary/30 transition-all">
                                 <Columns className="mr-2 h-3 w-3" />
                                 Columns
                             </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" className="w-56 bg-white dark:bg-[#0B2E3C] border-gray-200 dark:border-white/10 text-gray-900 dark:text-white max-h-[500px] overflow-y-auto">
-                            <DropdownMenuLabel className="text-teal-600 dark:text-[#29FFC6]">Standard Columns</DropdownMenuLabel>
+                        <DropdownMenuContent align="end" className="w-56 bg-white dark:bg-brand-teal border-gray-200 dark:border-white/10 text-gray-900 dark:text-white max-h-[500px] overflow-y-auto">
+                            <DropdownMenuLabel className="text-teal-600 dark:text-brand-primary">Standard Columns</DropdownMenuLabel>
                             <DropdownMenuSeparator className="bg-white/10" />
                             <DropdownMenuCheckboxItem checked={visibleColumns.bokun_id} onCheckedChange={() => toggleColumn('bokun_id')}>
                                 Bokun ID
@@ -247,7 +247,7 @@ export function InventoryTable({ onTourClick, selectedIds = [], onSelectionChang
                             </DropdownMenuCheckboxItem>
 
                             <DropdownMenuSeparator className="bg-white/10" />
-                            <DropdownMenuLabel className="text-[#29FFC6]">Financials & Pricing</DropdownMenuLabel>
+                            <DropdownMenuLabel className="text-brand-primary">Financials & Pricing</DropdownMenuLabel>
                             <DropdownMenuCheckboxItem checked={visibleColumns.net_rate} onCheckedChange={() => toggleColumn('net_rate')}>
                                 Net Rate (Adult)
                             </DropdownMenuCheckboxItem>
@@ -274,7 +274,7 @@ export function InventoryTable({ onTourClick, selectedIds = [], onSelectionChang
                             </DropdownMenuCheckboxItem>
 
                             <DropdownMenuSeparator className="bg-white/10" />
-                            <DropdownMenuLabel className="text-[#29FFC6]">Logistics & Details</DropdownMenuLabel>
+                            <DropdownMenuLabel className="text-brand-primary">Logistics & Details</DropdownMenuLabel>
                             <DropdownMenuCheckboxItem checked={visibleColumns.duration} onCheckedChange={() => toggleColumn('duration')}>
                                 Duration
                             </DropdownMenuCheckboxItem>
@@ -299,19 +299,19 @@ export function InventoryTable({ onTourClick, selectedIds = [], onSelectionChang
             </div>
 
             {/* Table - Data Matrix */}
-            <div className="border border-gray-200 dark:border-white/10 rounded-xl overflow-x-auto shadow-sm dark:shadow-[0_4px_30px_#0000004D] bg-white/50 dark:bg-[#0B2E3C]/20 backdrop-blur-md">
+            <div className="border border-gray-200 dark:border-white/10 rounded-xl overflow-x-auto shadow-sm dark:shadow-[0_4px_30px_#0000004D] bg-white/50 dark:bg-brand-teal/20 backdrop-blur-md">
                 <table className="w-full min-w-[1200px]">
-                    <thead className="bg-gray-50/80 dark:bg-[#050F1A]/80 border-b border-gray-200 dark:border-white/10 backdrop-blur-md sticky top-0 z-10 text-left">
+                    <thead className="bg-gray-50/80 dark:bg-brand-dark/80 border-b border-gray-200 dark:border-white/10 backdrop-blur-md sticky top-0 z-10 text-left">
                         <tr>
                             <th className="px-4 py-4 w-10">
                                 <input
                                     type="checkbox"
                                     checked={allOnPageSelected}
                                     onChange={(e) => handleSelectAll(e.target.checked)}
-                                    className="rounded border-white/20 bg-white/5 text-[#29FFC6] focus:ring-[#29FFC6] h-4 w-4"
+                                    className="rounded border-white/20 bg-white/5 text-brand-primary focus:ring-brand-primary h-4 w-4"
                                 />
                             </th>
-                            {visibleColumns.bokun_id && <th className="px-4 py-4 text-left text-xs font-bold text-[#29FFC6] uppercase tracking-widest font-display">ID</th>}
+                            {visibleColumns.bokun_id && <th className="px-4 py-4 text-left text-xs font-bold text-brand-primary uppercase tracking-widest font-display">ID</th>}
                             <th className="px-4 py-4 text-left text-xs font-bold text-gray-400 uppercase tracking-widest font-display">Active Product</th>
                             {visibleColumns.provider && <th className="px-4 py-4 text-left text-xs font-bold text-gray-400 uppercase tracking-widest font-display">Provider</th>}
                             {visibleColumns.location && <th className="px-4 py-4 text-left text-xs font-bold text-gray-400 uppercase tracking-widest font-display">Location</th>}
@@ -319,7 +319,7 @@ export function InventoryTable({ onTourClick, selectedIds = [], onSelectionChang
 
                             {/* Financials Header */}
                             {visibleColumns.net_rate && <th className="px-4 py-4 text-right text-xs font-bold text-gray-400 uppercase tracking-widest font-display">Net Rate</th>}
-                            {visibleColumns.pvp && <th className="px-4 py-4 text-right text-xs font-bold text-[#29FFC6] uppercase tracking-widest font-display">PVP</th>}
+                            {visibleColumns.pvp && <th className="px-4 py-4 text-right text-xs font-bold text-brand-primary uppercase tracking-widest font-display">PVP</th>}
                             {visibleColumns.child_net && <th className="px-4 py-4 text-right text-xs font-bold text-gray-400 uppercase tracking-widest font-display">Child Net</th>}
                             {visibleColumns.child_pvp && <th className="px-4 py-4 text-right text-xs font-bold text-gray-400 uppercase tracking-widest font-display">Child PVP</th>}
                             {visibleColumns.private_net && <th className="px-4 py-4 text-right text-xs font-bold text-gray-400 uppercase tracking-widest font-display">Private Net</th>}
@@ -341,7 +341,7 @@ export function InventoryTable({ onTourClick, selectedIds = [], onSelectionChang
                     <tbody className="divide-y divide-gray-100 dark:divide-white/5">
                         {loading ? (
                             <tr>
-                                <td colSpan={20} className="px-4 py-12 text-center text-[#29FFC6] font-display animate-pulse tracking-widest">
+                                <td colSpan={20} className="px-4 py-12 text-center text-brand-primary font-display animate-pulse tracking-widest">
                                     INITIALIZING DATA MATRIX...
                                 </td>
                             </tr>
@@ -356,17 +356,17 @@ export function InventoryTable({ onTourClick, selectedIds = [], onSelectionChang
                                 <tr
                                     key={tour.id}
                                     onClick={() => onTourClick?.(tour.id)}
-                                    className={`group hover:bg-teal-50/50 dark:hover:bg-[#29FFC6]/5 transition-all duration-200 cursor-pointer ${selectedIds.includes(tour.id) ? 'bg-teal-50 dark:bg-[#29FFC6]/10' : ''}`}
+                                    className={`group hover:bg-teal-50/50 dark:hover:bg-brand-primary/5 transition-all duration-200 cursor-pointer ${selectedIds.includes(tour.id) ? 'bg-teal-50 dark:bg-brand-primary/10' : ''}`}
                                 >
                                     <td className="px-4 py-3" onClick={(e) => e.stopPropagation()}>
                                         <input
                                             type="checkbox"
                                             checked={selectedIds.includes(tour.id)}
                                             onChange={(e) => handleSelectRow(tour.id, e.target.checked)}
-                                            className="rounded border-white/20 bg-white/5 text-[#29FFC6] focus:ring-[#29FFC6] h-4 w-4"
+                                            className="rounded border-white/20 bg-white/5 text-brand-primary focus:ring-brand-primary h-4 w-4"
                                         />
                                     </td>
-                                    {visibleColumns.bokun_id && <td className="px-4 py-3 text-xs font-mono text-gray-500 group-hover:text-teal-600 dark:group-hover:text-[#29FFC6] transition-colors">{tour.bokun_id}</td>}
+                                    {visibleColumns.bokun_id && <td className="px-4 py-3 text-xs font-mono text-gray-500 group-hover:text-teal-600 dark:group-hover:text-brand-primary transition-colors">{tour.bokun_id}</td>}
                                     <td className="px-4 py-3 text-sm font-medium text-gray-900 dark:text-white group-hover:text-teal-700 dark:group-hover:text-white transition-colors tracking-tight">{tour.product_name}</td>
                                     {visibleColumns.provider && <td className="px-4 py-3 text-xs text-gray-400 uppercase tracking-wide">{tour.supplier}</td>}
                                     {visibleColumns.location && <td className="px-4 py-3 text-xs text-gray-400">{tour.location}</td>}
@@ -385,7 +385,7 @@ export function InventoryTable({ onTourClick, selectedIds = [], onSelectionChang
                                         </td>
                                     )}
                                     {visibleColumns.pvp && (
-                                        <td className="px-4 py-3 text-sm text-right font-mono text-teal-600 dark:text-[#29FFC6] font-bold shadow-sm dark:shadow-[#29FFC6]/20">
+                                        <td className="px-4 py-3 text-sm text-right font-mono text-teal-600 dark:text-brand-primary font-bold shadow-sm dark:shadow-brand-primary/20">
                                             {tour.calculations?.suggestedPvpAdult ? formatCurrency(tour.calculations.suggestedPvpAdult) : '-'}
                                         </td>
                                     )}
@@ -395,7 +395,7 @@ export function InventoryTable({ onTourClick, selectedIds = [], onSelectionChang
                                         </td>
                                     )}
                                     {visibleColumns.child_pvp && (
-                                        <td className="px-4 py-3 text-sm text-right font-mono text-[#29FFC6]/80 font-medium">
+                                        <td className="px-4 py-3 text-sm text-right font-mono text-brand-primary/80 font-medium">
                                             {tour.calculations?.suggestedPvpChild ? formatCurrency(tour.calculations.suggestedPvpChild) : '-'}
                                         </td>
                                     )}
@@ -405,7 +405,7 @@ export function InventoryTable({ onTourClick, selectedIds = [], onSelectionChang
                                         </td>
                                     )}
                                     {visibleColumns.private_pvp && (
-                                        <td className="px-4 py-3 text-sm text-right font-mono text-[#29FFC6]/80 font-medium">
+                                        <td className="px-4 py-3 text-sm text-right font-mono text-brand-primary/80 font-medium">
                                             {tour.calculations?.suggestedPvpPrivate ? formatCurrency(tour.calculations.suggestedPvpPrivate) : '-'}
                                         </td>
                                     )}
@@ -447,7 +447,7 @@ export function InventoryTable({ onTourClick, selectedIds = [], onSelectionChang
                                     {visibleColumns.status && (
                                         <td className="px-4 py-3 text-center">
                                             {tour.is_active ? (
-                                                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] uppercase font-bold bg-[#29FFC6]/10 text-[#29FFC6] border border-[#29FFC6]/30 shadow-[0_0_10px_#29FFC633]">
+                                                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] uppercase font-bold bg-[#29FFC6]/10 text-brand-primary border border-[#29FFC6]/30 shadow-[0_0_10px_#29FFC633]">
                                                     Active
                                                 </span>
                                             ) : (
@@ -473,14 +473,14 @@ export function InventoryTable({ onTourClick, selectedIds = [], onSelectionChang
                     <button
                         onClick={() => setPage(Math.max(1, page - 1))}
                         disabled={page === 1}
-                        className="px-4 py-2 border border-white/10 bg-white/5 text-gray-300 rounded-lg disabled:opacity-30 disabled:cursor-not-allowed hover:bg-[#29FFC6]/20 hover:text-[#29FFC6] hover:border-[#29FFC6]/30 transition-all uppercase text-xs font-bold tracking-wider"
+                        className="px-4 py-2 border border-white/10 bg-white/5 text-gray-300 rounded-lg disabled:opacity-30 disabled:cursor-not-allowed hover:bg-[#29FFC6]/20 hover:text-brand-primary hover:border-[#29FFC6]/30 transition-all uppercase text-xs font-bold tracking-wider"
                     >
                         Prev Sector
                     </button>
                     <button
                         onClick={() => setPage(Math.min(totalPages, page + 1))}
                         disabled={page === totalPages}
-                        className="px-4 py-2 border border-gray-200 dark:border-white/10 bg-white/50 dark:bg-white/5 text-gray-600 dark:text-gray-300 rounded-lg disabled:opacity-30 disabled:cursor-not-allowed hover:bg-teal-50 dark:hover:bg-[#29FFC6]/20 hover:text-teal-600 dark:hover:text-[#29FFC6] hover:border-teal-200 dark:hover:border-[#29FFC6]/30 transition-all uppercase text-xs font-bold tracking-wider"
+                        className="px-4 py-2 border border-gray-200 dark:border-white/10 bg-white/50 dark:bg-white/5 text-gray-600 dark:text-gray-300 rounded-lg disabled:opacity-30 disabled:cursor-not-allowed hover:bg-teal-50 dark:hover:bg-brand-primary/20 hover:text-teal-600 dark:hover:text-brand-primary hover:border-teal-200 dark:hover:border-brand-primary/30 transition-all uppercase text-xs font-bold tracking-wider"
                     >
                         Next Sector
                     </button>

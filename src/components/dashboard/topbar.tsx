@@ -82,7 +82,7 @@ export function Topbar() {
     }
 
     return (
-        <header className="h-16 border-b border-gray-200 dark:border-white/5 bg-white/80 dark:bg-[#050F1A]/80 backdrop-blur-md sticky top-0 z-30 px-6 flex items-center justify-between gap-4 transition-colors duration-300 shadow-sm dark:shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
+        <header className="h-16 glass-header sticky top-0 z-30 px-6 flex items-center justify-between gap-4 transition-colors duration-300 shadow-sm dark:shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
             {/* Dynamic Left/Center Section - Inventory Context Only */}
             <div className="flex-1 flex items-center min-w-0">
                 {renderDynamicContent()}

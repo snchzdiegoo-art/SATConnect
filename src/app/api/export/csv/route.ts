@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
+import type { CSVPrimitiveValue, CustomFieldValueInput } from '@/lib/types/api';
+import { handleAPIError } from '@/lib/api-errors';
 
 const prisma = new PrismaClient();
 
@@ -76,7 +78,7 @@ export async function GET(request: NextRequest) {
         ].join(',');
 
         // Helper to escape CSV values
-        const escapeCSV = (value: any): string => {
+        const escapeCSV = (value: CSVPrimitiveValue): string => {
             if (value === null || value === undefined) return '';
             const str = String(value);
             // If contains comma, quote, or newline, wrap in quotes and escape internal quotes
@@ -146,7 +148,7 @@ export async function GET(request: NextRequest) {
                 escapeCSV(a?.notes),
                 // Map custom fields in order
                 ...customFieldDefs.map(def => {
-                    const fieldVal = tour.custom_fields.find((f: any) => f.definition_id === def.id);
+                    const fieldVal = tour.custom_fields.find(f => f.definition_id === def.id);
                     return escapeCSV(fieldVal?.value);
                 })
             ].join(',');
@@ -166,10 +168,6 @@ export async function GET(request: NextRequest) {
             }
         });
     } catch (error) {
-        console.error('CSV Export Error:', error);
-        return NextResponse.json(
-            { success: false, error: 'Failed to export CSV' },
-            { status: 500 }
-        );
+        return handleAPIError(error, 'GET /api/export/csv');
     }
 }

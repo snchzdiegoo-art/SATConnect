@@ -16,6 +16,7 @@ import { OTACommissionCalculator } from './ota-commission-calculator';
 import { formatDistanceToNow } from 'date-fns';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import type { HealthStatus } from '@/components/ui/health-badge';
+import { buildOTAPayload } from '@/lib/types/api';
 
 interface TourDetail {
     id: number;
@@ -180,34 +181,8 @@ export function TourDetailModal({ tourId, open, onOpenChange, onEdit }: TourDeta
         if (!tour || !selectedOTA) return;
 
         try {
-            // Construct payload dynamically based on channel key
-            const payload: any = {};
-
-            if (selectedOTA.key === 'viator') {
-                payload.viator_status = data.status;
-                payload.viator_commission_percent = data.commission;
-            } else if (selectedOTA.key === 'expedia') {
-                payload.expedia_status = data.status;
-                payload.expedia_commission = data.commission;
-            } else if (selectedOTA.key === 'project_expedition') {
-                payload.project_expedition_status = data.status;
-                payload.project_expedition_commission = data.commission;
-            } else if (selectedOTA.key === 'klook') {
-                payload.klook_status = data.status;
-                payload.klook_commission = data.commission;
-            } else if (selectedOTA.key === 'tur_com') {
-                payload.tur_com_status = data.status;
-                payload.tur_com_commission = data.commission;
-            } else if (selectedOTA.key === 'tourist_com') {
-                payload.tourist_com_status = data.status;
-                payload.tourist_com_commission = data.commission;
-            } else if (selectedOTA.key === 'headout') {
-                payload.headout_status = data.status;
-                payload.headout_commission = data.commission;
-            } else if (selectedOTA.key === 'tourradar') {
-                payload.tourradar_status = data.status;
-                payload.tourradar_commission = data.commission;
-            }
+            // Construct payload using type-safe helper
+            const payload = buildOTAPayload(selectedOTA.key, data);
 
             const response = await fetch(`/api/tours/${tour.id}`, {
                 method: 'PUT',

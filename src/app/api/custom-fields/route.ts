@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { handleAPIError, validationError, HTTP_STATUS } from '@/lib/api-errors';
 
 // GET /api/custom-fields
 // List all active custom field definitions
@@ -11,8 +12,7 @@ export async function GET() {
         });
         return NextResponse.json({ success: true, data: fields });
     } catch (error) {
-        console.error('Failed to fetch custom fields:', error);
-        return NextResponse.json({ success: false, error: 'Failed to fetch fields' }, { status: 500 });
+        return handleAPIError(error, 'GET /api/custom-fields');
     }
 }
 
@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
 
         // Basic validation
         if (!label || !type) {
-            return NextResponse.json({ success: false, error: 'Label and Type are required' }, { status: 400 });
+            return validationError('Label and Type are required');
         }
 
         // Generate a key from the label (e.g., "Tour Difficulty" -> "tour_difficulty")
@@ -37,7 +37,10 @@ export async function POST(request: NextRequest) {
         // Check for duplicate key
         const existing = await prisma.customFieldDefinition.findUnique({ where: { key } });
         if (existing) {
-            return NextResponse.json({ success: false, error: 'Field with this name already exists' }, { status: 409 });
+            return NextResponse.json(
+                { success: false, error: 'Field with this name already exists', code: 'DUPLICATE_KEY' },
+                { status: HTTP_STATUS.CONFLICT }
+            );
         }
 
         const newField = await prisma.customFieldDefinition.create({
@@ -52,7 +55,6 @@ export async function POST(request: NextRequest) {
 
         return NextResponse.json({ success: true, data: newField }, { status: 201 });
     } catch (error) {
-        console.error('Failed to create custom field:', error);
-        return NextResponse.json({ success: false, error: 'Failed to create field' }, { status: 500 });
+        return handleAPIError(error, 'POST /api/custom-fields');
     }
 }

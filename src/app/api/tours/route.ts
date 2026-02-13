@@ -10,6 +10,8 @@ import { Prisma } from '@prisma/client';
 import { assessProductHealth } from '@/services/healthService';
 import { calculateTourPricing } from '@/services/pricingService';
 import { calculateOTADistributionScore, checkGlobalSuitability } from '@/services/distributionService';
+import type { TourVariantInput, CustomFieldValueInput } from '@/lib/types/api';
+import { handleAPIError, validationError, HTTP_STATUS } from '@/lib/api-errors';
 import * as fs from 'fs';
 
 // GET /api/tours - List tours with pagination and filters
@@ -174,11 +176,7 @@ export async function GET(request: NextRequest) {
             },
         });
     } catch (error) {
-        console.error('Error fetching tours:', error);
-        return NextResponse.json(
-            { success: false, error: 'Failed to fetch tours' },
-            { status: 500 }
-        );
+        return handleAPIError(error, 'GET /api/tours');
     }
 }
 
@@ -189,17 +187,11 @@ export async function POST(request: NextRequest) {
 
         // Validate required fields
         if (!body.product_name || !body.supplier || !body.location) {
-            return NextResponse.json(
-                { success: false, error: 'Missing required fields: product_name, supplier, location' },
-                { status: 400 }
-            );
+            return validationError('Missing required fields: product_name, supplier, location');
         }
 
         if (!body.pricing || !body.pricing.net_rate_adult) {
-            return NextResponse.json(
-                { success: false, error: 'Pricing information with net_rate_adult is required' },
-                { status: 400 }
-            );
+            return validationError('Pricing information with net_rate_adult is required');
         }
 
         // Create tour with all related entities in a transaction
@@ -285,7 +277,7 @@ export async function POST(request: NextRequest) {
             // 6. Create Variants
             if (body.variants && Array.isArray(body.variants)) {
                 await tx.tourVariant.createMany({
-                    data: body.variants.map((variant: any) => ({
+                    data: body.variants.map((variant: TourVariantInput) => ({
                         tour_id: newTour.id,
                         name: variant.name,
                         description: variant.description,
@@ -300,7 +292,7 @@ export async function POST(request: NextRequest) {
             // 7. Create Custom Field Values
             if (body.custom_fields && Array.isArray(body.custom_fields)) {
                 await tx.tourCustomFieldValue.createMany({
-                    data: body.custom_fields.map((field: any) => ({
+                    data: body.custom_fields.map((field: CustomFieldValueInput) => ({
                         tour_id: newTour.id,
                         definition_id: Number(field.definition_id),
                         value: String(field.value),
@@ -392,11 +384,7 @@ export async function POST(request: NextRequest) {
         }, { status: 201 });
 
     } catch (error) {
-        console.error('Error creating tour:', error);
-        return NextResponse.json(
-            { success: false, error: 'Failed to create tour' },
-            { status: 500 }
-        );
+        return handleAPIError(error, 'POST /api/tours');
     }
 }
 // DELETE /api/tours - Clear all tours or specific tours
@@ -430,10 +418,6 @@ export async function DELETE(request: NextRequest) {
             count: deleteResult.count
         });
     } catch (error) {
-        console.error('Error clearing tours:', error);
-        return NextResponse.json(
-            { success: false, error: 'Failed to clear tours' },
-            { status: 500 }
-        );
+        return handleAPIError(error, 'DELETE /api/tours');
     }
 }

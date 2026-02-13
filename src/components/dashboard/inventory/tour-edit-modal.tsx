@@ -243,7 +243,7 @@ export function TourEditModal({ tour, isOpen, onClose, onSave }: TourEditModalPr
         })
     }
 
-    const updateVariant = (index: number, field: string, value: any) => {
+    const updateVariant = (index: number, field: string, value: string | number | boolean) => {
         const newVariants = [...(formData.variants || [])];
         newVariants[index] = { ...newVariants[index], [field]: value };
         setFormData({ ...formData, variants: newVariants });

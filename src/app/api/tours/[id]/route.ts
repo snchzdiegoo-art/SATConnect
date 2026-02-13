@@ -8,8 +8,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { assessProductHealth } from '@/services/healthService';
+import type { TourVariantInput } from '@/lib/types/api';
 import { calculateTourPricing } from '@/services/pricingService';
 import { calculateOTADistributionScore, checkGlobalSuitability } from '@/services/distributionService';
+import { handleAPIError, validationError, notFoundError, HTTP_STATUS } from '@/lib/api-errors';
 
 // GET /api/tours/[id] - Get single tour with all relations
 export async function GET(
@@ -21,10 +23,7 @@ export async function GET(
         const tourId = parseInt(id);
 
         if (isNaN(tourId)) {
-            return NextResponse.json(
-                { success: false, error: 'Invalid tour ID' },
-                { status: 400 }
-            );
+            return validationError('Invalid tour ID');
         }
 
         const tour = await prisma.tour.findUnique({
@@ -52,10 +51,7 @@ export async function GET(
         });
 
         if (!tour) {
-            return NextResponse.json(
-                { success: false, error: 'Tour not found' },
-                { status: 404 }
-            );
+            return notFoundError('Tour');
         }
 
         // Calculate pricing fields
@@ -85,11 +81,7 @@ export async function GET(
             },
         });
     } catch (error) {
-        console.error('Error fetching tour:', error);
-        return NextResponse.json(
-            { success: false, error: 'Failed to fetch tour' },
-            { status: 500 }
-        );
+        return handleAPIError(error, `GET /api/tours/${await (await context.params).id}`);
     }
 }
 
@@ -227,8 +219,8 @@ export async function PUT(
 
                 // 2. Identify variants to delete (existing but not in body)
                 const bodyVariantIds = body.variants
-                    .map((v: any) => v.id)
-                    .filter((id: any) => id && typeof id === 'number');
+                    .map((v: TourVariantInput) => v.id)
+                    .filter((id: number | undefined): id is number => id !== undefined && typeof id === 'number');
 
                 const idsToDelete = existingIds.filter(id => !bodyVariantIds.includes(id));
 

@@ -1,7 +1,7 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
+import type { GlobalOTASetting } from '@/lib/types/api';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -64,11 +64,11 @@ export function OTACommissionCalculator({
             const res = await fetch('/api/settings/ota');
             const data = await res.json();
             if (data.success) {
-                const setting = data.data.find((s: any) => s.channel_key === channelKey);
+                const setting = data.data.find((s: GlobalOTASetting) => s.channel_key === channelKey);
                 if (setting) {
-                    setGlobalDefault(parseFloat(setting.default_commission));
+                    setGlobalDefault(parseFloat(String(setting.default_commission)));
                     if (!currentCommission) {
-                        setCommission(setting.default_commission.toString());
+                        setCommission(String(setting.default_commission));
                     }
                 }
             }

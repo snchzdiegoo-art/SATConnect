@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label"
 import Papa from "papaparse"
 import { FileSpreadsheet, Loader2 } from "lucide-react"
 import { TourInput } from "@/lib/thrive-engine"
+import { type CSVPrimitiveValue } from '@/lib/types/api'; // Added this import
 
 interface ImportModalProps {
     isOpen: boolean
@@ -27,7 +28,7 @@ export function ImportModal({ isOpen, onClose, onImport }: ImportModalProps) {
     const [previewCount, setPreviewCount] = useState<number>(0)
     const [parsedData, setParsedData] = useState<TourInput[]>([])
 
-    const parseCurrency = (value: any): number => {
+    const parseCurrency = (value: CSVPrimitiveValue): number => { // Changed 'any' to 'CSVPrimitiveValue'
         if (!value) return 0
         // Remove currency symbols (US$, $, €, etc.) and whitespace
         let cleaned = String(value).replace(/US\$|[$€£¥]/g, '').trim()
@@ -37,7 +38,7 @@ export function ImportModal({ isOpen, onClose, onImport }: ImportModalProps) {
         return parseFloat(cleaned) || 0
     }
 
-    const parseNumber = (value: any): string => {
+    const parseNumber = (value: CSVPrimitiveValue): string => { // Changed 'any' to 'CSVPrimitiveValue'
         if (!value) return ""
         // Extract just the number (with sign) from strings like "-US$4,00" -> "-4"
         const match = String(value).match(/(-?\d+)/)

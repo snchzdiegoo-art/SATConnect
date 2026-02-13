@@ -1,21 +1,18 @@
 
+
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { Prisma } from '@prisma/client';
+import { handleAPIError, validationError } from '@/lib/api-errors';
+import { getOTASettings, invalidateOTACache } from '@/lib/cache/ota-settings';
 
-// GET /api/settings/ota - List all OTA settings
+// GET /api/settings/ota - List all OTA settings (with caching)
 export async function GET(request: NextRequest) {
     try {
-        const settings = await prisma.globalOTASettings.findMany({
-            orderBy: { channel_name: 'asc' }
-        });
+        const settings = await getOTASettings();
         return NextResponse.json({ success: true, data: settings });
     } catch (error) {
-        console.error('Error fetching OTA settings:', error);
-        return NextResponse.json(
-            { success: false, error: 'Failed to fetch OTA settings' },
-            { status: 500 }
-        );
+        return handleAPIError(error, 'GET /api/settings/ota');
     }
 }
 
@@ -25,10 +22,7 @@ export async function POST(request: NextRequest) {
         const body = await request.json();
 
         if (!body.channel_key || !body.channel_name) {
-            return NextResponse.json(
-                { success: false, error: 'Missing required fields' },
-                { status: 400 }
-            );
+            return validationError('Missing required fields: channel_key and channel_name');
         }
 
         const setting = await prisma.globalOTASettings.upsert({
@@ -46,13 +40,12 @@ export async function POST(request: NextRequest) {
             }
         });
 
+        // Invalidate cache after updating settings
+        invalidateOTACache();
+
         return NextResponse.json({ success: true, data: setting });
 
     } catch (error) {
-        console.error('Error saving OTA setting:', error);
-        return NextResponse.json(
-            { success: false, error: 'Failed to save OTA setting' },
-            { status: 500 }
-        );
+        return handleAPIError(error, 'POST /api/settings/ota');
     }
 }

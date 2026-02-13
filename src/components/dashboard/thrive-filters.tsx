@@ -118,7 +118,7 @@ export function ThriveFilters({ providers, locations, onFilterChange }: ThriveFi
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b">
                 <div className="flex items-center gap-2">
-                    <Filter className="h-5 w-5 text-teal-600 dark:text-[#29FFC6]" />
+                    <Filter className="h-5 w-5 text-teal-600 dark:text-brand-primary" />
                     <h3 className="font-semibold text-gray-900 dark:text-white font-display tracking-wide">Filters</h3>
                     {activeFilterCount > 0 && (
                         <span className="px-2 py-0.5 bg-blue-500/20 text-blue-200 border border-blue-500/30 text-xs rounded-full font-medium">
@@ -164,7 +164,7 @@ export function ThriveFilters({ providers, locations, onFilterChange }: ThriveFi
                 <div className="p-4 space-y-4">
                     {/* Search */}
                     <div>
-                        <label className="block text-sm font-semibold text-teal-600 dark:text-[#29FFC6] font-display tracking-wide mb-2">
+                        <label className="block text-sm font-semibold text-teal-600 dark:text-brand-primary font-display tracking-wide mb-2">
                             Search Tours
                         </label>
                         <div className="relative">
@@ -206,14 +206,14 @@ export function ThriveFilters({ providers, locations, onFilterChange }: ThriveFi
 
                         {/* Sort Options */}
                         <div className="space-y-2">
-                            <label className="block text-sm font-semibold text-teal-600 dark:text-[#29FFC6] font-display tracking-wide">
+                            <label className="block text-sm font-semibold text-teal-600 dark:text-brand-primary font-display tracking-wide">
                                 Sort By
                             </label>
                             <div className="flex gap-2">
                                 <select
                                     value={sortBy}
                                     onChange={(e) => setSortBy(e.target.value)}
-                                    className="flex-1 border border-gray-200 dark:border-white/10 rounded-md px-3 py-2 text-sm font-medium text-gray-900 dark:text-white bg-white/50 dark:bg-[#0B2E3C]/50 focus:ring-2 focus:ring-teal-500 dark:focus:ring-[#29FFC6] focus:border-transparent outline-none"
+                                    className="flex-1 border border-gray-200 dark:border-white/10 rounded-md px-3 py-2 text-sm font-medium text-gray-900 dark:text-white bg-white/50 dark:bg-brand-teal/50 focus:ring-2 focus:ring-teal-500 dark:focus:ring-[#29FFC6] focus:border-transparent outline-none"
                                 >
                                     {sortOptions.map((option) => (
                                         <option key={option.value} value={option.value}>
@@ -236,7 +236,7 @@ export function ThriveFilters({ providers, locations, onFilterChange }: ThriveFi
                                     <button
                                         onClick={() => setSortOrder('desc')}
                                         className={`px-3 py-1.5 flex items-center justify-center transition-colors ${sortOrder === 'desc'
-                                            ? 'bg-teal-500 dark:bg-[#29FFC6] text-white dark:text-[#050F1A]'
+                                            ? 'bg-teal-500 dark:bg-brand-primary text-white dark:text-[#050F1A]'
                                             : 'bg-white/50 dark:bg-white/5 text-gray-400 hover:bg-white/80 dark:hover:bg-white/10 hover:text-gray-900 dark:hover:text-white'
                                             }`}
                                         title="Descending"
@@ -307,7 +307,7 @@ function FilterDropdown({ label, options, selectedValues, onToggle }: FilterDrop
 
     return (
         <div className="space-y-2">
-            <label className="block text-sm font-semibold text-teal-600 dark:text-[#29FFC6] font-display tracking-wide">
+            <label className="block text-sm font-semibold text-teal-600 dark:text-brand-primary font-display tracking-wide">
                 {label}
             </label>
             <DropdownMenu>
@@ -315,7 +315,7 @@ function FilterDropdown({ label, options, selectedValues, onToggle }: FilterDrop
                     <Button
                         variant="outline"
                         suppressHydrationWarning={true}
-                        className="w-full justify-between border border-gray-200 dark:border-white/10 bg-white/50 dark:bg-[#0B2E3C]/50 font-normal hover:bg-white/80 dark:hover:bg-white/10 hover:text-gray-900 dark:hover:text-white text-gray-700 dark:text-gray-300"
+                        className="w-full justify-between border border-gray-200 dark:border-white/10 bg-white/50 dark:bg-brand-teal/50 font-normal hover:bg-white/80 dark:hover:bg-white/10 hover:text-gray-900 dark:hover:text-white text-gray-700 dark:text-gray-300"
                     >
                         <span className="truncate">
                             {selectedCount === 0 ? 'All' : `${selectedCount} selected`}
@@ -323,13 +323,13 @@ function FilterDropdown({ label, options, selectedValues, onToggle }: FilterDrop
                         <ChevronDown className="h-4 w-4 opacity-50" />
                     </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56 max-h-80 overflow-y-auto bg-white/95 dark:bg-[#050F1A]/95 text-gray-900 dark:text-gray-200 border-gray-200 dark:border-white/10 backdrop-blur-xl" align="start">
+                <DropdownMenuContent className="w-56 max-h-80 overflow-y-auto bg-white/95 dark:bg-brand-dark/95 text-gray-900 dark:text-gray-200 border-gray-200 dark:border-white/10 backdrop-blur-xl" align="start">
                     {options.map((option) => (
                         <DropdownMenuCheckboxItem
                             key={option.value}
                             checked={selectedValues.includes(option.value)}
                             onCheckedChange={() => onToggle(option.value)}
-                            className="cursor-pointer hover:bg-gray-100 dark:hover:bg-white/10 focus:bg-gray-100 dark:focus:bg-white/10 data-[state=checked]:text-teal-600 dark:data-[state=checked]:text-[#29FFC6]"
+                            className="cursor-pointer hover:bg-gray-100 dark:hover:bg-white/10 focus:bg-gray-100 dark:focus:bg-white/10 data-[state=checked]:text-teal-600 dark:data-[state=checked]:text-brand-primary"
                         >
                             <span className={option.color || 'text-gray-700 dark:text-gray-200'}>{option.label}</span>
                         </DropdownMenuCheckboxItem>

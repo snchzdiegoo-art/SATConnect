@@ -10,7 +10,7 @@ const badgeVariants = cva(
                 success:
                     "bg-emerald-500/10 text-emerald-400 border border-emerald-500/30",
                 popular:
-                    "bg-[#00FF66]/10 text-[#00FF66] border border-[#00FF66]/30",
+                    "bg-brand-green/10 text-[#00FF66] border border-[#00FF66]/30",
                 blue:
                     "bg-blue-500/10 text-blue-400 border border-blue-500/30",
                 purple:
