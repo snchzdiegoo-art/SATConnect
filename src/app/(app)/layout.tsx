@@ -9,7 +9,7 @@ export default function DashboardLayout({
     children: React.ReactNode
 }) {
     return (
-        <div className="flex h-screen w-full bg-gray-950 font-sans antialiased text-gray-100 overflow-hidden">
+        <div className="flex h-screen w-full bg-transparent font-sans antialiased text-gray-900 dark:text-gray-100 overflow-hidden">
             {/* Sidebar - Auto-sizes based on collapsed state */}
             <Sidebar />
 

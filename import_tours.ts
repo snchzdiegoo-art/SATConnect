@@ -103,8 +103,12 @@ async function importTours() {
                 // Helpers for safe data extraction using the Map
                 const getStr = (index: number) => row[index]?.toString().trim() || null;
                 const getInt = (index: number) => {
-                    const val = row[index]?.toString().replace(/[^0-9-]/g, '');
-                    return val ? parseInt(val) : null;
+                    // Remove non-numeric characters EXCEPT dot and minus
+                    const val = row[index]?.toString().replace(/[^0-9.-]/g, '');
+                    if (!val) return null;
+                    // Parse as float first to handle "1.00", then round to integer
+                    const num = parseFloat(val);
+                    return isNaN(num) ? null : Math.round(num);
                 };
                 const getDec = (index: number) => {
                     const val = row[index]?.toString().replace(/[^0-9.]/g, '');

@@ -1,7 +1,7 @@
 "use client"
 
 import { usePathname } from "next/navigation"
-import { Bell, Search, ChevronDown } from "lucide-react"
+import { Search, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input" // We might need to create this primitive if missing
 import {
@@ -82,29 +82,10 @@ export function Topbar() {
     }
 
     return (
-        <header className="h-16 border-b border-gray-800 bg-gray-950/50 backdrop-blur-sm sticky top-0 z-40 px-6 flex items-center justify-between gap-4">
-            {/* Dynamic Left/Center Section */}
+        <header className="h-16 border-b border-gray-200 dark:border-white/5 bg-white/80 dark:bg-[#050F1A]/80 backdrop-blur-md sticky top-0 z-30 px-6 flex items-center justify-between gap-4 transition-colors duration-300 shadow-sm dark:shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
+            {/* Dynamic Left/Center Section - Inventory Context Only */}
             <div className="flex-1 flex items-center min-w-0">
                 {renderDynamicContent()}
-            </div>
-
-            {/* Fixed Right Section: Notifications & User */}
-            <div className="flex items-center gap-3 shrink-0">
-                <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white relative">
-                    <Bell className="h-5 w-5" />
-                    <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-gray-950"></span>
-                </Button>
-
-                {/* User Profile */}
-                <div className="flex items-center gap-3 pl-3 border-l border-gray-800">
-                    <div className="text-right hidden md:block">
-                        <div className="text-sm font-medium text-white">Diego Sánchez</div>
-                        <div className="text-xs text-gray-500">Admin</div>
-                    </div>
-                    <div className="w-9 h-9 rounded-full bg-gray-800 border-2 border-gray-700 overflow-hidden cursor-pointer hover:border-teal-500 transition-colors">
-                        <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=Diego" alt="User" />
-                    </div>
-                </div>
             </div>
         </header>
     )

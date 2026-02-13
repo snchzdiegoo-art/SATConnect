@@ -208,7 +208,7 @@ async function main() {
                     viator_id: 'V67890',
                     viator_status: 'Active',
                     viator_commission_percent: new Decimal(20.00),
-                    klook_id: 99887,
+                    klook_id: "99887",
                     klook_status: 'Published',
                 },
             },

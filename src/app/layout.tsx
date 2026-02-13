@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: '--font-inter' });
+const montserrat = Montserrat({ subsets: ["latin"], variable: '--font-montserrat' });
 
 export const metadata: Metadata = {
   title: "SAT Connect | El SaaS para Proveedores de Tours y Actividades",
@@ -18,16 +19,25 @@ export const metadata: Metadata = {
   },
 };
 
+import { ThemeProvider } from "@/components/theme-provider";
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="dark">
-      <body className={`${inter.className} bg-gray-950 text-gray-100 antialiased`}>
-        {children}
-        <Analytics />
+    <html lang="es" suppressHydrationWarning>
+      <body className={`${inter.variable} ${montserrat.variable} font-sans bg-gray-50 dark:bg-[#050F1A] text-gray-900 dark:text-gray-100 antialiased selection:bg-[#29FFC6] selection:text-[#050F1A]`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem={false}
+          disableTransitionOnChange
+        >
+          {children}
+          <Analytics />
+        </ThemeProvider>
       </body>
     </html>
   );

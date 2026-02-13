@@ -2,6 +2,7 @@
 import { PrismaClient } from '@prisma/client';
 import { assessProductHealth } from './src/services/healthService';
 import { calculateOTADistributionScore, checkGlobalSuitability } from './src/services/distributionService';
+import { calculateTourPricing } from './src/services/pricingService';
 
 const prisma = new PrismaClient();
 
@@ -31,7 +32,29 @@ async function recalculateAll() {
         const distributionScore = calculateOTADistributionScore(tour as any); // Type cast as existing structure matches expectations
 
         // 3. Global Suitability
-        const isGlobal = checkGlobalSuitability(healthCheck, distributionScore);
+        let pricingInfo = undefined;
+        if (tour.pricing) {
+            const calculations = calculateTourPricing({
+                net_rate_adult: tour.pricing.net_rate_adult,
+                shared_factor: tour.pricing.shared_factor,
+                net_rate_child: tour.pricing.net_rate_child,
+                net_rate_private: tour.pricing.net_rate_private,
+                private_factor: tour.pricing.private_factor,
+                private_min_pax: tour.pricing.private_min_pax,
+                private_min_pax_net_rate: tour.pricing.private_min_pax_net_rate
+            });
+
+            pricingInfo = {
+                suggested_pvp_adult: calculations.suggestedPvpAdult,
+                net_rate_adult: tour.pricing.net_rate_adult
+            };
+        }
+
+        const isGlobal = checkGlobalSuitability(
+            healthCheck.status,
+            pricingInfo,
+            tour.logistics?.cxl_policy
+        );
 
         // 4. Update Audit Record
         await prisma.tourAudit.upsert({

@@ -5,6 +5,7 @@
 
 export interface TourInput {
     id: string;
+    bokunId?: number | null; // Col A - Bokun ID
     name: string;
     provider: string; // e.g., "Mundo Maya"
 
@@ -62,6 +63,8 @@ export interface TourInput {
 
     // Global Dist Strategy (AUDIT_MASTER_LOG Col 9)
     globalStrategy?: "B2B_READY" | "B2C_ONLY" | "PENDING_AUDIT";
+
+    is_audited?: boolean; // Added to support manual verification
 
     // New Features
     variants?: Array<{

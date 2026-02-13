@@ -88,7 +88,15 @@ export function ChangeHistoryModal({ tourId, tourName, open, onOpenChange }: Cha
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="max-w-3xl max-h-[80vh] overflow-hidden flex flex-col bg-white">
+            <DialogContent
+                className="max-w-3xl max-h-[80vh] overflow-hidden flex flex-col bg-white"
+                onPointerDownOutside={(e) => {
+                    const target = e.target as HTMLElement;
+                    if (target.closest('[data-id="sidebar"]')) {
+                        e.preventDefault();
+                    }
+                }}
+            >
                 <DialogHeader>
                     <DialogTitle className="text-xl font-bold text-gray-900">
                         📋 Change History: {tourName}

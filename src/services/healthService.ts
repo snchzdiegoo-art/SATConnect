@@ -20,12 +20,14 @@ export interface TourWithRelations {
         net_rate_adult: Decimal;
         net_rate_child?: Decimal | null;
         shared_factor: Decimal;
+        infant_age_threshold?: number | null;
     } | null;
     logistics?: {
         duration?: string | null;
         days_of_operation?: string | null;
         cxl_policy?: string | null;
         meeting_point_info?: string | null;
+        pickup_info?: string | null;
     } | null;
     assets?: {
         pictures_url?: string | null;
@@ -49,34 +51,31 @@ export function assessProductHealth(tour: TourWithRelations): TourHealthCheck {
     const issues: string[] = [];
     let score = 100;
 
-    // Check 1: Audit Status
-    if (!tour.is_audited) {
-        return {
-            status: 'AUDIT_REQUIRED',
-            issues: ['Product has not been audited by SAT team'],
-            score: 0,
-        };
-    }
-
-    // Check 2: Pricing Critical Fields
+    // Check 1: Pricing Critical Fields
     if (!tour.pricing) {
         issues.push('Pricing information is missing');
         score -= 30;
     } else {
         // Net Rate Adult is mandatory
         if (!tour.pricing.net_rate_adult || tour.pricing.net_rate_adult.lessThanOrEqualTo(0)) {
-            issues.push('Net Rate Adult is missing or invalid (must be > 0)');
+            issues.push('Net Rate Adult is missing or invalid');
             score -= 20;
         }
 
-        // Shared Factor validation
-        if (!tour.pricing.shared_factor || tour.pricing.shared_factor.lessThan(1.0)) {
-            issues.push('Shared Factor is missing or invalid (must be >= 1.0)');
+        // Infant Age is mandatory per new formula
+        if (tour.pricing.infant_age_threshold === undefined || tour.pricing.infant_age_threshold === null) {
+            issues.push('Free Infant Age is missing');
             score -= 10;
+        }
+
+        // Shared Factor validation (kept as good practice)
+        if (!tour.pricing.shared_factor || tour.pricing.shared_factor.lessThan(1.0)) {
+            issues.push('Shared Factor is invalid (must be >= 1.0)');
+            score -= 5;
         }
     }
 
-    // Check 3: Content Critical Fields
+    // Check 2: Content Critical Fields
     if (!tour.assets) {
         issues.push('Asset information is missing');
         score -= 30;
@@ -87,14 +86,20 @@ export function assessProductHealth(tour: TourWithRelations): TourHealthCheck {
             score -= 15;
         }
 
-        // Storytelling URL is mandatory
+        // Landing Page URL is recommended (Warning)
+        if (!tour.assets.landing_page_url || tour.assets.landing_page_url.trim() === '') {
+            // issues.push('Landing Page URL is missing'); // Warning only
+            score -= 5;
+        }
+
+        // Storytelling URL is recommended (Warning)
         if (!tour.assets.storytelling_url || tour.assets.storytelling_url.trim() === '') {
-            issues.push('Storytelling URL is missing');
-            score -= 15;
+            // issues.push('Storytelling URL is missing'); // Warning only
+            score -= 5;
         }
     }
 
-    // Check 4: Operational Critical Fields
+    // Check 3: Operational Critical Fields
     if (!tour.logistics) {
         issues.push('Logistics information is missing');
         score -= 20;
@@ -102,7 +107,13 @@ export function assessProductHealth(tour: TourWithRelations): TourHealthCheck {
         // Duration is mandatory
         if (!tour.logistics.duration || tour.logistics.duration.trim() === '') {
             issues.push('Duration is missing');
-            score -= 5;
+            score -= 10;
+        }
+
+        // Days of Operation is mandatory per new formula
+        if (!tour.logistics.days_of_operation || tour.logistics.days_of_operation.trim() === '') {
+            issues.push('Days of Operation is missing');
+            score -= 10;
         }
 
         // CXL Policy is mandatory
@@ -111,15 +122,28 @@ export function assessProductHealth(tour: TourWithRelations): TourHealthCheck {
             score -= 10;
         }
 
-        // Meeting Point is highly recommended
-        if (!tour.logistics.meeting_point_info || tour.logistics.meeting_point_info.trim() === '') {
-            issues.push('Meeting Point information is missing (recommended)');
-            score -= 5;
+        // Meeting Point is mandatory
+        if ((!tour.logistics.meeting_point_info || tour.logistics.meeting_point_info.trim() === '') &&
+            (!tour.logistics.pickup_info || tour.logistics.pickup_info.trim() === '')) {
+            issues.push('Meeting Point / Pickup Info is missing');
+            score -= 10;
         }
     }
 
-    // Determine final status
-    const status: HealthStatus = issues.length === 0 ? 'HEALTHY' : 'INCOMPLETE';
+    // Determine status based on data completeness first
+    let status: HealthStatus = 'HEALTHY';
+
+    if (issues.length > 0 || score < 80) { // Threshold for "Incomplete"
+        status = 'INCOMPLETE';
+    } else {
+        // Check Audit Status LAST
+        // If data is good, but not audited, marked as AUDIT_REQUIRED
+        if (!tour.is_audited) {
+            status = 'AUDIT_REQUIRED';
+            issues.push('Product requires final audit by SAT team');
+            // We keep the high score to show data quality, but status blocks activation
+        }
+    }
 
     return {
         status,

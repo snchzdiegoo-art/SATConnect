@@ -75,9 +75,17 @@ export function NotesEditorModal({
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="max-w-2xl bg-white">
+            <DialogContent
+                className="max-w-2xl bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800"
+                onPointerDownOutside={(e) => {
+                    const target = e.target as HTMLElement;
+                    if (target.closest('[data-id="sidebar"]')) {
+                        e.preventDefault();
+                    }
+                }}
+            >
                 <DialogHeader>
-                    <DialogTitle className="text-xl font-bold text-gray-900">
+                    <DialogTitle className="text-xl font-bold text-gray-900 dark:text-gray-100">
                         📝 Add / Edit Notes: {tourName}
                     </DialogTitle>
                 </DialogHeader>
@@ -88,17 +96,17 @@ export function NotesEditorModal({
                         onChange={(e) => setNotes(e.target.value)}
                         placeholder="Add notes about this tour..."
                         rows={12}
-                        className="resize-none !text-black placeholder:text-gray-600 border-2 border-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 bg-white"
+                        className="resize-none text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400 border-2 border-gray-300 dark:border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 dark:focus:ring-indigo-900 bg-white dark:bg-gray-950"
                     />
 
                     <div className="flex items-center justify-between text-sm">
-                        <span className="text-gray-900 font-medium">{charCount} characters</span>
-                        {hasChanges && <span className="text-orange-700 font-medium">• Unsaved changes</span>}
+                        <span className="text-gray-700 dark:text-gray-400 font-medium">{charCount} characters</span>
+                        {hasChanges && <span className="text-orange-600 dark:text-orange-400 font-medium">• Unsaved changes</span>}
                     </div>
 
                     {error && (
-                        <div className="p-3 bg-red-50 border border-red-200 rounded-md">
-                            <p className="text-sm text-red-800">✗ {error}</p>
+                        <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md">
+                            <p className="text-sm text-red-800 dark:text-red-300">✗ {error}</p>
                         </div>
                     )}
 
@@ -107,14 +115,14 @@ export function NotesEditorModal({
                             variant="outline"
                             onClick={() => onOpenChange(false)}
                             disabled={saving}
-                            className="text-gray-900 font-medium border-2 border-gray-400 hover:bg-gray-100"
+                            className="text-gray-700 dark:text-gray-300 font-medium border-2 border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
                         >
                             Cancel
                         </Button>
                         <Button
                             onClick={handleSave}
                             disabled={saving || !hasChanges}
-                            className="bg-indigo-600 hover:bg-indigo-700"
+                            className="bg-indigo-600 hover:bg-indigo-700 text-white"
                         >
                             {saving ? '💾 Saving...' : '💾 Save Notes'}
                         </Button>

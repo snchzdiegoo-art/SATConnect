@@ -3,7 +3,8 @@ import { prisma } from '@/lib/prisma';
 
 // GET /api/tours/[id]/variants
 // List all variants for a tour
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest, props: { params: Promise<{ id: string }> }) {
+    const params = await props.params;
     try {
         const tourId = parseInt(params.id);
         if (isNaN(tourId)) {
@@ -23,7 +24,8 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 
 // POST /api/tours/[id]/variants
 // Create a new variant for a tour
-export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
+export async function POST(request: NextRequest, props: { params: Promise<{ id: string }> }) {
+    const params = await props.params;
     try {
         const tourId = parseInt(params.id);
         if (isNaN(tourId)) {

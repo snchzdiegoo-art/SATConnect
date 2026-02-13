@@ -399,12 +399,30 @@ export async function POST(request: NextRequest) {
         );
     }
 }
-// DELETE /api/tours - Clear all tours
+// DELETE /api/tours - Clear all tours or specific tours
 export async function DELETE(request: NextRequest) {
     try {
-        // Optional: Add authentication/authorization check here
+        let ids: number[] | undefined;
 
-        const deleteResult = await prisma.tour.deleteMany({});
+        try {
+            const body = await request.json();
+            if (body.ids && Array.isArray(body.ids)) {
+                ids = body.ids;
+            }
+        } catch (e) {
+            // No body or invalid JSON, proceed with delete all (or handle as needed)
+        }
+
+        let deleteResult;
+        if (ids && ids.length > 0) {
+            deleteResult = await prisma.tour.deleteMany({
+                where: {
+                    id: { in: ids }
+                }
+            });
+        } else {
+            deleteResult = await prisma.tour.deleteMany({});
+        }
 
         return NextResponse.json({
             success: true,

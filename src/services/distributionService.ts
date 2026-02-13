@@ -42,8 +42,8 @@ export function checkGlobalSuitability(
     },
     cxlPolicy?: string | null
 ): boolean {
-    // Gate 1: Must be HEALTHY
-    if (healthStatus !== 'HEALTHY') {
+    // Gate 1: Must be HEALTHY or AUDIT_REQUIRED (Complete data)
+    if (healthStatus !== 'HEALTHY' && healthStatus !== 'AUDIT_REQUIRED') {
         return false;
     }
 

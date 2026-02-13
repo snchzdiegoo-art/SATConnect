@@ -72,11 +72,16 @@ export async function GET(
             });
         }
 
+        // Run health check on the fly to get detailed issues
+        const healthCheck = assessProductHealth(tour);
+
         return NextResponse.json({
             success: true,
             data: {
                 ...tour,
                 calculations,
+                health_issues: healthCheck.issues, // Pass detailed issues to frontend
+                health_score: healthCheck.score,   // Pass numeric score
             },
         });
     } catch (error) {
@@ -356,7 +361,7 @@ export async function PUT(
     } catch (error) {
         console.error('Error updating tour:', error);
         return NextResponse.json(
-            { success: false, error: 'Failed to update tour' },
+            { success: false, error: `Failed to update tour: ${(error as Error).message}` },
             { status: 500 }
         );
     }
