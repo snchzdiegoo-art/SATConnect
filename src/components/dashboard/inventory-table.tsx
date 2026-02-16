@@ -366,7 +366,7 @@ export function InventoryTable({ onTourClick, selectedIds = [], onSelectionChang
                                             className="rounded border-white/20 bg-white/5 text-brand-primary focus:ring-brand-primary h-4 w-4"
                                         />
                                     </td>
-                                    {visibleColumns.bokun_id && <td className="px-4 py-3 text-xs font-mono text-gray-500 group-hover:text-teal-600 dark:group-hover:text-brand-primary transition-colors">{tour.bokun_id}</td>}
+                                    {visibleColumns.bokun_id && <td className="px-4 py-3 text-xs font-mono text-gray-700 dark:text-gray-400 group-hover:text-teal-700 dark:group-hover:text-[#29FFC6] transition-colors">{tour.bokun_id}</td>}
                                     <td className="px-4 py-3 text-sm font-medium text-gray-900 dark:text-white group-hover:text-teal-700 dark:group-hover:text-white transition-colors tracking-tight">{tour.product_name}</td>
                                     {visibleColumns.provider && <td className="px-4 py-3 text-xs text-gray-400 uppercase tracking-wide">{tour.supplier}</td>}
                                     {visibleColumns.location && <td className="px-4 py-3 text-xs text-gray-400">{tour.location}</td>}
