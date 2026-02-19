@@ -1,26 +1,45 @@
 "use client"
 
 import { usePathname } from "next/navigation"
-import { Search, ChevronDown } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input" // We might need to create this primitive if missing
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu" // Assuming we have these or need to add mockup logic
-
-// Mock Organization Data
-const organizations = [
-    { id: "org_1", name: "Mundo Maya Travel" },
-    { id: "org_2", name: "Caribe Tours VIP" }
-]
-
-// ... imports
 import { useState, useEffect } from "react"
+import { Search, ChevronRight, Bell, LogOut, Moon, Sun } from "lucide-react"
+import { Input } from "@/components/ui/input"
+import { SignOutButton } from "@clerk/nextjs"
+import { Button } from "@/components/ui/button"
+import { useTheme } from "next-themes"
+
+// ── Route → breadcrumb map ─────────────────────────────────────────────────
+const BREADCRUMBS: Record<string, { label: string; parent?: string; parentHref?: string }> = {
+    "/dashboard": { label: "Resumen" },
+    "/thrive": { label: "Thrive Engine", parent: "Dashboard", parentHref: "/dashboard" },
+    "/dashboard/inventory": { label: "Inventario", parent: "Dashboard", parentHref: "/dashboard" },
+    "/dashboard/suppliers": { label: "Proveedores", parent: "Dashboard", parentHref: "/dashboard" },
+    "/dashboard/channels": { label: "Canales OTA", parent: "Dashboard", parentHref: "/dashboard" },
+    "/dashboard/mail": { label: "Correo", parent: "Dashboard", parentHref: "/dashboard" },
+    "/dashboard/calendar": { label: "Calendario", parent: "Dashboard", parentHref: "/dashboard" },
+}
+
+// Pages where we show the full user card in the topbar
+const SHOW_USER_CARD = ["/dashboard/mail", "/dashboard/calendar"]
+
+function CompactThemeToggle() {
+    const { resolvedTheme, setTheme } = useTheme()
+    const [mounted, setMounted] = useState(false)
+    useEffect(() => setMounted(true), [])
+    if (!mounted) return <div className="w-8 h-8" />
+    return (
+        <button
+            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+            className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
+            title="Cambiar tema"
+        >
+            {resolvedTheme === "dark"
+                ? <Sun className="h-4 w-4" />
+                : <Moon className="h-4 w-4" />
+            }
+        </button>
+    )
+}
 
 export function Topbar() {
     const pathname = usePathname()
@@ -28,64 +47,83 @@ export function Topbar() {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     useEffect(() => setMounted(true), [])
 
-    if (!mounted) return <header className="h-16 border-b border-gray-800 bg-gray-950/50" />
+    if (!mounted) return <header className="h-14 border-b border-gray-200 dark:border-white/[0.06] bg-white/80 dark:bg-[#07101E]/80" />
 
-    // Content Switching Logic
-    const renderDynamicContent = () => {
-        if (pathname.includes('/inventory')) {
-            return (
-                <div className="flex items-center gap-4 w-full">
-                    {/* Organization Switcher */}
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" className="text-gray-300 hover:text-white flex items-center gap-2 px-2 hover:bg-white/5 border border-transparent hover:border-white/10 rounded-lg h-9 min-w-0 shrink-0">
-                                <span className="w-6 h-6 rounded bg-gradient-to-br from-teal-500 to-blue-600 flex items-center justify-center text-[10px] font-bold text-white shrink-0">
-                                    MM
-                                </span>
-                                <span className="font-medium text-sm truncate max-w-[150px] md:max-w-[200px]">Mundo Maya Travel</span>
-                                <ChevronDown className="h-4 w-4 opacity-50 shrink-0" />
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent className="w-56 bg-gray-900 border-gray-800 text-gray-200">
-                            <DropdownMenuLabel>Mis Organizaciones</DropdownMenuLabel>
-                            <DropdownMenuSeparator className="bg-gray-800" />
-                            <DropdownMenuItem className="focus:bg-teal-500/10 focus:text-teal-400 cursor-pointer">
-                                Mundo Maya Travel
-                            </DropdownMenuItem>
-                            <DropdownMenuItem className="focus:bg-teal-500/10 focus:text-teal-400 cursor-pointer">
-                                Caribe Tours VIP
-                            </DropdownMenuItem>
-                            <DropdownMenuSeparator className="bg-gray-800" />
-                            <DropdownMenuItem className="text-teal-400 focus:bg-teal-500/10 cursor-pointer">
-                                + Crear Nueva Organización
-                            </DropdownMenuItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
-
-                    <div className="h-6 w-px bg-gray-800 hidden md:block"></div>
-
-                    {/* Search Bar - Inventory Specific */}
-                    <div className="relative w-full max-w-sm hidden md:block">
-                        <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
-                        <Input
-                            type="text"
-                            placeholder="Buscar reserva, tour o cliente..."
-                            className="w-full bg-gray-900 border border-gray-800 text-sm rounded-md pl-9 pr-4 py-1.5 text-gray-300 placeholder:text-gray-600 focus:outline-none focus:border-teal-500/50 transition-colors"
-                        />
-                    </div>
-                </div>
-            )
-        }
-
-        // Default / Other Pages (Placeholder for now as requested)
-        return <div className="text-sm text-gray-500 font-medium"></div>
-    }
+    const crumb = BREADCRUMBS[pathname] ?? { label: "Dashboard" }
+    const showUserCard = SHOW_USER_CARD.some(p => pathname.startsWith(p))
 
     return (
-        <header className="h-16 glass-header sticky top-0 z-30 px-6 flex items-center justify-between gap-4 transition-colors duration-300 shadow-sm dark:shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
-            {/* Dynamic Left/Center Section - Inventory Context Only */}
-            <div className="flex-1 flex items-center min-w-0">
-                {renderDynamicContent()}
+        <header className="h-14 glass-header sticky top-0 z-30 px-6 flex items-center justify-between gap-6 shadow-sm dark:shadow-[0_2px_20px_rgba(0,0,0,0.4)]">
+            {/* Breadcrumb */}
+            <nav className="flex items-center gap-1.5 text-sm min-w-0">
+                {crumb.parent && (
+                    <>
+                        <a
+                            href={crumb.parentHref}
+                            className="text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors truncate"
+                        >
+                            {crumb.parent}
+                        </a>
+                        <ChevronRight className="h-3.5 w-3.5 text-gray-300 dark:text-gray-600 shrink-0" />
+                    </>
+                )}
+                <span className="font-semibold text-gray-900 dark:text-white truncate">
+                    {crumb.label}
+                </span>
+            </nav>
+
+            {/* Right side */}
+            <div className="flex items-center gap-3 shrink-0">
+                {/* Global search — hidden on mail/cal to save space */}
+                {!showUserCard && (
+                    <div className="relative w-full max-w-xs hidden md:block">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-gray-400" />
+                        <Input
+                            type="search"
+                            placeholder="Buscar… ⌘K"
+                            className="pl-9 pr-4 h-8 text-sm bg-gray-100 dark:bg-white/[0.05] border-gray-200 dark:border-white/[0.07] placeholder:text-gray-400 focus-visible:ring-[#29FFC6]/40 focus-visible:border-[#29FFC6]/40 rounded-lg w-full"
+                        />
+                    </div>
+                )}
+
+                {/* ── User card (shown on mail + calendar) ── */}
+                {showUserCard && (
+                    <div className="flex items-center gap-2 pl-2 border-l border-white/10">
+                        {/* Compact controls */}
+                        <CompactThemeToggle />
+
+                        <button className="relative w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-white hover:bg-white/10 transition-colors" title="Notificaciones">
+                            <Bell className="h-4 w-4" />
+                            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 border-2 border-[#07101E] rounded-full" />
+                        </button>
+
+                        {/* Divider */}
+                        <div className="w-px h-6 bg-white/10 mx-1" />
+
+                        {/* Avatar + name */}
+                        <div className="flex items-center gap-2.5 bg-white/5 border border-white/10 rounded-xl px-3 py-1.5">
+                            <div className="relative shrink-0">
+                                <img
+                                    src="https://api.dicebear.com/9.x/avataaars/svg?seed=Diego"
+                                    alt="Diego"
+                                    className="w-7 h-7 rounded-full border-2 border-teal-400/60 object-cover"
+                                />
+                                <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-400 border-2 border-[#07101E] rounded-full" />
+                            </div>
+                            <div className="flex flex-col leading-none">
+                                <span className="text-xs font-semibold text-white">Diego Sánchez</span>
+                                <span className="text-[10px] text-teal-400 font-semibold tracking-wide uppercase">Mission Cmdr</span>
+                            </div>
+                        </div>
+
+                        {/* Sign out */}
+                        <SignOutButton redirectUrl="/">
+                            <button className="w-8 h-8 flex items-center justify-center rounded-lg text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-colors" title="Salir">
+                                <LogOut className="h-4 w-4" />
+                            </button>
+                        </SignOutButton>
+                    </div>
+                )}
             </div>
         </header>
     )

@@ -1,5 +1,6 @@
 // SAT Connect - T.H.R.I.V.E. Engine Complete Schema
-// 6 Entidades Relacionales + 38 Columnas Mapeadas
+// Phase 1 & 2: Supplier + DistributionChannel master entities + structural Tour split
+// Phase H: Strategy Integration (NotebookLM)
 
 generator client {
   provider = "prisma-client-js"
@@ -11,14 +12,38 @@ datasource db {
 }
 
 // ============================================================================
+// ENUMS & STRATEGIC TYPES
+// ============================================================================
+
+enum SupplierTier {
+  STANDARD
+  PRO
+  ELITE
+}
+
+enum PricingMode {
+  TOP_DOWN   // Calculated from PVP
+  BOTTOM_UP  // Calculated from Net Cost
+}
+
+// ============================================================================
 // ENTIDAD 1: Tours (Core Data - 9 campos)
 // ============================================================================
 model Tour {
   id                        Int       @id @default(autoincrement())
   bokun_id                  Int?      @unique                  // Col A - Bókun ID / SKU
   product_name              String                              // Col B - Activity Name
-  supplier                  String                              // Col C - Supplier
-  location                  String                              // Col D - Location
+
+  // IDENTITY — Legacy string (kept for backward compat) + new FK
+  supplier                  String                              // Col C - legacy string
+  supplier_id               Int?                                // Phase 1: FK -> Supplier
+  supplier_rel              Supplier?  @relation(fields: [supplier_id], references: [id])
+
+  // LOCATION — Legacy single field + Phase 2 split
+  location                  String                              // Col D - legacy full location
+  location_state            String?                             // Phase 2: e.g. "Quintana Roo"
+  location_city             String?                             // Phase 2: e.g. "Cancún"
+
   bokun_marketplace_status  String?                             // Col E - Bókun Marketplace Status
   bokun_status              String?                             // Col F - Bókun Status
   is_active                 Boolean   @default(true)            // Col G - Active Product
@@ -31,10 +56,13 @@ model Tour {
   assets                    TourAssets?
   distribution              TourDistribution?
   audit                     TourAudit?
-  
+
+  // Phase 1: M2M links to DistributionChannel
+  channel_links             TourChannelLink[]
+
   // Relación 1:N con historial de cambios
   change_logs               TourChangeLog[]
-  
+
   // Relaciones 1:N con variantes y campos personalizados
   variants                  TourVariant[]
   custom_fields             TourCustomFieldValue[]
@@ -43,7 +71,10 @@ model Tour {
 
   @@map("tours")
   @@index([supplier])
+  @@index([supplier_id])
   @@index([location])
+  @@index([location_state])
+  @@index([location_city])
   @@index([is_active])
 }
 
@@ -59,10 +90,10 @@ model TourPricing {
   net_rate_adult            Decimal   @db.Decimal(10, 2)        // Col I - Shared Adult Net
   shared_factor             Decimal   @default(1.5) @db.Decimal(10, 5) // Col J - Shared Factor (1.5-1.99)
   // CALCULATED: suggested_pvp_adult = net_rate_adult * shared_factor (Col K)
-  
+
   net_rate_child            Decimal?  @db.Decimal(10, 2)        // Col L - Shared Child Net
   // CALCULATED: suggested_pvp_child = net_rate_child * shared_factor (Col M)
-  
+
   infant_age_threshold      Int?                                // Col N - Free Infant Age
   shared_min_pax            Int?                                // Col O - Shared Min Pax
 
@@ -75,6 +106,16 @@ model TourPricing {
   // CALCULATED: per_pax_cost = private_min_pax_net_rate / private_min_pax (Col T)
 
   extra_fees                String?                             // Col AB - Extra Fees
+
+  // Phase 2 additions
+  public_rate               Decimal?  @db.Decimal(10, 2)        // Explicit PVP override (Case A input)
+  currency                  String    @default("MXN")            // MXN | USD
+  operational_costs         Decimal?  @db.Decimal(10, 2)        // Fixed ops cost for margin calc
+  seasonal_rates            Json?                               // [{ from, to, net_rate_adult, net_rate_child }]
+  
+  // Phase H: Strategy Integration
+  pricing_mode              PricingMode @default(BOTTOM_UP)
+  manual_margin_factor      Decimal   @default(1.5) @db.Decimal(10, 5) // For Bottom-Up calculations
 
   @@map("tour_pricing")
 }
@@ -93,6 +134,11 @@ model TourLogistics {
   meeting_point_info    String?   @db.Text                      // Col AA - Meeting Point / Pick Up
   pickup_info           String?   @db.Text                      // Pickup Information (complementary)
 
+  // Phase 2 additions
+  operation_hours       String?                                 // e.g. "08:00–17:00"
+  blackout_dates        DateTime[]                              // Dates the tour does NOT operate
+  meeting_points        Json?                                   // [{ name, address, lat?, lng? }]
+
   @@map("tour_logistics")
 }
 
@@ -104,9 +150,11 @@ model TourAssets {
   tour_id               Int       @unique
   tour                  Tour      @relation(fields: [tour_id], references: [id], onDelete: Cascade)
 
-  pictures_url          String?                                 // Col U - Pictures Link
+  pictures_url          String?                                 // Col U - legacy single URL (kept)
+  pictures              String[]                                // Phase 2: array of image URLs
   landing_page_url      String?                                 // Col Y - Landing Page
   storytelling_url      String?                                 // Col Z - Storytelling Link
+  storytelling_content  String?   @db.Text                      // Phase 2: rich B2B storytelling text
   notes                 String?   @db.Text                      // Col AL - Audit Notes
   capture_status        Boolean   @default(false)               // Capture Status (content captured)
 
@@ -170,8 +218,13 @@ model TourAudit {
   tour_id                           Int       @unique
   tour                              Tour      @relation(fields: [tour_id], references: [id], onDelete: Cascade)
 
-  // CALCULATED: HEALTHY | INCOMPLETE | AUDIT_REQUIRED
-  product_health_score              String    @default("INCOMPLETE")
+  // CALCULATED fields
+  product_health_score              String    @default("INCOMPLETE") 
+  quality_score                     Int       @default(0)             // 0-100 numeric score
+  
+  // GATEKEEPER FIELDS
+  risk_policy_status                String    @default("MISSING")     // "MISSING" | "VALID" | "EXPIRED"
+  profit_shield_status              Boolean   @default(false)         // True if PVP > Net + Margin
   
   // CALCULATED: 0-100 based on active OTA channels
   otas_distribution_score           Int       @default(0)
@@ -198,6 +251,7 @@ model TourChangeLog {
   
   // User tracking (Clerk integration)
   user_id     String   // Clerk user ID
+  user        User     @relation(fields: [user_id], references: [id])
   user_name   String?  // User's display name
   user_email  String?  // User's email
   
@@ -214,15 +268,69 @@ model TourChangeLog {
 // SUPPORTING MODELS (Existing - kept for compatibility)
 // ============================================================================
 
+// ============================================================================
+// PHASE 1: MASTER ENTITY — Supplier
+// ============================================================================
+model Supplier {
+  id             Int          @id @default(autoincrement())
+  name           String       @unique
+  contact_info   Json?        // { email?: string, phone?: string }
+  badges         String[]     // e.g. ["Top Seller", "Verified"]
+  is_active      Boolean      @default(true)
+  profile_status String       @default("Complete") // "Complete" | "Incomplete Profile"
+  
+  // Phase H: Strategy Integration
+  tier           SupplierTier @default(STANDARD)
+  founded_at     DateTime?    // For "Aliados Fundadores" program tracking
+
+  tours          Tour[]
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  @@map("suppliers")
+}
+
+// ============================================================================
+// PHASE 1: MASTER ENTITY — DistributionChannel
+// ============================================================================
+model DistributionChannel {
+  id                      Int               @id @default(autoincrement())
+  name                    String            @unique // e.g. "Viator", "Expedia"
+  base_commission_percent Decimal           @default(0.00) @db.Decimal(5, 2)
+  is_active               Boolean           @default(true)
+  channel_links           TourChannelLink[]
+  createdAt               DateTime          @default(now())
+  updatedAt               DateTime          @updatedAt
+  @@map("distribution_channels")
+}
+
+// ============================================================================
+// PHASE 1: PIVOT TABLE — Tour <-> DistributionChannel (M2M)
+// ============================================================================
+model TourChannelLink {
+  id                          Int                 @id @default(autoincrement())
+  tour_id                     Int
+  tour                        Tour                @relation(fields: [tour_id], references: [id], onDelete: Cascade)
+  channel_id                  Int
+  channel                     DistributionChannel @relation(fields: [channel_id], references: [id])
+  external_id                 String?             // Product ID on this OTA (e.g. Viator code)
+  channel_commission_override Decimal?            @db.Decimal(5, 2) // Override base commission
+  show_in_b2b_marketplace     Boolean             @default(false)
+  status                      String?             // "Active" | "Inactive" | "Pending"
+  @@unique([tour_id, channel_id])
+  @@index([tour_id])
+  @@index([channel_id])
+  @@map("tour_channel_links")
+}
+
 model ChannelLog {
   id        String   @id @default(cuid())
   tourId    Int
-  
+
   channel   String   // "expedia", "viator", "gyg", "civitatis"
   status    String   // "Active", "Inactive"
-  
+
   updatedAt DateTime @updatedAt
-  
+
   @@unique([tourId, channel])
   @@index([channel, status])
   @@map("channel_logs")
@@ -252,6 +360,7 @@ model Booking {
   @@index([status])
   @@map("bookings")
 }
+
 // ============================================================================
 // ENTIDAD 7: Tour Variants (Pricing Options)
 // ============================================================================
@@ -315,4 +424,136 @@ model TourCustomFieldValue {
 
   @@unique([tour_id, definition_id])
   @@map("tour_custom_field_values")
+}
+
+// ============================================================================
+// PHASE 1: IDENTITY & RBAC
+// ============================================================================
+model User {
+  id              String    @id // Clerk User ID
+  email           String    @unique
+  first_name      String?
+  last_name       String?
+  image_url       String?
+  
+  // Role Management
+  role            String    @default("viewer") // "super_admin", "admin", "editor", "viewer"
+  status          String    @default("pending") // "active", "pending", "disabled"
+  
+  // Relations
+  change_logs     TourChangeLog[]
+  tasks           Task[]          @relation("TaskAssignee")
+  projects        Project[]       @relation("ProjectOwner")
+  docs            Doc[]           @relation("DocAuthor")
+  objectives      Objective[]     @relation("ObjectiveOwner")
+  
+  // Metadata
+  last_sign_in_at DateTime?
+  created_at      DateTime  @default(now())
+  updated_at      DateTime  @updatedAt
+
+  @@map("users")
+}
+
+// ============================================================================
+// PHASE 2: WORKSPACE
+// ============================================================================
+
+model Project {
+  id          Int       @id @default(autoincrement())
+  title       String
+  description String?   @db.Text
+  color       String    @default("#29FFC6") // hex color for card header
+  icon        String    @default("folder")  // lucide icon name
+  status      String    @default("active")  // "active", "completed", "archived"
+  due_date    DateTime?
+
+  owner_id    String
+  owner       User      @relation("ProjectOwner", fields: [owner_id], references: [id])
+
+  tasks       Task[]
+  docs        Doc[]
+
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+
+  @@map("projects")
+}
+
+model Task {
+  id           Int       @id @default(autoincrement())
+  title        String
+  notes        String?   @db.Text
+  status       String    @default("inbox")  // "inbox", "today", "upcoming", "done"
+  priority     String    @default("none")   // "none", "low", "medium", "high"
+  due_date     DateTime?
+  completed_at DateTime?
+
+  project_id   Int?
+  project      Project?  @relation(fields: [project_id], references: [id], onDelete: SetNull)
+
+  parent_id    Int?
+  parent       Task?     @relation("Subtasks", fields: [parent_id], references: [id], onDelete: Cascade)
+  subtasks     Task[]    @relation("Subtasks")
+
+  assignee_id  String?
+  assignee     User?     @relation("TaskAssignee", fields: [assignee_id], references: [id], onDelete: SetNull)
+
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @updatedAt
+
+  @@map("tasks")
+}
+
+model Objective {
+  id          Int         @id @default(autoincrement())
+  title       String
+  description String?     @db.Text
+  quarter     Int         // 1-4
+  year        Int
+  status      String      @default("on_track") // "on_track", "at_risk", "done"
+
+  owner_id    String
+  owner       User        @relation("ObjectiveOwner", fields: [owner_id], references: [id])
+
+  key_results KeyResult[]
+
+  created_at  DateTime    @default(now())
+  updated_at  DateTime    @updatedAt
+
+  @@map("objectives")
+}
+
+model KeyResult {
+  id            Int       @id @default(autoincrement())
+  title         String
+  target_value  Float
+  current_value Float     @default(0)
+  unit          String    @default("%") // "%", "$", "count", etc.
+
+  objective_id  Int
+  objective     Objective @relation(fields: [objective_id], references: [id], onDelete: Cascade)
+
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
+
+  @@map("key_results")
+}
+
+model Doc {
+  id          Int      @id @default(autoincrement())
+  title       String
+  content     String   @default("") @db.Text // markdown
+  emoji       String   @default("📄")
+
+  project_id  Int?
+  project     Project? @relation(fields: [project_id], references: [id], onDelete: SetNull)
+
+  author_id   String
+  author      User     @relation("DocAuthor", fields: [author_id], references: [id])
+
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  @@map("docs")
 }

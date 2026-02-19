@@ -2733,3 +2733,348 @@
 
 [2026-02-14T03:13:27.869Z] Params: {"page":"1","limit":"20","search":"holbox","sortBy":"name","sortOrder":"asc"}
 [2026-02-14T03:13:27.899Z] WHERE: {}
+
+[2026-02-19T14:45:14.994Z] Params: {"limit":"1000"}
+[2026-02-19T14:45:14.996Z] WHERE: {}
+
+[2026-02-19T14:45:15.088Z] Params: {"page":"1","limit":"20","search":"holbox","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T14:45:15.089Z] WHERE: {}
+
+[2026-02-19T14:45:16.575Z] Params: {"page":"1","limit":"20","search":"holbox","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T14:45:16.576Z] WHERE: {}
+
+[2026-02-19T14:45:40.826Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T14:45:40.827Z] WHERE: {}
+
+[2026-02-19T14:45:40.838Z] Params: {"limit":"1000"}
+[2026-02-19T14:45:40.839Z] WHERE: {}
+
+[2026-02-19T14:45:41.411Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T14:45:41.412Z] WHERE: {}
+
+[2026-02-19T14:45:41.506Z] Params: {"limit":"1000"}
+[2026-02-19T14:45:41.507Z] WHERE: {}
+
+[2026-02-19T14:45:41.665Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T14:45:41.668Z] WHERE: {}
+
+[2026-02-19T14:45:56.281Z] Params: {"page":"1","limit":"20","providers":"COBA SUNSET","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T14:45:56.288Z] WHERE: {"supplier":{"in":["COBA SUNSET"]}}
+
+[2026-02-19T15:21:46.012Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:21:46.013Z] WHERE: {}
+
+[2026-02-19T15:21:46.021Z] Params: {"limit":"1000"}
+[2026-02-19T15:21:46.022Z] WHERE: {}
+
+[2026-02-19T15:21:47.719Z] Params: {"limit":"1000"}
+[2026-02-19T15:21:47.721Z] WHERE: {}
+
+[2026-02-19T15:21:47.749Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:21:47.751Z] WHERE: {}
+
+[2026-02-19T15:21:48.236Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:21:48.237Z] WHERE: {}
+
+[2026-02-19T15:22:13.706Z] Params: {"limit":"1000"}
+[2026-02-19T15:22:13.751Z] WHERE: {}
+
+[2026-02-19T15:22:13.866Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:22:13.869Z] WHERE: {}
+
+[2026-02-19T15:22:14.455Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:22:14.468Z] WHERE: {}
+
+[2026-02-19T15:22:44.060Z] Params: {"page":"1","limit":"20","search":"ho","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:22:44.062Z] WHERE: {}
+
+[2026-02-19T15:22:44.238Z] Params: {"page":"1","limit":"20","search":"hol","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:22:44.240Z] WHERE: {}
+
+[2026-02-19T15:22:44.430Z] Params: {"page":"1","limit":"20","search":"holb","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:22:44.431Z] WHERE: {}
+
+[2026-02-19T15:22:44.532Z] Params: {"page":"1","limit":"20","search":"holbo","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:22:44.533Z] WHERE: {}
+
+[2026-02-19T15:22:44.603Z] Params: {"page":"1","limit":"20","search":"holbox","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:22:44.603Z] WHERE: {}
+
+[2026-02-19T15:32:33.474Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:32:33.476Z] WHERE: {}
+
+[2026-02-19T15:32:33.493Z] Params: {"limit":"1000"}
+[2026-02-19T15:32:33.496Z] WHERE: {}
+
+[2026-02-19T15:32:35.379Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:32:35.380Z] WHERE: {}
+
+[2026-02-19T15:32:35.452Z] Params: {"limit":"1000"}
+[2026-02-19T15:32:35.459Z] WHERE: {}
+
+[2026-02-19T15:32:35.895Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:32:35.896Z] WHERE: {}
+
+[2026-02-19T15:32:36.034Z] Params: {"limit":"1000"}
+[2026-02-19T15:32:36.035Z] WHERE: {}
+
+[2026-02-19T15:32:36.323Z] Params: {"limit":"1000"}
+[2026-02-19T15:32:36.326Z] WHERE: {}
+
+[2026-02-19T15:32:36.380Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:32:36.381Z] WHERE: {}
+
+[2026-02-19T15:32:36.649Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:32:36.650Z] WHERE: {}
+
+[2026-02-19T15:32:36.901Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:32:36.902Z] WHERE: {}
+
+[2026-02-19T15:32:39.231Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:32:39.232Z] WHERE: {}
+
+[2026-02-19T15:32:39.244Z] Params: {"limit":"1000"}
+[2026-02-19T15:32:39.245Z] WHERE: {}
+
+[2026-02-19T15:32:39.525Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:32:39.526Z] WHERE: {}
+
+[2026-02-19T15:32:39.817Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:32:39.818Z] WHERE: {}
+
+[2026-02-19T15:32:39.865Z] Params: {"limit":"1000"}
+[2026-02-19T15:32:39.867Z] WHERE: {}
+
+[2026-02-19T15:32:40.068Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:32:40.074Z] WHERE: {}
+
+[2026-02-19T15:41:00.495Z] Params: {"limit":"1000"}
+[2026-02-19T15:41:00.497Z] WHERE: {}
+
+[2026-02-19T15:41:00.598Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:41:00.606Z] WHERE: {}
+
+[2026-02-19T15:41:00.981Z] Params: {"limit":"1000"}
+[2026-02-19T15:41:00.982Z] WHERE: {}
+
+[2026-02-19T15:41:01.238Z] Params: {"page":"1","limit":"20","search":"holbox","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:41:01.240Z] WHERE: {}
+
+[2026-02-19T15:41:02.462Z] Params: {"page":"1","limit":"20","search":"holbox","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:41:02.464Z] WHERE: {}
+
+[2026-02-19T15:41:02.472Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:41:02.473Z] WHERE: {}
+
+[2026-02-19T15:42:48.730Z] Params: {"page":"1","limit":"20","search":"holbox","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:42:48.731Z] WHERE: {}
+
+[2026-02-19T15:43:14.414Z] Params: {"limit":"1000"}
+[2026-02-19T15:43:14.415Z] WHERE: {}
+
+[2026-02-19T15:43:14.614Z] Params: {"page":"1","limit":"20","search":"holbox","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:43:14.615Z] WHERE: {}
+
+[2026-02-19T15:43:15.088Z] Params: {"page":"1","limit":"20","search":"holbox","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:43:15.089Z] WHERE: {}
+
+[2026-02-19T15:48:38.749Z] Params: {"limit":"1000"}
+[2026-02-19T15:48:38.754Z] WHERE: {}
+
+[2026-02-19T15:48:38.762Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:48:38.763Z] WHERE: {}
+
+[2026-02-19T15:48:39.634Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:48:39.637Z] WHERE: {}
+
+[2026-02-19T15:48:39.721Z] Params: {"limit":"1000"}
+[2026-02-19T15:48:39.723Z] WHERE: {}
+
+[2026-02-19T15:48:40.224Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:48:40.225Z] WHERE: {}
+
+[2026-02-19T15:48:42.153Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:48:42.155Z] WHERE: {}
+
+[2026-02-19T15:48:42.692Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:48:42.693Z] WHERE: {}
+
+[2026-02-19T15:48:42.704Z] Params: {"limit":"1000"}
+[2026-02-19T15:48:42.706Z] WHERE: {}
+
+[2026-02-19T15:48:43.227Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:48:43.229Z] WHERE: {}
+
+[2026-02-19T15:48:43.344Z] Params: {"limit":"1000"}
+[2026-02-19T15:48:43.345Z] WHERE: {}
+
+[2026-02-19T15:48:43.492Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:48:43.493Z] WHERE: {}
+
+[2026-02-19T15:48:44.862Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:48:44.863Z] WHERE: {}
+
+[2026-02-19T15:48:46.492Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:48:46.494Z] WHERE: {}
+
+[2026-02-19T15:48:46.506Z] Params: {"limit":"1000"}
+[2026-02-19T15:48:46.508Z] WHERE: {}
+
+[2026-02-19T15:48:46.804Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:48:46.805Z] WHERE: {}
+
+[2026-02-19T15:48:47.146Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:48:47.147Z] WHERE: {}
+
+[2026-02-19T15:48:47.174Z] Params: {"limit":"1000"}
+[2026-02-19T15:48:47.175Z] WHERE: {}
+
+[2026-02-19T15:48:48.197Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:48:48.201Z] WHERE: {}
+
+[2026-02-19T15:48:49.904Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:48:49.905Z] WHERE: {}
+
+[2026-02-19T15:48:49.910Z] Params: {"limit":"1000"}
+[2026-02-19T15:48:49.911Z] WHERE: {}
+
+[2026-02-19T15:48:50.218Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:48:50.220Z] WHERE: {}
+
+[2026-02-19T15:48:50.311Z] Params: {"limit":"1000"}
+[2026-02-19T15:48:50.312Z] WHERE: {}
+
+[2026-02-19T15:48:50.488Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:48:50.489Z] WHERE: {}
+
+[2026-02-19T15:50:14.507Z] Params: {"limit":"1000"}
+[2026-02-19T15:50:14.509Z] WHERE: {}
+
+[2026-02-19T15:50:14.593Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:50:14.594Z] WHERE: {}
+
+[2026-02-19T15:50:14.923Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:50:14.924Z] WHERE: {}
+
+[2026-02-19T15:50:15.142Z] Params: {"limit":"1000"}
+[2026-02-19T15:50:15.143Z] WHERE: {}
+
+[2026-02-19T15:50:15.313Z] Params: {"page":"1","limit":"20","search":"holbox","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:50:15.314Z] WHERE: {}
+
+[2026-02-19T15:50:15.819Z] Params: {"page":"1","limit":"20","search":"holbox","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T15:50:15.821Z] WHERE: {}
+
+[2026-02-19T16:04:24.089Z] Params: {"limit":"1000"}
+[2026-02-19T16:04:24.090Z] WHERE: {}
+
+[2026-02-19T16:04:24.107Z] Params: {"limit":"1000"}
+[2026-02-19T16:04:24.109Z] WHERE: {}
+
+[2026-02-19T16:04:26.014Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T16:04:26.015Z] WHERE: {}
+
+[2026-02-19T16:04:26.049Z] Params: {"page":"1","limit":"20","search":"holbox","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T16:04:26.050Z] WHERE: {}
+
+[2026-02-19T16:04:26.497Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T16:04:26.498Z] WHERE: {}
+
+[2026-02-19T16:04:26.525Z] Params: {"page":"1","limit":"20","search":"holbox","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T16:04:26.527Z] WHERE: {}
+
+[2026-02-19T17:10:04.699Z] Params: {"page":"1","limit":"20","search":"holbox","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T17:10:04.700Z] WHERE: {}
+
+[2026-02-19T17:10:04.735Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T17:10:04.735Z] WHERE: {}
+
+[2026-02-19T17:16:26.377Z] Params: {"limit":"1000"}
+[2026-02-19T17:16:26.378Z] WHERE: {}
+
+[2026-02-19T17:16:26.434Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T17:16:26.435Z] WHERE: {}
+
+[2026-02-19T17:16:28.354Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T17:16:28.356Z] WHERE: {}
+
+[2026-02-19T17:26:56.067Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T17:26:56.069Z] WHERE: {}
+
+[2026-02-19T17:26:56.081Z] Params: {"limit":"1000"}
+[2026-02-19T17:26:56.082Z] WHERE: {}
+
+[2026-02-19T17:26:56.738Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T17:26:56.747Z] WHERE: {}
+
+[2026-02-19T17:26:57.004Z] Params: {"limit":"1000"}
+[2026-02-19T17:26:57.005Z] WHERE: {}
+
+[2026-02-19T17:26:57.016Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T17:26:57.017Z] WHERE: {}
+
+[2026-02-19T20:21:51.614Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T20:21:51.617Z] WHERE: {}
+
+[2026-02-19T20:21:51.624Z] Params: {"limit":"1000"}
+[2026-02-19T20:21:51.625Z] WHERE: {}
+
+[2026-02-19T20:21:53.026Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T20:21:53.027Z] WHERE: {}
+
+[2026-02-19T20:21:53.142Z] Params: {"limit":"1000"}
+[2026-02-19T20:21:53.143Z] WHERE: {}
+
+[2026-02-19T20:21:53.477Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T20:21:53.478Z] WHERE: {}
+
+[2026-02-19T20:21:56.601Z] Params: {"page":"1","limit":"20","search":"o","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T20:21:56.603Z] WHERE: {}
+
+[2026-02-19T20:21:56.780Z] Params: {"page":"1","limit":"20","search":"olb","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T20:21:56.783Z] WHERE: {}
+
+[2026-02-19T20:21:56.971Z] Params: {"page":"1","limit":"20","search":"olbox","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T20:21:56.973Z] WHERE: {}
+
+[2026-02-19T20:21:57.338Z] Params: {"page":"1","limit":"20","search":"olbo","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T20:21:57.339Z] WHERE: {}
+
+[2026-02-19T20:21:57.491Z] Params: {"page":"1","limit":"20","search":"olb","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T20:21:57.492Z] WHERE: {}
+
+[2026-02-19T20:21:57.660Z] Params: {"page":"1","limit":"20","search":"ol","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T20:21:57.661Z] WHERE: {}
+
+[2026-02-19T20:21:57.787Z] Params: {"page":"1","limit":"20","search":"o","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T20:21:57.788Z] WHERE: {}
+
+[2026-02-19T20:21:57.962Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T20:21:57.963Z] WHERE: {}
+
+[2026-02-19T20:21:58.656Z] Params: {"page":"1","limit":"20","search":"ho","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T20:21:58.656Z] WHERE: {}
+
+[2026-02-19T20:21:58.847Z] Params: {"page":"1","limit":"20","search":"hob","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T20:21:58.847Z] WHERE: {}
+
+[2026-02-19T20:21:58.965Z] Params: {"page":"1","limit":"20","search":"hobl","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T20:21:58.967Z] WHERE: {}
+
+[2026-02-19T20:21:59.305Z] Params: {"page":"1","limit":"20","search":"hob","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T20:21:59.307Z] WHERE: {}
+
+[2026-02-19T20:21:59.359Z] Params: {"page":"1","limit":"20","search":"ho","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T20:21:59.360Z] WHERE: {}
+
+[2026-02-19T20:21:59.595Z] Params: {"page":"1","limit":"20","search":"hol","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T20:21:59.596Z] WHERE: {}
+
+[2026-02-19T20:21:59.739Z] Params: {"page":"1","limit":"20","search":"holb","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T20:21:59.740Z] WHERE: {}
+
+[2026-02-19T20:21:59.859Z] Params: {"page":"1","limit":"20","search":"holbo","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T20:21:59.860Z] WHERE: {}
+
+[2026-02-19T20:21:59.943Z] Params: {"page":"1","limit":"20","search":"holbox","sortBy":"name","sortOrder":"asc"}
+[2026-02-19T20:21:59.944Z] WHERE: {}

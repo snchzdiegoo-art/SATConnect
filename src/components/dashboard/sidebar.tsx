@@ -1,143 +1,249 @@
 "use client"
 
 import { useState } from "react"
+import { useUser } from "@clerk/nextjs"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
+import { SignOutButton } from "@clerk/nextjs"
 import {
     ChevronLeft,
     ChevronRight,
     Bell,
     LogOut,
     LayoutDashboard,
-    CalendarDays,
-    Activity
+    Activity,
+    Building2,
+    Share2,
+    Mail,
+    Calendar,
+    LayoutPanelLeft,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/ui/theme-toggle"
 
 const navItems = [
     { title: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+    { title: "Workspace", href: "/dashboard/workspace", icon: LayoutPanelLeft },
     { title: "Thrive Engine", href: "/thrive", icon: Activity },
-    { title: "Reservations", href: "/dashboard/inventory", icon: CalendarDays },
+    { title: "Proveedores", href: "/dashboard/suppliers", icon: Building2 },
+    { title: "Canales OTA", href: "/dashboard/channels", icon: Share2 },
 ]
 
 export function Sidebar() {
     const [isCollapsed, setIsCollapsed] = useState(false)
     const pathname = usePathname()
+    const { user } = useUser()
+
+    const displayName = user ? [user.firstName, user.lastName].filter(Boolean).join(" ") : "Usuario"
+    const avatarUrl = user?.imageUrl || `https://api.dicebear.com/9.x/avataaars/svg?seed=user`
+    const roleRaw = (user?.publicMetadata?.role as string) ?? ""
+    const roleLabel = roleRaw === "admin" ? "Admin" : "Super Admin"
 
     return (
         <div
             data-id="sidebar"
             className={cn(
-                "relative flex flex-col glass-sidebar transition-all duration-300 z-40 shadow-xl dark:shadow-[4px_0_30px_0_#00000080]",
-                isCollapsed ? "w-20" : "w-72"
-            )}>
-
-            {/* Toggle Button - Neon Accent */}
+                "relative flex flex-col glass-sidebar transition-all duration-300 z-40",
+                "shadow-[4px_0_24px_0_rgba(0,0,0,0.15)] dark:shadow-[4px_0_30px_0_rgba(0,0,0,0.5)]",
+                isCollapsed ? "w-[72px]" : "w-[280px]"
+            )}
+        >
+            {/* ── Toggle Button ────────────────────────────────── */}
             <button
                 onClick={() => setIsCollapsed(!isCollapsed)}
                 className={cn(
-                    "absolute z-50 bg-teal-500 dark:bg-brand-primary text-white dark:text-brand-dark rounded-full p-1.5 shadow-lg dark:shadow-[0_0_15px_rgba(41,255,198,0.4)] hover:scale-110 transition-all duration-300",
-                    isCollapsed ? "left-1/2 -translate-x-1/2 top-[72px]" : "top-8 right-4"
+                    "absolute z-50 flex items-center justify-center",
+                    "w-6 h-6 rounded-full",
+                    "bg-[#29FFC6] text-[#07101E]",
+                    "shadow-[0_0_12px_rgba(41,255,198,0.5)]",
+                    "hover:shadow-[0_0_20px_rgba(41,255,198,0.8)] hover:scale-110",
+                    "transition-all duration-200",
+                    isCollapsed
+                        ? "left-1/2 -translate-x-1/2 top-[76px]"
+                        : "top-8 -right-3"
                 )}
             >
-                {isCollapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+                {isCollapsed
+                    ? <ChevronRight className="h-3.5 w-3.5" />
+                    : <ChevronLeft className="h-3.5 w-3.5" />
+                }
             </button>
 
-            {/* Logo Area */}
-            <div className={cn("flex flex-col items-center justify-center border-b border-gray-200 dark:border-white/5 overflow-hidden transition-all duration-300 relative",
-                isCollapsed ? "h-24" : "h-40"
+            {/* ── Logo Area ────────────────────────────────────── */}
+            <div className={cn(
+                "flex flex-col items-center justify-center",
+                "border-b border-gray-200 dark:border-white/[0.06]",
+                "overflow-hidden transition-all duration-300",
+                isCollapsed ? "h-[72px] px-2" : "h-[140px] px-6"
             )}>
-                <Link href="/" className="flex flex-col items-center justify-center w-full h-full p-6 group">
+                <Link href="/" className="flex flex-col items-center justify-center w-full h-full group">
                     {isCollapsed ? (
-                        <img src="/sidebar-logo-open.png" alt="SAT Logo" className="h-10 w-auto object-contain drop-shadow-[0_0_10px_rgba(41,255,198,0.5)] mb-2" />
+                        <img
+                            src="/sidebar-logo-open.png"
+                            alt="SAT"
+                            className="h-9 w-auto object-contain glow-teal-sm group-hover:glow-teal transition-all duration-300"
+                        />
                     ) : (
                         <img
                             src="/logo_final.svg"
                             alt="SAT Connect"
-                            className="h-20 w-auto drop-shadow-[0_0_15px_rgba(41,255,198,0.3)] transition-all duration-500 hover:scale-105"
+                            className={cn(
+                                "h-[72px] w-auto object-contain",
+                                "drop-shadow-[0_0_18px_rgba(41,255,198,0.25)]",
+                                "group-hover:drop-shadow-[0_0_28px_rgba(41,255,198,0.45)]",
+                                "transition-all duration-500",
+                                "group-hover:scale-[1.03]"
+                            )}
                         />
                     )}
                 </Link>
             </div>
 
-            {/* Nav Items - Neon Active States */}
-            <div className="flex-1 overflow-y-auto py-6 px-3 scrollbar-none">
-                <nav className="grid gap-2">
-                    {navItems.map((item, index) => (
-                        <Link
-                            key={index}
-                            href={item.href}
-                            className={cn(
-                                "flex items-center gap-4 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-300 group relative overflow-hidden",
-                                pathname === item.href
-                                    ? "bg-teal-50 dark:bg-brand-primary/10 text-teal-600 dark:text-brand-primary border border-teal-200 dark:border-brand-primary/20 shadow-sm dark:shadow-[0_0_15px_rgba(41,255,198,0.1)]"
-                                    : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/5",
-                                isCollapsed && "justify-center px-2"
-                            )}
-                            title={isCollapsed ? item.title : undefined}
-                        >
-                            <item.icon className={cn("h-5 w-5 shrink-0 transition-transform duration-300 group-hover:scale-110", pathname === item.href && "drop-shadow-[0_0_5px_rgba(41,255,198,0.8)]")} />
-                            {!isCollapsed && <span className="whitespace-nowrap font-display tracking-wide">{item.title}</span>}
-                            {pathname === item.href && !isCollapsed && (
-                                <span className="absolute right-2 w-1.5 h-1.5 rounded-full bg-teal-500 dark:bg-brand-primary shadow-[0_0_8px_theme(colors.teal.500)] dark:shadow-[0_0_8px_rgba(41,255,198,1)]"></span>
-                            )}
-                        </Link>
-                    ))}
+            {/* ── Nav Items ────────────────────────────────────── */}
+            <div className="flex-1 overflow-y-auto py-5 px-3 scrollbar-none">
+                <nav className="flex flex-col gap-1">
+                    {navItems.map((item) => {
+                        const isActive = pathname === item.href ||
+                            (item.href !== "/dashboard" && pathname.startsWith(item.href))
+
+                        return (
+                            <Link
+                                key={item.href}
+                                href={item.href}
+                                className={cn(
+                                    "relative flex items-center gap-3.5 rounded-xl text-sm font-medium",
+                                    "transition-all duration-200 group overflow-hidden",
+                                    isCollapsed ? "px-0 py-3 justify-center" : "px-4 py-3",
+                                    isActive
+                                        ? [
+                                            "bg-teal-50 dark:bg-[#29FFC6]/[0.08]",
+                                            "text-teal-700 dark:text-[#29FFC6]",
+                                            "border border-teal-200/80 dark:border-[#29FFC6]/20",
+                                            "shadow-sm dark:shadow-[0_0_12px_rgba(41,255,198,0.08)]",
+                                        ]
+                                        : [
+                                            "text-gray-500 dark:text-gray-400",
+                                            "hover:text-gray-900 dark:hover:text-white",
+                                            "hover:bg-gray-100 dark:hover:bg-white/[0.05]",
+                                            "border border-transparent",
+                                        ]
+                                )}
+                                title={isCollapsed ? item.title : undefined}
+                            >
+                                {/* Active left border indicator */}
+                                {isActive && !isCollapsed && (
+                                    <span className="nav-active-indicator" />
+                                )}
+
+                                <item.icon className={cn(
+                                    "shrink-0 transition-all duration-300",
+                                    isCollapsed ? "h-5 w-5" : "h-[18px] w-[18px]",
+                                    isActive
+                                        ? "text-teal-600 dark:text-[#29FFC6] glow-teal-sm"
+                                        : "group-hover:scale-110"
+                                )} />
+
+                                {!isCollapsed && (
+                                    <span className="font-sans tracking-wide truncate">
+                                        {item.title}
+                                    </span>
+                                )}
+
+                                {/* Active pulsing dot */}
+                                {isActive && !isCollapsed && (
+                                    <span className="ml-auto w-1.5 h-1.5 rounded-full bg-[#29FFC6] animate-pulse-glow" />
+                                )}
+                            </Link>
+                        )
+                    })}
                 </nav>
             </div>
 
-            {/* Footer / User Ecosystem - Glass Card */}
-            <div className="p-4 pb-8 space-y-4">
-                <div className={cn(
-                    "flex items-center gap-3 w-full transition-all duration-300 backdrop-blur-md border border-gray-200 dark:border-white/10",
-                    !isCollapsed ? "bg-white/50 dark:bg-white/5 p-4 rounded-2xl" : "justify-center bg-transparent border-none"
-                )}>
+            {/* ── Footer / User Card ───────────────────────────── */}
+            <div className="p-3 pb-6 space-y-3">
+                {/* User profile — click to open Users panel */}
+                <Link
+                    href="/dashboard/users"
+                    className={cn(
+                        "flex items-center gap-3 transition-all duration-300 group",
+                        "backdrop-blur-md border border-gray-200 dark:border-white/[0.07]",
+                        "hover:border-teal-500/30 hover:bg-[#29FFC6]/[0.04]",
+                        !isCollapsed
+                            ? "bg-gray-50 dark:bg-white/[0.04] p-3.5 rounded-xl"
+                            : "justify-center bg-transparent border-none"
+                    )}
+                    title="Gestión de Usuarios"
+                >
                     <div className="relative shrink-0">
                         <img
-                            src="https://api.dicebear.com/9.x/avataaars/svg?seed=Diego"
-                            alt="User"
-                            className="w-10 h-10 rounded-full bg-gray-200 dark:bg-brand-teal border-2 border-teal-500 dark:border-brand-primary shadow-sm dark:shadow-[0_0_10px_rgba(41,255,198,0.3)]"
+                            src={avatarUrl}
+                            alt={displayName}
+                            className={cn(
+                                "rounded-full object-cover",
+                                "border-2 border-teal-400 dark:border-[#29FFC6]/60",
+                                "shadow-sm dark:shadow-[0_0_10px_rgba(41,255,198,0.2)]",
+                                "transition-all duration-300",
+                                "group-hover:border-[#29FFC6] group-hover:shadow-[0_0_14px_rgba(41,255,198,0.4)]",
+                                isCollapsed ? "w-9 h-9" : "w-10 h-10"
+                            )}
                         />
-                        <span className="absolute bottom-0 right-0 w-3 h-3 bg-teal-500 dark:bg-brand-primary border-2 border-white dark:border-brand-dark rounded-full shadow-sm dark:shadow-[0_0_5px_rgba(41,255,198,1)]"></span>
+                        <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 border-2 border-white dark:border-[#07101E] rounded-full shadow-sm animate-pulse-glow" />
                     </div>
 
                     {!isCollapsed && (
-                        <div className="flex flex-col overflow-hidden">
-                            <span className="text-sm font-bold text-gray-900 dark:text-white font-display tracking-wide truncate">Diego Sánchez</span>
-                            <span className="text-xs text-teal-600 dark:text-brand-primary font-medium tracking-wider uppercase truncate">Mission Cmdr</span>
+                        <div className="flex flex-col overflow-hidden min-w-0">
+                            <span className="text-sm font-semibold text-gray-900 dark:text-white truncate leading-tight group-hover:text-teal-300 transition-colors">
+                                {displayName}
+                            </span>
+                            <span className="text-[10px] text-teal-600 dark:text-[#29FFC6] font-semibold tracking-[0.12em] uppercase truncate mt-0.5">
+                                {roleLabel}
+                            </span>
                         </div>
                     )}
-                </div>
+                </Link>
 
                 {/* System Controls */}
-                <div className={cn("flex items-center gap-2", isCollapsed ? "flex-col gap-4 justify-center w-full" : "justify-between w-full px-2")}>
-                    <div className={cn("flex items-center gap-2", isCollapsed && "flex-col gap-4")}>
+                <div className={cn(
+                    "flex items-center gap-2",
+                    isCollapsed ? "flex-col gap-3 justify-center w-full" : "justify-between w-full px-1"
+                )}>
+                    <div className={cn("flex items-center gap-2", isCollapsed && "flex-col gap-3")}>
                         <ThemeToggle />
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            className="relative text-gray-400 hover:text-teal-600 dark:hover:text-brand-primary transition-colors hover:bg-gray-100 dark:hover:bg-white/5"
+                        <button
+                            className="relative w-9 h-9 flex items-center justify-center rounded-xl text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
+                            title="Notificaciones"
                         >
-                            <Bell className="h-5 w-5" />
-                            <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full shadow-[0_0_8px_#EF4444CC] animate-pulse"></span>
-                        </Button>
+                            <Bell className="h-4 w-4" />
+                            <span className="absolute top-1 right-1 flex h-3 w-3">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-60" />
+                                <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500 border-2 border-[#07101E]" />
+                            </span>
+                        </button>
                     </div>
 
-                    {!isCollapsed && (
-                        <Button
-                            variant="ghost"
-                            className="text-red-400 hover:text-red-300 hover:bg-red-500/10 text-xs font-medium uppercase tracking-widest px-2"
-                        >
-                            <LogOut className="h-4 w-4 mr-2" />
-                            Log Out
-                        </Button>
-                    )}
-                    {isCollapsed && (
-                        <Button variant="ghost" size="icon" className="text-red-400 hover:text-red-300 hover:bg-red-500/10 hover:scale-110 transition-transform">
-                            <LogOut className="h-5 w-5" />
-                        </Button>
+                    {!isCollapsed ? (
+                        <div className="w-full">
+                            <SignOutButton redirectUrl="/">
+                                <Button
+                                    variant="ghost"
+                                    className="w-full justify-start text-red-400 hover:text-red-300 hover:bg-red-500/[0.12] border border-red-500/20 text-xs font-medium uppercase tracking-widest px-2 h-8"
+                                >
+                                    <LogOut className="h-3.5 w-3.5 mr-1.5" />
+                                    Salir
+                                </Button>
+                            </SignOutButton>
+                        </div>
+                    ) : (
+                        <SignOutButton redirectUrl="/">
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                className="text-red-400 hover:text-red-300 hover:bg-red-500/[0.08] hover:scale-110 transition-transform"
+                            >
+                                <LogOut className="h-4 w-4" />
+                            </Button>
+                        </SignOutButton>
                     )}
                 </div>
             </div>

@@ -68,13 +68,13 @@ export function Navbar() {
                                 <Flag className="h-3 w-3 text-green-500 fill-green-500" /> Facturamos en México
                             </span>
                         </div>
-                        {process.env.NODE_ENV === "development" && (
-                            <Link href="/dashboard">
-                                <Button variant="outline" className="py-2 px-4 text-xs border-red-500/50 text-red-400 hover:bg-red-500/10">
-                                    ADMIN (DEV)
-                                </Button>
-                            </Link>
-                        )}
+
+                        <Link href="/dashboard">
+                            <Button variant="outline" className="py-2 px-4 text-xs font-semibold border-teal-500/50 text-teal-400 hover:bg-teal-500/10 transition-all shadow-[0_0_10px_rgba(45,212,191,0.1)]">
+                                ADMIN
+                            </Button>
+                        </Link>
+
                         <Button variant="primary" className="py-2 px-4 text-sm bg-gray-800 hover:bg-gray-700 border border-gray-700 shadow-md">
                             Agendar Demo
                         </Button>
@@ -97,40 +97,42 @@ export function Navbar() {
             </div>
 
             {/* Mobile Menu */}
-            {isOpen && (
-                <div className="md:hidden bg-gray-900 border-t border-gray-800 absolute w-full left-0">
-                    <div className="flex flex-col p-6 gap-4">
-                        <Link
-                            href="/"
-                            onClick={() => setIsOpen(false)}
-                            className="text-gray-300 hover:text-teal-400 font-medium"
-                        >
-                            Proveedores
-                        </Link>
-                        <Link
-                            href="/marketplace"
-                            onClick={() => setIsOpen(false)}
-                            className="text-gray-300 hover:text-teal-400 font-medium"
-                        >
-                            Agencias
-                        </Link>
-                        <Link
-                            href="/platform"
-                            onClick={() => setIsOpen(false)}
-                            className="text-gray-300 hover:text-teal-400 font-medium"
-                        >
-                            Plataforma
-                        </Link>
-                        <div className="h-px bg-gray-800 my-2"></div>
-                        <p className="text-xs text-center text-gray-500 flex items-center justify-center gap-2">
-                            <Flag className="h-3 w-3 text-green-500 fill-green-500" /> Facturamos en MXN y USD
-                        </p>
-                        <Button variant="primary" className="w-full justify-center bg-gray-800 border-gray-700">
-                            Admin Access
-                        </Button>
+            {
+                isOpen && (
+                    <div className="md:hidden bg-gray-900 border-t border-gray-800 absolute w-full left-0">
+                        <div className="flex flex-col p-6 gap-4">
+                            <Link
+                                href="/"
+                                onClick={() => setIsOpen(false)}
+                                className="text-gray-300 hover:text-teal-400 font-medium"
+                            >
+                                Proveedores
+                            </Link>
+                            <Link
+                                href="/marketplace"
+                                onClick={() => setIsOpen(false)}
+                                className="text-gray-300 hover:text-teal-400 font-medium"
+                            >
+                                Agencias
+                            </Link>
+                            <Link
+                                href="/platform"
+                                onClick={() => setIsOpen(false)}
+                                className="text-gray-300 hover:text-teal-400 font-medium"
+                            >
+                                Plataforma
+                            </Link>
+                            <div className="h-px bg-gray-800 my-2"></div>
+                            <p className="text-xs text-center text-gray-500 flex items-center justify-center gap-2">
+                                <Flag className="h-3 w-3 text-green-500 fill-green-500" /> Facturamos en MXN y USD
+                            </p>
+                            <Button variant="primary" className="w-full justify-center bg-gray-800 border-gray-700">
+                                Admin Access
+                            </Button>
+                        </div>
                     </div>
-                </div>
-            )}
-        </nav>
+                )
+            }
+        </nav >
     )
 }

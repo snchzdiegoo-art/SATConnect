@@ -5,6 +5,7 @@ import * as XLSX from 'xlsx';
 import { assessProductHealth } from '@/services/healthService';
 import { calculateOTADistributionScore, checkGlobalSuitability } from '@/services/distributionService';
 import { calculateTourPricing } from '@/services/pricingService';
+import { upsertSupplier } from '@/services/importService';
 
 const prisma = new PrismaClient();
 
@@ -182,10 +183,14 @@ export async function POST(request: NextRequest) {
                                 }
                             };
 
+                            const supplierName = getVal('supplier') || 'Unknown';
+                            const { supplier_id } = await upsertSupplier(supplierName);
+
                             const tourData = {
                                 bokun_id: bokunId,
                                 product_name: getVal('product_name') || `Tour ${bokunId}`,
-                                supplier: getVal('supplier') || 'Unknown',
+                                supplier: supplierName,
+                                supplier_id,
                                 location: getVal('location') || 'Unknown',
                                 bokun_marketplace_status: getVal('bokun_marketplace'),
                                 bokun_status: getVal('bokun_status'),
