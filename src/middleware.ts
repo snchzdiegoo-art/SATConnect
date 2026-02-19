@@ -7,6 +7,8 @@ const isProtectedRoute = createRouteMatcher([
     '/api/protected(.*)',
 ]);
 
+// Public routes are everything else, including /sign-in and /sign-up
+
 export default clerkMiddleware(async (auth, req) => {
     // 1. Protect Dashboard Routes
     if (isProtectedRoute(req)) {
