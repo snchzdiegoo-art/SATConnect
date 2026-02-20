@@ -1,11 +1,11 @@
-﻿@import "tailwindcss";
+@import "tailwindcss";
 
 @variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* ÔöÇÔöÇ Brand Palette ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+  /* ── Brand Palette ──────────────────────────────────────────── */
   --color-brand-primary: #29FFC6;
-  /* teal neon ÔÇô primary CTA */
+  /* teal neon – primary CTA */
   --color-brand-primary-hover: #00EFB0;
   --color-brand-green: #00FF66;
   --color-brand-blue: #001AED;
@@ -16,7 +16,7 @@
   --color-brand-red: #EF4444;
   /* critical status        */
 
-  /* ÔöÇÔöÇ Dark Mode Backgrounds ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+  /* ── Dark Mode Backgrounds ──────────────────────────────────── */
   --color-brand-dark: #07101E;
   /* deepest bg             */
   --color-brand-navy: #0A0F1E;
@@ -25,15 +25,15 @@
   /* sidebar / elevated bg  */
   --color-brand-teal-light: #1a2634;
 
-  /* ÔöÇÔöÇ Neon aliases ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+  /* ── Neon aliases ───────────────────────────────────────────── */
   --color-neon-mint: #29FFC6;
   --color-neon-purple: #8B5CF6;
 
-  /* ÔöÇÔöÇ Typography ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+  /* ── Typography ─────────────────────────────────────────────── */
   --font-display: var(--font-syne), 'Syne', sans-serif;
   --font-sans: var(--font-inter), 'Inter', sans-serif;
 
-  /* ÔöÇÔöÇ Animation tokens ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+  /* ── Animation tokens ───────────────────────────────────────── */
   --animate-spin-slow: spin 8s linear infinite;
   --animate-float: float 6s ease-in-out infinite;
   --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
@@ -42,9 +42,9 @@
   --animate-slide-in: slide-in 0.3s cubic-bezier(0.32, 0.72, 0, 1);
 }
 
-/* ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+/* ═══════════════════════════════════════════════════════════════
    KEYFRAMES
-ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ */
+═══════════════════════════════════════════════════════════════ */
 @keyframes float {
 
   0%,
@@ -143,12 +143,12 @@
   }
 }
 
-/* ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+/* ═══════════════════════════════════════════════════════════════
    UTILITY CLASSES
-ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ */
+═══════════════════════════════════════════════════════════════ */
 @layer utilities {
 
-  /* ÔöÇÔöÇ Glassmorphism ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+  /* ── Glassmorphism ───────────────────────────────────────────── */
   .glass-panel {
     @apply bg-white/70 dark:bg-[#0B2E3C]/30 backdrop-blur-xl border border-gray-200 dark:border-white/10 shadow-[0_8px_32px_0_#0000001A] dark:shadow-[0_8px_32px_0_#0000005E];
   }
@@ -161,7 +161,7 @@
     @apply hover:bg-white/60 dark:hover:bg-white/[0.07] hover:border-gray-300 dark:hover:border-[#29FFC6]/40 hover:shadow-lg dark:hover:shadow-[0_0_24px_#29FFC620] hover:-translate-y-0.5;
   }
 
-  /* Standard upgraded card ÔÇö use this for all new UI */
+  /* Standard upgraded card — use this for all new UI */
   .card-glass {
     @apply bg-white dark:bg-white/[0.04] backdrop-blur-md border border-gray-200 dark:border-white/[0.07] rounded-xl shadow-sm dark:shadow-none transition-all duration-300;
   }
@@ -198,7 +198,7 @@
     @apply bg-gray-50/80 dark:bg-[#07101E]/90 backdrop-blur-md border-b border-gray-200 dark:border-white/[0.07];
   }
 
-  /* ÔöÇÔöÇ Glow utilities ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+  /* ── Glow utilities ──────────────────────────────────────────── */
   .glow-teal {
     filter: drop-shadow(0 0 10px rgba(41, 255, 198, 0.5));
   }
@@ -227,7 +227,7 @@
     @apply border-teal-500 dark:border-[#29FFC6] shadow-sm dark:shadow-[0_0_10px_#29FFC64D];
   }
 
-  /* ÔöÇÔöÇ Health Status Badges ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+  /* ── Health Status Badges ────────────────────────────────────── */
   .badge-health-complete {
     @apply inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full bg-teal-500/15 text-teal-600 dark:text-[#29FFC6] border border-teal-500/20 dark:border-[#29FFC6]/25;
   }
@@ -245,7 +245,7 @@
     animation: pulse-glow-red 2s ease-in-out infinite;
   }
 
-  /* ÔöÇÔöÇ Animated status dot ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+  /* ── Animated status dot ─────────────────────────────────────── */
   .status-dot-active {
     @apply w-2 h-2 rounded-full bg-emerald-400 dark:bg-emerald-400;
     animation: pulse-glow 2s ease-in-out infinite;
@@ -255,7 +255,7 @@
     @apply w-2 h-2 rounded-full bg-gray-400 dark:bg-gray-600;
   }
 
-  /* ÔöÇÔöÇ Gradient text ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+  /* ── Gradient text ───────────────────────────────────────────── */
   .gradient-text-teal {
     background: linear-gradient(135deg, #29FFC6, #00EFB0);
     -webkit-background-clip: text;
@@ -270,13 +270,13 @@
     background-clip: text;
   }
 
-  /* ÔöÇÔöÇ Navigation active state ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+  /* ── Navigation active state ─────────────────────────────────── */
   .nav-active-indicator {
     @apply absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 rounded-r-full bg-[#29FFC6] dark:bg-[#29FFC6] shadow-[0_0_8px_rgba(41, 255, 198, 0.8)];
     animation: nav-active 0.2s ease-out;
   }
 
-  /* ÔöÇÔöÇ Table rows ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+  /* ── Table rows ──────────────────────────────────────────────── */
   .data-matrix-row {
     @apply border-b border-gray-100 dark:border-white/[0.05] hover:bg-gray-50 dark:hover:bg-[#29FFC6]/[0.05] transition-colors duration-150;
   }
@@ -285,14 +285,14 @@
     @apply bg-teal-50 dark:bg-[#29FFC6]/[0.07] border-l-2 border-l-teal-500 dark:border-l-[#29FFC6];
   }
 
-  /* ÔöÇÔöÇ Shimmer loading ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+  /* ── Shimmer loading ─────────────────────────────────────────── */
   .shimmer {
     background: linear-gradient(90deg, transparent 25%, rgba(255, 255, 255, 0.08) 50%, transparent 75%);
     background-size: 200% 100%;
     animation: shimmer 2s linear infinite;
   }
 
-  /* ÔöÇÔöÇ Teal gradient button ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+  /* ── Teal gradient button ────────────────────────────────────── */
   .btn-teal {
     @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold bg-gradient-to-r from-[#29FFC6] to-[#00EFB0] text-[#07101E] shadow-[0_0_12px_rgba(41, 255, 198, 0.3)] hover:shadow-[0_0_20px_rgba(41, 255, 198, 0.5)] hover:brightness-110 transition-all duration-200;
   }
@@ -315,9 +315,9 @@
   }
 }
 
-/* ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+/* ═══════════════════════════════════════════════════════════════
    GLOBAL BASE
-ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ */
+═══════════════════════════════════════════════════════════════ */
 body {
   @apply bg-gray-50 dark:bg-[#07101E] text-gray-900 dark:text-white min-h-screen selection:bg-teal-200 dark:selection:bg-[#29FFC6] selection:text-teal-900 dark:selection:text-[#07101E] transition-colors duration-300;
   font-feature-settings: 'cv01', 'cv02', 'cv03';
@@ -328,7 +328,7 @@ body.dark {
   background-attachment: fixed;
 }
 
-/* ÔöÇÔöÇ Custom Scrollbar ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+/* ── Custom Scrollbar ────────────────────────────────────────── */
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
@@ -346,17 +346,24 @@ body.dark {
   }
 }
 
-/* ÔöÇÔöÇ Focus rings ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+/* ── Focus rings ─────────────────────────────────────────────── */
 :focus-visible {
   outline: 2px solid rgba(41, 255, 198, 0.6);
   outline-offset: 2px;
 }
 
-/* -- Clerk Card Override -- */
-.cl-card {
+/* ── Clerk Overrides ─────────────────────────────────────────── */
+.cl-card,
+.cl-signIn-start,
+.cl-signUp-start {
+  background-color: transparent !important;
   background: transparent !important;
   box-shadow: none !important;
   border: none !important;
+}
+
+.cl-internal-phfxlr {
+  background: transparent !important;
 }
 
 .cl-headerTitle,
