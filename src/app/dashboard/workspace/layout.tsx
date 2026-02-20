@@ -6,12 +6,12 @@ export default function WorkspaceLayout({
     children: React.ReactNode;
 }) {
     return (
-        <div className="flex h-[calc(100vh-theme(spacing.14))] overflow-hidden">
+        <div className="flex h-screen overflow-hidden bg-gray-50/50 dark:bg-[#070b14]">
             {/* Left Sidebar */}
             <WorkspaceSidebar />
 
             {/* Main Content */}
-            <main className="flex-1 overflow-y-auto bg-gray-50/50 dark:bg-black/20 relative">
+            <main className="flex-1 overflow-y-auto relative">
                 {children}
             </main>
         </div>
