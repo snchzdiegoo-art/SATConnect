@@ -1,177 +1,126 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 
 @variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* ── Brand Palette ──────────────────────────────────────────── */
-  --color-brand-primary: #29FFC6;
-  /* teal neon – primary CTA */
+  /* ÔöÇÔöÇ Brand Palette ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+  --color-brand-primary:       #29FFC6;   /* teal neon ÔÇô primary CTA */
   --color-brand-primary-hover: #00EFB0;
-  --color-brand-green: #00FF66;
-  --color-brand-blue: #001AED;
-  --color-brand-purple: #8B5CF6;
-  /* OTA / channels accent  */
-  --color-brand-amber: #F59E0B;
-  /* warnings / incomplete  */
-  --color-brand-red: #EF4444;
-  /* critical status        */
+  --color-brand-green:         #00FF66;
+  --color-brand-blue:          #001AED;
+  --color-brand-purple:        #8B5CF6;   /* OTA / channels accent  */
+  --color-brand-amber:         #F59E0B;   /* warnings / incomplete  */
+  --color-brand-red:           #EF4444;   /* critical status        */
 
-  /* ── Dark Mode Backgrounds ──────────────────────────────────── */
-  --color-brand-dark: #07101E;
-  /* deepest bg             */
-  --color-brand-navy: #0A0F1E;
-  /* main content bg        */
-  --color-brand-teal: #0B2E3C;
-  /* sidebar / elevated bg  */
-  --color-brand-teal-light: #1a2634;
+  /* ÔöÇÔöÇ Dark Mode Backgrounds ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+  --color-brand-dark:          #07101E;   /* deepest bg             */
+  --color-brand-navy:          #0A0F1E;   /* main content bg        */
+  --color-brand-teal:          #0B2E3C;   /* sidebar / elevated bg  */
+  --color-brand-teal-light:    #1a2634;
 
-  /* ── Neon aliases ───────────────────────────────────────────── */
-  --color-neon-mint: #29FFC6;
-  --color-neon-purple: #8B5CF6;
+  /* ÔöÇÔöÇ Neon aliases ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+  --color-neon-mint:           #29FFC6;
+  --color-neon-purple:         #8B5CF6;
 
-  /* ── Typography ─────────────────────────────────────────────── */
+  /* ÔöÇÔöÇ Typography ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
   --font-display: var(--font-syne), 'Syne', sans-serif;
-  --font-sans: var(--font-inter), 'Inter', sans-serif;
+  --font-sans:    var(--font-inter), 'Inter', sans-serif;
 
-  /* ── Animation tokens ───────────────────────────────────────── */
-  --animate-spin-slow: spin 8s linear infinite;
-  --animate-float: float 6s ease-in-out infinite;
-  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
-  --animate-shimmer: shimmer 2s linear infinite;
-  --animate-slide-in: slide-in 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+  /* ÔöÇÔöÇ Animation tokens ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+  --animate-spin-slow:    spin 8s linear infinite;
+  --animate-float:        float 6s ease-in-out infinite;
+  --animate-pulse-slow:   pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-pulse-glow:   pulse-glow 2s ease-in-out infinite;
+  --animate-shimmer:      shimmer 2s linear infinite;
+  --animate-slide-in:     slide-in 0.3s cubic-bezier(0.32, 0.72, 0, 1);
 }
 
-/* ═══════════════════════════════════════════════════════════════
+/* ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
    KEYFRAMES
-═══════════════════════════════════════════════════════════════ */
+ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ */
 @keyframes float {
-
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-8px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
 }
 
 @keyframes pulse-glow {
-
-  0%,
-  100% {
-    opacity: 1;
-    box-shadow: 0 0 8px var(--color-brand-primary);
-  }
-
-  50% {
-    opacity: 0.6;
-    box-shadow: 0 0 20px var(--color-brand-primary);
-  }
+  0%, 100% { opacity: 1;   box-shadow: 0 0 8px  var(--color-brand-primary); }
+  50%       { opacity: 0.6; box-shadow: 0 0 20px var(--color-brand-primary); }
 }
 
 @keyframes pulse-glow-purple {
-
-  0%,
-  100% {
-    opacity: 1;
-    box-shadow: 0 0 8px var(--color-brand-purple);
-  }
-
-  50% {
-    opacity: 0.6;
-    box-shadow: 0 0 20px var(--color-brand-purple);
-  }
+  0%, 100% { opacity: 1;   box-shadow: 0 0 8px  var(--color-brand-purple); }
+  50%       { opacity: 0.6; box-shadow: 0 0 20px var(--color-brand-purple); }
 }
 
 @keyframes pulse-glow-red {
-
-  0%,
-  100% {
-    opacity: 1;
-    box-shadow: 0 0 6px var(--color-brand-red);
-  }
-
-  50% {
-    opacity: 0.6;
-    box-shadow: 0 0 16px var(--color-brand-red);
-  }
+  0%, 100% { opacity: 1;   box-shadow: 0 0 6px  var(--color-brand-red); }
+  50%       { opacity: 0.6; box-shadow: 0 0 16px var(--color-brand-red); }
 }
 
 @keyframes shimmer {
-  0% {
-    background-position: -200% center;
-  }
-
-  100% {
-    background-position: 200% center;
-  }
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
 }
 
 @keyframes slide-in {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes scale-in {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
 }
 
 @keyframes nav-active {
-  from {
-    transform: scaleY(0);
-  }
-
-  to {
-    transform: scaleY(1);
-  }
+  from { transform: scaleY(0); }
+  to   { transform: scaleY(1); }
 }
 
-/* ═══════════════════════════════════════════════════════════════
+/* ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
    UTILITY CLASSES
-═══════════════════════════════════════════════════════════════ */
+ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ */
 @layer utilities {
 
-  /* ── Glassmorphism ───────────────────────────────────────────── */
+  /* ÔöÇÔöÇ Glassmorphism ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
   .glass-panel {
-    @apply bg-white/70 dark:bg-[#0B2E3C]/30 backdrop-blur-xl border border-gray-200 dark:border-white/10 shadow-[0_8px_32px_0_#0000001A] dark:shadow-[0_8px_32px_0_#0000005E];
+    @apply bg-white/70 dark:bg-[#0B2E3C]/30 backdrop-blur-xl
+           border border-gray-200 dark:border-white/10
+           shadow-[0_8px_32px_0_#0000001A] dark:shadow-[0_8px_32px_0_#0000005E];
   }
 
   .glass-card {
-    @apply bg-white/40 dark:bg-white/[0.04] backdrop-blur-md border border-gray-200 dark:border-white/[0.07] rounded-xl transition-all duration-300;
+    @apply bg-white/40 dark:bg-white/[0.04] backdrop-blur-md
+           border border-gray-200 dark:border-white/[0.07]
+           rounded-xl transition-all duration-300;
   }
 
   .glass-card-hover {
-    @apply hover:bg-white/60 dark:hover:bg-white/[0.07] hover:border-gray-300 dark:hover:border-[#29FFC6]/40 hover:shadow-lg dark:hover:shadow-[0_0_24px_#29FFC620] hover:-translate-y-0.5;
+    @apply hover:bg-white/60 dark:hover:bg-white/[0.07]
+           hover:border-gray-300 dark:hover:border-[#29FFC6]/40
+           hover:shadow-lg dark:hover:shadow-[0_0_24px_#29FFC620]
+           hover:-translate-y-0.5;
   }
 
-  /* Standard upgraded card — use this for all new UI */
+  /* Standard upgraded card ÔÇö use this for all new UI */
   .card-glass {
-    @apply bg-white dark:bg-white/[0.04] backdrop-blur-md border border-gray-200 dark:border-white/[0.07] rounded-xl shadow-sm dark:shadow-none transition-all duration-300;
+    @apply bg-white dark:bg-white/[0.04] backdrop-blur-md
+           border border-gray-200 dark:border-white/[0.07]
+           rounded-xl shadow-sm dark:shadow-none
+           transition-all duration-300;
   }
 
   .card-glass-hover {
-    @apply hover:border-[#29FFC6]/30 dark:hover:border-[#29FFC6]/30 hover:shadow-md dark:hover:shadow-[0_0_20px_#29FFC615] hover:-translate-y-0.5;
+    @apply hover:border-[#29FFC6]/30 dark:hover:border-[#29FFC6]/30
+           hover:shadow-md dark:hover:shadow-[0_0_20px_#29FFC615]
+           hover:-translate-y-0.5;
   }
 
   .card-glass-purple {
-    @apply hover:border-[#8B5CF6]/30 dark:hover:border-[#8B5CF6]/30 hover:shadow-md dark:hover:shadow-[0_0_20px_#8B5CF615] hover:-translate-y-0.5;
+    @apply hover:border-[#8B5CF6]/30 dark:hover:border-[#8B5CF6]/30
+           hover:shadow-md dark:hover:shadow-[0_0_20px_#8B5CF615]
+           hover:-translate-y-0.5;
   }
 
   .glass-dash {
@@ -198,7 +147,7 @@
     @apply bg-gray-50/80 dark:bg-[#07101E]/90 backdrop-blur-md border-b border-gray-200 dark:border-white/[0.07];
   }
 
-  /* ── Glow utilities ──────────────────────────────────────────── */
+  /* ÔöÇÔöÇ Glow utilities ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
   .glow-teal {
     filter: drop-shadow(0 0 10px rgba(41, 255, 198, 0.5));
   }
@@ -227,25 +176,33 @@
     @apply border-teal-500 dark:border-[#29FFC6] shadow-sm dark:shadow-[0_0_10px_#29FFC64D];
   }
 
-  /* ── Health Status Badges ────────────────────────────────────── */
+  /* ÔöÇÔöÇ Health Status Badges ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
   .badge-health-complete {
-    @apply inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full bg-teal-500/15 text-teal-600 dark:text-[#29FFC6] border border-teal-500/20 dark:border-[#29FFC6]/25;
+    @apply inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full
+           bg-teal-500/15 text-teal-600 dark:text-[#29FFC6]
+           border border-teal-500/20 dark:border-[#29FFC6]/25;
   }
 
   .badge-health-incomplete {
-    @apply inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/20 dark:border-amber-400/25;
+    @apply inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full
+           bg-amber-500/15 text-amber-600 dark:text-amber-400
+           border border-amber-500/20 dark:border-amber-400/25;
   }
 
   .badge-health-review {
-    @apply inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full bg-orange-500/15 text-orange-600 dark:text-orange-400 border border-orange-500/20 dark:border-orange-400/25;
+    @apply inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full
+           bg-orange-500/15 text-orange-600 dark:text-orange-400
+           border border-orange-500/20 dark:border-orange-400/25;
   }
 
   .badge-health-critical {
-    @apply inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full bg-red-500/15 text-red-600 dark:text-red-400 border border-red-500/20 dark:border-red-400/25;
+    @apply inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full
+           bg-red-500/15 text-red-600 dark:text-red-400
+           border border-red-500/20 dark:border-red-400/25;
     animation: pulse-glow-red 2s ease-in-out infinite;
   }
 
-  /* ── Animated status dot ─────────────────────────────────────── */
+  /* ÔöÇÔöÇ Animated status dot ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
   .status-dot-active {
     @apply w-2 h-2 rounded-full bg-emerald-400 dark:bg-emerald-400;
     animation: pulse-glow 2s ease-in-out infinite;
@@ -255,7 +212,7 @@
     @apply w-2 h-2 rounded-full bg-gray-400 dark:bg-gray-600;
   }
 
-  /* ── Gradient text ───────────────────────────────────────────── */
+  /* ÔöÇÔöÇ Gradient text ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
   .gradient-text-teal {
     background: linear-gradient(135deg, #29FFC6, #00EFB0);
     -webkit-background-clip: text;
@@ -270,56 +227,66 @@
     background-clip: text;
   }
 
-  /* ── Navigation active state ─────────────────────────────────── */
+  /* ÔöÇÔöÇ Navigation active state ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
   .nav-active-indicator {
-    @apply absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 rounded-r-full bg-[#29FFC6] dark:bg-[#29FFC6] shadow-[0_0_8px_rgba(41, 255, 198, 0.8)];
+    @apply absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 rounded-r-full
+           bg-[#29FFC6] dark:bg-[#29FFC6]
+           shadow-[0_0_8px_rgba(41,255,198,0.8)];
     animation: nav-active 0.2s ease-out;
   }
 
-  /* ── Table rows ──────────────────────────────────────────────── */
+  /* ÔöÇÔöÇ Table rows ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
   .data-matrix-row {
-    @apply border-b border-gray-100 dark:border-white/[0.05] hover:bg-gray-50 dark:hover:bg-[#29FFC6]/[0.05] transition-colors duration-150;
+    @apply border-b border-gray-100 dark:border-white/[0.05]
+           hover:bg-gray-50 dark:hover:bg-[#29FFC6]/[0.05]
+           transition-colors duration-150;
   }
 
   .data-row-selected {
-    @apply bg-teal-50 dark:bg-[#29FFC6]/[0.07] border-l-2 border-l-teal-500 dark:border-l-[#29FFC6];
+    @apply bg-teal-50 dark:bg-[#29FFC6]/[0.07]
+           border-l-2 border-l-teal-500 dark:border-l-[#29FFC6];
   }
 
-  /* ── Shimmer loading ─────────────────────────────────────────── */
+  /* ÔöÇÔöÇ Shimmer loading ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
   .shimmer {
-    background: linear-gradient(90deg, transparent 25%, rgba(255, 255, 255, 0.08) 50%, transparent 75%);
+    background: linear-gradient(90deg, transparent 25%, rgba(255,255,255,0.08) 50%, transparent 75%);
     background-size: 200% 100%;
     animation: shimmer 2s linear infinite;
   }
 
-  /* ── Teal gradient button ────────────────────────────────────── */
+  /* ÔöÇÔöÇ Teal gradient button ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
   .btn-teal {
-    @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold bg-gradient-to-r from-[#29FFC6] to-[#00EFB0] text-[#07101E] shadow-[0_0_12px_rgba(41, 255, 198, 0.3)] hover:shadow-[0_0_20px_rgba(41, 255, 198, 0.5)] hover:brightness-110 transition-all duration-200;
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold
+           bg-gradient-to-r from-[#29FFC6] to-[#00EFB0]
+           text-[#07101E] shadow-[0_0_12px_rgba(41,255,198,0.3)]
+           hover:shadow-[0_0_20px_rgba(41,255,198,0.5)]
+           hover:brightness-110
+           transition-all duration-200;
   }
 
   .btn-purple {
-    @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold bg-gradient-to-r from-[#8B5CF6] to-[#A78BFA] text-white shadow-[0_0_12px_rgba(139, 92, 246, 0.3)] hover:shadow-[0_0_20px_rgba(139, 92, 246, 0.5)] hover:brightness-110 transition-all duration-200;
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold
+           bg-gradient-to-r from-[#8B5CF6] to-[#A78BFA]
+           text-white shadow-[0_0_12px_rgba(139,92,246,0.3)]
+           hover:shadow-[0_0_20px_rgba(139,92,246,0.5)]
+           hover:brightness-110
+           transition-all duration-200;
   }
 
   /* Animation helpers */
-  .animate-slide-in {
-    animation: slide-in 0.3s cubic-bezier(0.32, 0.72, 0, 1) both;
-  }
-
-  .animate-scale-in {
-    animation: scale-in 0.2s cubic-bezier(0.32, 0.72, 0, 1) both;
-  }
-
-  .animate-pulse-glow {
-    animation: pulse-glow 2s ease-in-out infinite;
-  }
+  .animate-slide-in  { animation: slide-in  0.3s cubic-bezier(0.32, 0.72, 0, 1) both; }
+  .animate-scale-in  { animation: scale-in  0.2s cubic-bezier(0.32, 0.72, 0, 1) both; }
+  .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
 }
 
-/* ═══════════════════════════════════════════════════════════════
+/* ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
    GLOBAL BASE
-═══════════════════════════════════════════════════════════════ */
+ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ */
 body {
-  @apply bg-gray-50 dark:bg-[#07101E] text-gray-900 dark:text-white min-h-screen selection:bg-teal-200 dark:selection:bg-[#29FFC6] selection:text-teal-900 dark:selection:text-[#07101E] transition-colors duration-300;
+  @apply bg-gray-50 dark:bg-[#07101E] text-gray-900 dark:text-white min-h-screen
+         selection:bg-teal-200 dark:selection:bg-[#29FFC6]
+         selection:text-teal-900 dark:selection:text-[#07101E]
+         transition-colors duration-300;
   font-feature-settings: 'cv01', 'cv02', 'cv03';
 }
 
@@ -328,46 +295,26 @@ body.dark {
   background-attachment: fixed;
 }
 
-/* ── Custom Scrollbar ────────────────────────────────────────── */
-::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-}
-
-::-webkit-scrollbar-track {
-  @apply bg-transparent dark:bg-[#07101E];
-}
-
+/* ÔöÇÔöÇ Custom Scrollbar ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { @apply bg-transparent dark:bg-[#07101E]; }
 ::-webkit-scrollbar-thumb {
   @apply bg-gray-300/60 dark:bg-white/10 rounded-full;
-
-  &:hover {
-    @apply bg-gray-400 dark:bg-[#29FFC6]/50;
-  }
+  &:hover { @apply bg-gray-400 dark:bg-[#29FFC6]/50; }
 }
 
-/* ── Focus rings ─────────────────────────────────────────────── */
+/* ÔöÇÔöÇ Focus rings ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ */
 :focus-visible {
   outline: 2px solid rgba(41, 255, 198, 0.6);
   outline-offset: 2px;
 }
 
-/* ── Clerk Overrides ─────────────────────────────────────────── */
-.cl-card,
-.cl-signIn-start,
-.cl-signUp-start {
-  background-color: transparent !important;
+/* -- Clerk Card Override --
+.cl-card {
   background: transparent !important;
   box-shadow: none !important;
   border: none !important;
 }
-
-.cl-internal-phfxlr {
-  background: transparent !important;
-}
-
-.cl-headerTitle,
-.cl-headerSubtitle,
-.cl-footer {
+.cl-headerTitle, .cl-headerSubtitle, .cl-footer {
   display: none !important;
 }
