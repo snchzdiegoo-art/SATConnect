@@ -69,7 +69,7 @@ export function Navbar() {
                             </span>
                         </div>
 
-                        <Link href="/dashboard">
+                        <Link href="https://app.satconnect.travel/sign-in">
                             <Button variant="outline" className="py-2 px-4 text-xs font-semibold border-teal-500/50 text-teal-400 hover:bg-teal-500/10 transition-all shadow-[0_0_10px_rgba(45,212,191,0.1)]">
                                 ADMIN
                             </Button>
@@ -126,9 +126,11 @@ export function Navbar() {
                             <p className="text-xs text-center text-gray-500 flex items-center justify-center gap-2">
                                 <Flag className="h-3 w-3 text-green-500 fill-green-500" /> Facturamos en MXN y USD
                             </p>
-                            <Button variant="primary" className="w-full justify-center bg-gray-800 border-gray-700">
-                                Admin Access
-                            </Button>
+                            <Link href="https://app.satconnect.travel/sign-in" className="w-full">
+                                <Button variant="primary" className="w-full justify-center bg-gray-800 border-gray-700">
+                                    Admin Access
+                                </Button>
+                            </Link>
                         </div>
                     </div>
                 )

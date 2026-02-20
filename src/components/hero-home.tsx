@@ -3,6 +3,7 @@
 import * as React from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import Link from "next/link"
 import { Rocket, CheckCircle } from "lucide-react"
 
 export function HeroHome() {
@@ -61,9 +62,11 @@ export function HeroHome() {
 
                 {/* CTAs */}
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up delay-300">
-                    <Button variant="primary" size="lg" className="h-14 px-8 text-lg w-full sm:w-auto bg-teal-600 hover:bg-teal-500 shadow-lg shadow-teal-500/20 transition-all hover:scale-105">
-                        Empezar Gratis
-                    </Button>
+                    <Link href="https://app.satconnect.travel/sign-up" className="w-full sm:w-auto">
+                        <Button variant="primary" size="lg" className="h-14 px-8 text-lg w-full bg-teal-600 hover:bg-teal-500 shadow-lg shadow-teal-500/20 transition-all hover:scale-105">
+                            Empezar Gratis
+                        </Button>
+                    </Link>
                     <Button variant="secondary" size="lg" className="h-14 px-8 text-lg w-full sm:w-auto border-gray-600 hover:border-white text-gray-300 hover:text-white bg-transparent backdrop-blur-sm transition-all hover:scale-105">
                         Agendar Demo
                     </Button>

@@ -3,6 +3,7 @@
 import React, { useState } from "react"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 import { Check, Star, Hourglass, Info } from "lucide-react"
 
 export function PricingTable() {
@@ -108,9 +109,11 @@ export function PricingTable() {
                             </ul>
                         </div>
                         <div className="p-6 pt-0 mt-auto">
-                            <Button variant="secondary" className="w-full border-gray-600 text-gray-300 hover:border-white hover:text-white">
-                                Empezar Ahora
-                            </Button>
+                            <Link href="https://app.satconnect.travel/sign-up" className="w-full">
+                                <Button variant="secondary" className="w-full border-gray-600 text-gray-300 hover:border-white hover:text-white">
+                                    Empezar Ahora
+                                </Button>
+                            </Link>
                         </div>
                     </Card>
 
@@ -175,9 +178,11 @@ export function PricingTable() {
                                 </ul>
                             </div>
                             <div className="p-8 pt-0 mt-auto">
-                                <Button variant="primary" className="w-full py-4 text-lg bg-teal-600 hover:bg-teal-500 shadow-lg shadow-teal-500/20">
-                                    Asegurar mi Precio
-                                </Button>
+                                <Link href="https://app.satconnect.travel/sign-up" className="w-full">
+                                    <Button variant="primary" className="w-full py-4 text-lg bg-teal-600 hover:bg-teal-500 shadow-lg shadow-teal-500/20">
+                                        Asegurar mi Precio
+                                    </Button>
+                                </Link>
                             </div>
                         </Card>
                     </div>

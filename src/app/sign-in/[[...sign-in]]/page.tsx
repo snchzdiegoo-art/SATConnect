@@ -1,20 +1,21 @@
 import { SignIn } from "@clerk/nextjs";
-import Image from "next/image";
 import { Rocket } from "lucide-react";
 
 export default function Page() {
     return (
         <div className="relative min-h-screen flex items-center justify-center p-4 overflow-hidden bg-[#0a0f1e]">
 
-            {/* Background Image with Overlay */}
+            {/* Background Video with Overlay */}
             <div className="absolute inset-0 z-0">
-                <Image
-                    src="https://images.unsplash.com/photo-1512813195391-45242d99d343?q=80&w=2500&auto=format&fit=crop"
-                    alt="Cinematic sunset over Mayan ruins in Tulum"
-                    fill
-                    className="object-cover opacity-60"
-                    priority
-                />
+                <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="absolute inset-0 w-full h-full object-cover opacity-60"
+                >
+                    <source src="/videos/12920663.mp4" type="video/mp4" />
+                </video>
                 {/* Deep Navy to Black Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-b from-[#0a0f1e]/40 via-[#0a0f1e]/80 to-[#0a0f1e]"></div>
             </div>
