@@ -10,7 +10,20 @@ const isProtectedRoute = createRouteMatcher([
 // Public routes are everything else, including /sign-in and /sign-up
 
 export default clerkMiddleware(async (auth, req) => {
-    // 1. Protect Dashboard Routes
+    // 1. Subdomain Redirect (app.satconnect.travel -> /dashboard)
+    const url = req.nextUrl;
+    const hostname = req.headers.get("host") || "";
+
+    // Check if we are on the "app" subdomain (e.g. app.satconnect.travel or app.localhost)
+    const isAppSubdomain = hostname.startsWith("app.");
+
+    // If on app subdomain and trying to access root, redirect to dashboard
+    if (isAppSubdomain && url.pathname === "/") {
+        url.pathname = "/dashboard";
+        return NextResponse.redirect(url);
+    }
+
+    // 2. Protect Dashboard Routes
     if (isProtectedRoute(req)) {
         await auth.protect();
     }
