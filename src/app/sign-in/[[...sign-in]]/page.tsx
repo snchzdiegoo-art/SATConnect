@@ -9,7 +9,7 @@ export default function Page() {
             {/* Background Image with Overlay */}
             <div className="absolute inset-0 z-0">
                 <Image
-                    src="https://images.unsplash.com/photo-1518182170546-07661fd94144?q=80&w=2500&auto=format&fit=crop"
+                    src="https://images.unsplash.com/photo-1512813195391-45242d99d343?q=80&w=2500&auto=format&fit=crop"
                     alt="Cinematic sunset over Mayan ruins in Tulum"
                     fill
                     className="object-cover opacity-60"
