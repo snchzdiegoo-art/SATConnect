@@ -1,5 +1,6 @@
 import { SignIn } from "@clerk/nextjs";
 import Image from "next/image";
+import { Rocket } from "lucide-react";
 
 export default function Page() {
     return (
@@ -8,7 +9,7 @@ export default function Page() {
             {/* Background Image with Overlay */}
             <div className="absolute inset-0 z-0">
                 <Image
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWkRViRgPS2iwZCxFbqBwYgX2ZbZ79n_hQ2Tam7KcR4WggC2Cw2_QIykPNX6ca1Rx90aeq2ksfa6sT2M77dXJDhN7tyf9lc2ihDIeXpOKOOM0gzR0Fc3KUj8zP2RdTMk_U68lL3r2x_QavhD31Aa7LSzErcfXWEbY2f-rVdnga1a44gcc90PlUMeduB8nPxwd4qICHeeyKmPR3ntMAe3d-3ntgUB9r8iVcwGWcvqzJmO8gCI2Ej5crojevpltqr2UpDnyBjFMJBw"
+                    src="https://images.unsplash.com/photo-1518182170546-07661fd94144?q=80&w=2500&auto=format&fit=crop"
                     alt="Cinematic sunset over Mayan ruins in Tulum"
                     fill
                     className="object-cover opacity-60"
@@ -24,7 +25,7 @@ export default function Page() {
                 {/* Header Branding */}
                 <div className="flex flex-col items-center text-center gap-4">
                     <div className="w-16 h-16 rounded-xl bg-[#0a0f1e]/80 flex items-center justify-center border border-[#29ffcd]/30 drop-shadow-[0_0_8px_rgba(41,255,205,0.6)]">
-                        <Image src="/Logo-SATConnect-v3.svg" width={40} height={40} alt="SAT Connect Logo" className="object-contain" />
+                        <Rocket className="w-8 h-8 text-[#29ffcd]" />
                     </div>
                     <div className="space-y-1">
                         <h1 className="text-3xl font-bold tracking-tight text-white">
@@ -40,6 +41,13 @@ export default function Page() {
                 <div className="w-full">
                     <SignIn
                         appearance={{
+                            variables: {
+                                colorBackground: 'transparent',
+                                colorPrimary: '#29ffcd',
+                                colorText: 'white',
+                                colorInputText: 'white',
+                                colorInputBackground: 'rgba(255, 255, 255, 0.05)',
+                            },
                             elements: {
                                 rootBox: "w-full",
                                 card: "bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-xl w-full p-6",
