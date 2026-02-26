@@ -352,14 +352,52 @@ model Booking {
   totalPrice    Decimal  @db.Decimal(10, 2)
   status        String   @default("confirmed") // "pending", "confirmed", "cancelled"
   
+  // Phase 2: Agency Integration
+  agentId       String?           // Link to the Travel Agent
+  agent         User?             @relation("AgentBookings", fields: [agentId], references: [id])
+  netRate       Decimal? @db.Decimal(10, 2) // Price paid to provider
+  commission    Decimal? @db.Decimal(10, 2) // Amount earned by SAT/Agent
+  
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
   
   @@index([tourId])
   @@index([bookingDate])
   @@index([status])
+  @@index([agentId])
   @@map("bookings")
 }
+
+// ============================================================================
+// PHASE 2: AGENCY MANAGEMENT (Admin CRM)
+// ============================================================================
+
+model AgencyProfile {
+  id              Int       @id @default(autoincrement())
+  userId          String    @unique
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  businessName    String
+  taxId           String?
+  address         String?
+  phone           String?
+  
+  // Distribution Rules
+  defaultMarkup   Decimal   @default(1.15) @db.Decimal(5, 2) // Default 15% markup
+  allowedTours    Int[]     // Whitelist of tour IDs (empty = all)
+  
+  // Performance
+  isVerified      Boolean   @default(false)
+  tier            String    @default("BRONZE") // "BRONZE", "SILVER", "GOLD"
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("agency_profiles")
+}
+
+// Update User model relation
+// (I will do this in the next multi_replace or use the full replacement logic if possible)
 
 // ============================================================================
 // ENTIDAD 7: Tour Variants (Pricing Options)
@@ -446,6 +484,10 @@ model User {
   projects        Project[]       @relation("ProjectOwner")
   docs            Doc[]           @relation("DocAuthor")
   objectives      Objective[]     @relation("ObjectiveOwner")
+  
+  // Phase 2: Agency Relations
+  agency_profile  AgencyProfile?
+  agent_bookings  Booking[]       @relation("AgentBookings")
   
   // Metadata
   last_sign_in_at DateTime?

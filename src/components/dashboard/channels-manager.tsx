@@ -138,23 +138,23 @@ export function ChannelsManager() {
     return (
         <div className="space-y-6">
             {/* Header */}
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-white/5">
                 <div className="flex items-center gap-3">
-                    <div className="p-2.5 rounded-xl bg-purple-500/10 border border-purple-500/20">
-                        <Share2 className="h-5 w-5 text-purple-500" />
+                    <div className="p-2.5 rounded-xl bg-purple-100 dark:bg-purple-500/10 border border-purple-200 dark:border-purple-500/20">
+                        <Share2 className="h-5 w-5 text-purple-600 dark:text-purple-400" />
                     </div>
                     <div>
-                        <h2 className="text-xl font-bold text-gray-900 dark:text-white font-display">
+                        <h2 className="text-xl font-bold text-gray-900 dark:text-white font-syne tracking-tight">
                             Canales de Distribución
                         </h2>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">
-                            {channels.length} canales · La comisión afecta todos los tours vinculados
+                        <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mt-0.5">
+                            {channels.length} canales activos · La comisión afecta ingresos netos en todos los tours
                         </p>
                     </div>
                 </div>
                 <button
                     onClick={openCreate}
-                    className="btn-purple"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-purple-600 dark:bg-purple-500 text-white hover:bg-purple-700 dark:hover:bg-purple-400 transition-all shadow-sm"
                 >
                     <Plus className="h-4 w-4" />
                     Nuevo Canal
@@ -172,57 +172,59 @@ export function ChannelsManager() {
 
             {/* Channel grid */}
             {loading ? (
-                <div className="flex items-center justify-center py-16 text-gray-400">
-                    <Loader2 className="h-6 w-6 animate-spin mr-2" />
-                    Loading channels...
+                <div className="flex items-center justify-center py-16 text-gray-500 dark:text-gray-400 font-medium">
+                    <Loader2 className="h-5 w-5 animate-spin mr-2" />
+                    Cargando canales...
                 </div>
             ) : channels.length === 0 ? (
-                <div className="text-center py-16 text-gray-400 border-2 border-dashed border-gray-200 dark:border-white/10 rounded-xl">
+                <div className="text-center py-16 text-gray-500 dark:text-gray-400 border-2 border-dashed border-gray-200 dark:border-white/10 rounded-2xl bg-gray-50/50 dark:bg-transparent">
                     <Share2 className="h-10 w-10 mx-auto mb-3 opacity-30" />
-                    <p className="font-medium">No channels yet</p>
-                    <p className="text-sm mt-1">Add Viator, Expedia, or any OTA partner.</p>
+                    <p className="font-semibold text-gray-900 dark:text-white">Sin canales vinculados</p>
+                    <p className="text-sm mt-1">Conecta Viator, Expedia, etc. para optimizar la distribución.</p>
                 </div>
             ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                     {channels.map((channel) => {
                         const style = getOTAStyle(channel.name);
                         const tourCount = channel._count?.channel_links ?? 0;
                         return (
                             <div
                                 key={channel.id}
-                                className={`relative flex flex-col rounded-xl border border-t-4 card-glass transition-all duration-300 overflow-hidden ${channel.is_active
-                                        ? `${style.accent} ${style.ring} ${style.bg} hover:-translate-y-0.5 hover:shadow-md`
-                                        : 'border-t-gray-300 dark:border-t-gray-700 border-gray-100 dark:border-white/5 opacity-50'
+                                className={`relative flex flex-col rounded-2xl border-t-4 transition-all duration-300 overflow-hidden shadow-sm bg-white dark:bg-white/[0.02] border-x border-b border-gray-200 dark:border-white/5 ${channel.is_active
+                                    ? `${style.accent} hover:-translate-y-0.5 hover:shadow-md`
+                                    : 'border-t-gray-300 dark:border-t-gray-700 opacity-60 dark:opacity-50'
                                     }`}
                             >
                                 {/* Status + Name row */}
-                                <div className="flex items-center gap-3 p-4 pb-2">
-                                    <span className={`w-2 h-2 rounded-full shrink-0 ${channel.is_active ? `${style.dot} animate-pulse-glow` : 'bg-gray-400'}`} />
-                                    <h3 className={`font-bold text-sm ${style.label} flex-1 truncate`}>{channel.name}</h3>
+                                <div className="flex items-center gap-3 px-5 py-4 border-b border-gray-100 dark:border-white/[0.06]">
+                                    <span className={`w-2 h-2 rounded-full shrink-0 ${channel.is_active ? `${style.dot} animate-pulse-glow shadow-[0_0_8px_currentColor]` : 'bg-gray-400'}`} />
+                                    <h3 className={`font-bold text-sm text-gray-900 dark:text-white flex-1 truncate`}>{channel.name}</h3>
                                     <button
                                         onClick={() => toggleActive(channel)}
                                         className="transition-colors shrink-0 hover:scale-110 duration-150"
                                         title={channel.is_active ? 'Desactivar' : 'Activar'}
                                     >
                                         {channel.is_active
-                                            ? <ToggleRight className="h-5 w-5 text-[#29FFC6]" />
-                                            : <ToggleLeft className="h-5 w-5 text-gray-400" />}
+                                            ? <ToggleRight className="h-6 w-6 text-teal-500 dark:text-teal-400" />
+                                            : <ToggleLeft className="h-6 w-6 text-gray-300 dark:text-gray-600" />}
                                     </button>
                                 </div>
 
                                 {/* Commission — centered & prominent */}
-                                <div className="flex flex-col items-center justify-center py-5 flex-1">
-                                    <span className={`text-4xl font-bold tabular-nums font-display ${style.label}`}>
-                                        {parseFloat(channel.base_commission_percent).toFixed(1)}%
+                                <div className="flex flex-col items-center justify-center py-7 flex-1">
+                                    <span className={`text-4xl font-bold tabular-nums tracking-tight text-gray-900 dark:text-white`}>
+                                        {parseFloat(channel.base_commission_percent).toFixed(1)}<span className="text-2xl text-gray-400">%</span>
                                     </span>
-                                    <span className="text-xs text-gray-400 mt-1">comisión base</span>
+                                    <span className="text-[11px] font-medium text-gray-500 uppercase tracking-widest mt-2">
+                                        Comisión Base
+                                    </span>
                                 </div>
 
                                 {/* Footer */}
-                                <div className="flex items-center justify-between px-4 py-3 border-t border-gray-100 dark:border-white/[0.06] bg-white/30 dark:bg-white/[0.02]">
+                                <div className="flex items-center justify-between px-5 py-3 border-t border-gray-100 dark:border-white/[0.06] bg-gray-50 dark:bg-black/20">
                                     <Link
                                         href={`/dashboard/inventory`}
-                                        className={`text-xs font-medium ${style.label} hover:underline`}
+                                        className={`text-xs font-semibold ${style.label} hover:underline`}
                                     >
                                         {tourCount} tours vinculados →
                                     </Link>
@@ -230,9 +232,9 @@ export function ChannelsManager() {
                                         size="sm"
                                         variant="ghost"
                                         onClick={() => openEdit(channel)}
-                                        className="h-7 px-2 text-xs text-gray-400 hover:text-purple-400"
+                                        className="h-7 px-2 text-xs font-semibold text-gray-500 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-500/10"
                                     >
-                                        <Pencil className="h-3 w-3 mr-1" />
+                                        <Pencil className="h-3.5 w-3.5 mr-1" />
                                         Editar
                                     </Button>
                                 </div>
@@ -243,12 +245,14 @@ export function ChannelsManager() {
                     {/* Add Channel ghost card */}
                     <button
                         onClick={openCreate}
-                        className="flex flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed border-purple-200 dark:border-purple-500/20 p-6 text-purple-400 hover:border-purple-400 dark:hover:border-purple-500/50 hover:bg-purple-50 dark:hover:bg-purple-500/[0.05] transition-all duration-200 min-h-[180px]"
+                        className="flex flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed border-purple-200 dark:border-purple-500/20 p-6 text-purple-600 dark:text-purple-400 hover:border-purple-500 dark:hover:border-purple-400 bg-purple-50/50 dark:bg-purple-500/[0.02] hover:bg-purple-100 dark:hover:bg-purple-500/[0.05] transition-all duration-300 min-h-[200px] shadow-sm"
                     >
-                        <Plus className="h-8 w-8 opacity-50" />
+                        <div className="w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-500/20 flex items-center justify-center mb-1">
+                            <Plus className="h-5 w-5" />
+                        </div>
                         <div className="text-center">
-                            <p className="text-sm font-semibold">Agregar Canal</p>
-                            <p className="text-xs opacity-60 mt-0.5">Conectar nuevo canal OTA</p>
+                            <p className="text-sm font-bold tracking-tight">Vincular Canal OTA</p>
+                            <p className="text-xs font-medium opacity-70 mt-1">Sincronizar nueva matriz B2B</p>
                         </div>
                     </button>
                 </div>

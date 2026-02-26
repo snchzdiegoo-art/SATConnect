@@ -27,17 +27,20 @@ export default async function TodayPage() {
     });
 
     return (
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-full bg-gradient-to-b from-black via-[#070b14] to-[#070b14] relative">
+            {/* Tech Pattern Overlay */}
+            <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)' }} />
+
             {/* Header */}
-            <div className="h-14 flex items-center px-8 border-b border-white/5 shrink-0 bg-white/5 backdrop-blur-md">
-                <ListTodo className="w-5 h-5 text-teal-400 mr-3" />
-                <h1 className="text-lg font-bold text-white font-syne tracking-wide">Today</h1>
-                <span className="ml-3 text-xs bg-white/10 text-gray-400 px-2 py-0.5 rounded-full">
+            <div className="h-16 flex items-center px-8 border-b border-white/10 shrink-0 bg-black/40 backdrop-blur-xl sticky top-0 z-10 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
+                <ListTodo className="w-5 h-5 text-teal-400 mr-3 glow-teal" />
+                <h1 className="text-xl font-bold text-white font-syne tracking-tight">Today</h1>
+                <span className="ml-3 text-xs bg-white/10 text-gray-400 px-2.5 py-0.5 rounded-full font-medium">
                     {tasks.length}
                 </span>
-                <div className="ml-auto text-xs text-gray-500 flex items-center gap-2">
-                    <Calendar className="w-4 h-4" />
-                    {new Date().toLocaleDateString("es-MX", { weekday: "long", month: "long", day: "numeric" })}
+                <div className="ml-auto text-xs text-gray-500 flex items-center gap-2 font-medium tracking-wide">
+                    <Calendar className="w-4 h-4 text-teal-500/50" />
+                    {new Date().toLocaleDateString("es-MX", { weekday: "long", month: "long", day: "numeric" }).toUpperCase()}
                 </div>
             </div>
 

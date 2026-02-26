@@ -18,6 +18,12 @@ import {
     Mail,
     Calendar,
     LayoutPanelLeft,
+    Cpu,
+    Globe,
+    Briefcase,
+    BookOpen,
+    ExternalLink,
+    Palette
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/ui/theme-toggle"
@@ -28,6 +34,34 @@ const navItems = [
     { title: "Thrive Engine", href: "/thrive", icon: Activity },
     { title: "Proveedores", href: "/dashboard/suppliers", icon: Building2 },
     { title: "Canales OTA", href: "/dashboard/channels", icon: Share2 },
+    { title: "Knowledge Hub", href: "/dashboard/knowledge", icon: BookOpen },
+]
+
+// Add Admin/Super Admin specific items here
+const adminNavItems = [
+    { title: "Integrations", href: "/dashboard/integrations", icon: Cpu },
+    { title: "Bókun Manager", href: "/dashboard/bokun", icon: Activity },
+    { title: "UX / UI Studio", href: "/dashboard/ux-ui", icon: Palette },
+    { title: "RRSS & Itinerary", href: "/dashboard/rrss", icon: Calendar },
+    { title: "Core Directives", href: "/dashboard/directives", icon: BookOpen },
+]
+
+// Agency Administration (Admin/Super Admin only)
+const agencyAdminItems = [
+    { title: "Agency Manager", href: "/dashboard/agency", icon: Briefcase },
+    { title: "Commissions Hub", href: "/dashboard/commissions", icon: Activity },
+    { title: "Net Rate Tracker", href: "/dashboard/net-rates", icon: Globe },
+]
+
+// Add External cross-platform modules
+const isDev = process.env.NODE_ENV === "development"
+const BASE_DOMAIN = isDev ? "localhost:3000" : "satconnect.travel"
+const PROTOCOL = isDev ? "http://" : "https://"
+
+const externalNavItems = [
+    { title: "Landing Page", href: `${PROTOCOL}${BASE_DOMAIN}`, icon: Globe },
+    { title: "B2Bridge OS", href: `${PROTOCOL}B2Bridge.${BASE_DOMAIN}`, icon: Briefcase },
+    { title: "Knowledge Hub", href: `${PROTOCOL}knowledge.${BASE_DOMAIN}`, icon: BookOpen },
 ]
 
 export function Sidebar() {
@@ -37,8 +71,17 @@ export function Sidebar() {
 
     const displayName = user ? [user.firstName, user.lastName].filter(Boolean).join(" ") : "Usuario"
     const avatarUrl = user?.imageUrl || `https://api.dicebear.com/9.x/avataaars/svg?seed=user`
-    const roleRaw = (user?.publicMetadata?.role as string) ?? ""
-    const roleLabel = roleRaw === "admin" ? "Admin" : "Super Admin"
+    const roleRaw = (user?.publicMetadata?.role as string) || "super_admin"
+
+    // Role Label Logic
+    const roleLabel = roleRaw === "admin"
+        ? "Admin"
+        : roleRaw === "travel_agent"
+            ? "Travel Agent"
+            : "Super Admin"
+
+    const isAdmin = roleRaw === "admin" || roleRaw === "super_admin"
+    const isAgent = roleRaw === "travel_agent"
 
     return (
         <div
@@ -77,7 +120,10 @@ export function Sidebar() {
                 "overflow-hidden transition-all duration-300",
                 isCollapsed ? "h-[72px] px-2" : "h-[140px] px-6"
             )}>
-                <Link href="/" className="flex flex-col items-center justify-center w-full h-full group">
+                <a
+                    href={isDev ? "http://localhost:3000" : "https://satconnect.travel"}
+                    className="flex flex-col items-center justify-center w-full h-full group"
+                >
                     {isCollapsed ? (
                         <img
                             src="/sidebar-logo-open.png"
@@ -97,13 +143,16 @@ export function Sidebar() {
                             )}
                         />
                     )}
-                </Link>
+                </a>
             </div>
 
             {/* ── Nav Items ────────────────────────────────────── */}
             <div className="flex-1 overflow-y-auto py-5 px-3 scrollbar-none">
                 <nav className="flex flex-col gap-1">
                     {navItems.map((item) => {
+                        // Restricted items for standard agents (Suppliers/Channels)
+                        if (isAgent && (item.title === "Proveedores" || item.title === "Canales OTA")) return null;
+
                         const isActive = pathname === item.href ||
                             (item.href !== "/dashboard" && pathname.startsWith(item.href))
 
@@ -157,6 +206,171 @@ export function Sidebar() {
                             </Link>
                         )
                     })}
+
+                    {/* External Links Section */}
+                    {navItems.length > 0 && <div className="h-px bg-gray-200 dark:bg-white/10 my-2 mx-2 border-none"></div>}
+                    <div className={cn("px-2 pb-1", isCollapsed ? "hidden" : "block")}>
+                        <span className="text-[10px] font-bold tracking-widest uppercase text-gray-500 dark:text-gray-400">Red SAT</span>
+                    </div>
+                    {externalNavItems.map((item) => {
+                        return (
+                            <a
+                                key={item.href}
+                                href={item.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={cn(
+                                    "relative flex items-center gap-3.5 rounded-xl text-sm font-medium",
+                                    "transition-all duration-200 group overflow-hidden",
+                                    isCollapsed ? "px-0 py-3 justify-center" : "px-4 py-3",
+                                    "text-gray-500 dark:text-gray-400",
+                                    "hover:text-gray-900 dark:hover:text-white",
+                                    "hover:bg-gray-100 dark:hover:bg-white/[0.05]",
+                                    "border border-transparent"
+                                )}
+                                title={isCollapsed ? item.title : undefined}
+                            >
+                                <item.icon className={cn(
+                                    "shrink-0 transition-all duration-300 group-hover:scale-110",
+                                    isCollapsed ? "h-5 w-5" : "h-[18px] w-[18px]"
+                                )} />
+
+                                {!isCollapsed && (
+                                    <span className="font-sans tracking-wide truncate flex-1">
+                                        {item.title}
+                                    </span>
+                                )}
+
+                                {!isCollapsed && (
+                                    <ExternalLink className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 transition-opacity text-gray-400" />
+                                )}
+                            </a>
+                        )
+                    })}
+
+                    {/* Agency Administration Section (Admin only) */}
+                    {isAdmin && (
+                        <>
+                            <div className="h-px bg-gray-200 dark:bg-white/10 my-2 mx-2 border-none"></div>
+                            <div className={cn("px-2 pb-1", isCollapsed ? "hidden" : "block")}>
+                                <span className="text-[10px] font-bold tracking-widest uppercase text-emerald-600 dark:text-[#29FFC6]/60">Operaciones</span>
+                            </div>
+                            {agencyAdminItems.map((item) => {
+                                const isActive = pathname === item.href ||
+                                    (item.href !== "/dashboard" && pathname.startsWith(item.href))
+
+                                return (
+                                    <Link
+                                        key={item.href}
+                                        href={item.href}
+                                        className={cn(
+                                            "relative flex items-center gap-3.5 rounded-xl text-sm font-medium",
+                                            "transition-all duration-200 group overflow-hidden",
+                                            isCollapsed ? "px-0 py-3 justify-center" : "px-4 py-3",
+                                            isActive
+                                                ? [
+                                                    "bg-emerald-50 dark:bg-[#29FFC6]/[0.08]",
+                                                    "text-emerald-700 dark:text-[#29FFC6]",
+                                                    "border border-emerald-200/80 dark:border-[#29FFC6]/20",
+                                                    "shadow-sm dark:shadow-[0_0_12px_rgba(41,255,198,0.08)]",
+                                                ]
+                                                : [
+                                                    "text-gray-500 dark:text-gray-400",
+                                                    "hover:text-gray-900 dark:hover:text-white",
+                                                    "hover:bg-gray-100 dark:hover:bg-white/[0.05]",
+                                                    "border border-transparent",
+                                                ]
+                                        )}
+                                        title={isCollapsed ? item.title : undefined}
+                                    >
+                                        <item.icon className={cn(
+                                            "shrink-0 transition-all duration-300",
+                                            isCollapsed ? "h-5 w-5" : "h-[18px] w-[18px]",
+                                            isActive
+                                                ? "text-emerald-600 dark:text-[#29FFC6] glow-teal-sm"
+                                                : "group-hover:scale-110"
+                                        )} />
+                                        {!isCollapsed && (
+                                            <span className="font-sans tracking-wide truncate flex-1">
+                                                {item.title}
+                                            </span>
+                                        )}
+                                    </Link>
+                                )
+                            })}
+                        </>
+                    )}
+
+                    {/* Admin/Super Admin Section */}
+                    {isAdmin && (
+                        <>
+                            {navItems.length > 0 && <div className="h-px bg-gray-200 dark:bg-white/10 my-2 mx-2 border-none"></div>}
+                            <div className={cn("px-2 pb-1", isCollapsed ? "hidden" : "block")}>
+                                <span className="text-[10px] font-bold tracking-widest uppercase text-teal-600 dark:text-[#29FFC6]/60">Inteligencia</span>
+                            </div>
+                            {adminNavItems.map((item) => {
+                                const isActive = pathname === item.href ||
+                                    (item.href !== "/dashboard" && pathname.startsWith(item.href))
+
+                                return (
+                                    <Link
+                                        key={item.href}
+                                        href={item.href}
+                                        className={cn(
+                                            "relative flex items-center gap-3.5 rounded-xl text-sm font-medium",
+                                            "transition-all duration-200 group overflow-hidden",
+                                            isCollapsed ? "px-0 py-3 justify-center" : "px-4 py-3",
+                                            isActive
+                                                ? [
+                                                    "bg-teal-50 dark:bg-[#29FFC6]/[0.08]",
+                                                    "text-teal-700 dark:text-[#29FFC6]",
+                                                    "border border-teal-200/80 dark:border-[#29FFC6]/20",
+                                                    "shadow-sm dark:shadow-[0_0_12px_rgba(41,255,198,0.08)]",
+                                                ]
+                                                : [
+                                                    "text-gray-500 dark:text-gray-400",
+                                                    "hover:text-gray-900 dark:hover:text-white",
+                                                    "hover:bg-gray-100 dark:hover:bg-white/[0.05]",
+                                                    "border border-transparent",
+                                                ]
+                                        )}
+                                        title={isCollapsed ? item.title : undefined}
+                                    >
+                                        {/* Active left border indicator */}
+                                        {isActive && !isCollapsed && (
+                                            <span className="nav-active-indicator" />
+                                        )}
+
+                                        <item.icon className={cn(
+                                            "shrink-0 transition-all duration-300",
+                                            isCollapsed ? "h-5 w-5" : "h-[18px] w-[18px]",
+                                            isActive
+                                                ? "text-teal-600 dark:text-[#29FFC6] glow-teal-sm"
+                                                : "group-hover:scale-110"
+                                        )} />
+
+                                        {!isCollapsed && (
+                                            <span className="font-sans tracking-wide truncate flex-1">
+                                                {item.title}
+                                            </span>
+                                        )}
+
+                                        {/* Add lock icon to indicate admin only */}
+                                        {!isCollapsed && !isActive && (
+                                            <div className="flex bg-black/5 dark:bg-white/[0.03] rounded p-1 items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                                <span className="text-[9px] font-medium tracking-wide uppercase text-gray-400 dark:text-gray-500">Admin</span>
+                                            </div>
+                                        )}
+
+                                        {/* Active pulsing dot */}
+                                        {isActive && !isCollapsed && (
+                                            <span className="ml-auto w-1.5 h-1.5 rounded-full bg-[#29FFC6] animate-pulse-glow" />
+                                        )}
+                                    </Link>
+                                )
+                            })}
+                        </>
+                    )}
                 </nav>
             </div>
 

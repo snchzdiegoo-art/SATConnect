@@ -293,38 +293,48 @@ export default async function MailPage({
     );
 
     return (
-        <div className="flex flex-col h-[calc(100vh-8rem)] gap-3">
+        <div className="flex flex-col h-[calc(100vh-6rem)] bg-gradient-to-b from-black via-[#070b14] to-[#070b14] relative overflow-hidden">
+            {/* Tech Pattern Overlay */}
+            <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)' }} />
+
             {/* Top Bar */}
-            <div className="flex items-center gap-3">
-                <Button asChild variant="ghost" size="sm" className="text-gray-400 hover:text-white gap-2">
+            <div className="h-16 flex items-center px-8 border-b border-white/10 shrink-0 bg-black/40 backdrop-blur-xl sticky top-0 z-10 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
+                <Button asChild variant="ghost" size="sm" className="text-white/40 hover:text-white hover:bg-white/5 gap-2 mr-4 border border-transparent hover:border-white/10 transition-all">
                     <Link href="/dashboard/workspace">
                         <ArrowLeft className="h-4 w-4" />
                         Dashboard
                     </Link>
                 </Button>
-                <h1 className="text-lg font-semibold text-white flex items-center gap-2">
-                    <Mail className="h-5 w-5 text-teal-400" />
-                    Bandeja de Entrada
+                <div className="flex items-center gap-3">
+                    <Mail className="h-5 w-5 text-teal-400 glow-teal" />
+                    <h1 className="text-xl font-bold text-white font-syne tracking-tight uppercase">
+                        Bandeja de Entrada
+                    </h1>
                     {unreadCount > 0 && (
-                        <span className="text-xs font-bold bg-teal-500 text-gray-900 rounded-full px-2 py-0.5">
-                            {unreadCount}
+                        <span className="text-[10px] font-bold bg-teal-500/20 text-teal-400 border border-teal-500/30 rounded-full px-2 py-0.5 shadow-[0_0_10px_rgba(41,255,198,0.2)]">
+                            {unreadCount} NUEVOS
                         </span>
                     )}
-                </h1>
-                <div className="ml-auto flex items-center gap-3">
+                </div>
+                <div className="ml-auto flex items-center gap-4">
                     <ComposeButton />
+                    <div className="h-8 w-px bg-white/10 mx-1" />
                     <UserCard />
                 </div>
             </div>
 
-            {/* Resizable Two-Panel Layout */}
-            <ResizableMailLayout
-                defaultLeftWidth={280}
-                minLeft={200}
-                maxLeft={600}
-                left={leftPanel}
-                right={rightPanel}
-            />
+            <div className="flex-1 overflow-hidden p-6 relative z-10">
+                {/* Resizable Two-Panel Layout */}
+                <div className="h-full rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-md overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+                    <ResizableMailLayout
+                        defaultLeftWidth={280}
+                        minLeft={200}
+                        maxLeft={600}
+                        left={leftPanel}
+                        right={rightPanel}
+                    />
+                </div>
+            </div>
         </div>
     );
 }

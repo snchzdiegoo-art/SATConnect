@@ -3,23 +3,25 @@
 @variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* ── Brand Palette ──────────────────────────────────────────── */
-  --color-brand-primary: #29FFC6;
-  --color-brand-primary-hover: #00EFB0;
+  /* ── Brand Palette (V2026 Clean Tech-Global) ────────────────── */
+  --color-brand-primary: #00FFC2;
+  --color-brand-primary-hover: #00e6af;
   --color-brand-green: #00FF66;
   --color-brand-blue: #001AED;
   --color-brand-purple: #8B5CF6;
   --color-brand-amber: #F59E0B;
-  --color-brand-red: #EF4444;
+  --color-brand-red: #FF4D4D;
 
   /* ── Dark Mode Backgrounds ──────────────────────────────────── */
   --color-brand-dark: #07101E;
   --color-brand-navy: #0A0F1E;
-  --color-brand-teal: #0B2E3C;
-  --color-brand-teal-light: #1a2634;
+  --color-bg-abyssal-teal: #0F2F35;
+  --color-brand-teal: #0F2F35;
+  --color-brand-teal-light: #164048;
 
   /* ── Neon aliases ───────────────────────────────────────────── */
-  --color-neon-mint: #29FFC6;
+  --color-neon-mint: #00FFC2;
+  --color-solar-gold: #FFD700;
   --color-neon-purple: #8B5CF6;
 
   /* ── Typography ─────────────────────────────────────────────── */
@@ -52,12 +54,12 @@
   0%,
   100% {
     opacity: 1;
-    box-shadow: 0 0 8px #29FFC680;
+    box-shadow: 0 0 8px rgba(0, 255, 194, 0.5);
   }
 
   50% {
     opacity: 0.6;
-    box-shadow: 0 0 20px #29FFC680;
+    box-shadow: 0 0 20px rgba(0, 255, 194, 0.5);
   }
 }
 
@@ -135,7 +137,10 @@
 
 @layer utilities {
   .glass-panel {
-    @apply bg-white/70 dark:bg-[#0B2E3C]/30 backdrop-blur-xl border border-gray-200 dark:border-white/10;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   .glass-card {
@@ -183,11 +188,11 @@
   }
 
   .glow-teal {
-    filter: drop-shadow(0 0 10px rgba(41, 255, 198, 0.5));
+    filter: drop-shadow(0 0 10px rgba(0, 255, 194, 0.5));
   }
 
   .glow-teal-sm {
-    filter: drop-shadow(0 0 6px rgba(41, 255, 198, 0.4));
+    filter: drop-shadow(0 0 6px rgba(0, 255, 194, 0.4));
   }
 
   .glow-purple {
@@ -195,11 +200,11 @@
   }
 
   .text-neon {
-    @apply text-teal-600 dark:text-[#29FFC6];
+    @apply text-teal-600 dark:text-[#00FFC2];
   }
 
   .border-neon {
-    @apply border-teal-500 dark:border-[#29FFC6] shadow-sm;
+    @apply border-teal-500 dark:border-[#00FFC2] shadow-sm;
   }
 
   .badge-health-complete {
@@ -229,7 +234,7 @@
   }
 
   .gradient-text-teal {
-    background: linear-gradient(135deg, #29FFC6, #00EFB0);
+    background: linear-gradient(135deg, #00FFC2, #00EFB0);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -243,7 +248,7 @@
   }
 
   .nav-active-indicator {
-    @apply absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 rounded-r-full bg-[#29FFC6];
+    @apply absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 rounded-r-full bg-[#00FFC2];
     animation: nav-active 0.2s ease-out;
   }
 
@@ -262,7 +267,7 @@
   }
 
   .btn-teal {
-    @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold bg-gradient-to-r from-[#29FFC6] to-[#00EFB0] text-[#07101E] shadow-teal-500/20 hover:shadow-teal-500/40 hover:brightness-110 transition-all duration-200;
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold bg-[#00FFC2] text-[#0F2F35] shadow-[0_0_15px_rgba(0,255,194,0.4)] hover:shadow-[0_0_25px_rgba(0,255,194,0.6)] hover:scale-[1.02] transition-all duration-300;
   }
 
   .btn-purple {
@@ -283,12 +288,12 @@
 }
 
 body {
-  @apply bg-gray-50 dark:bg-[#07101E] text-gray-900 dark:text-white min-h-screen selection:bg-teal-200 dark:selection:bg-[#29FFC6] selection:text-teal-900 dark:selection:text-[#07101E] transition-colors duration-300;
+  @apply bg-gray-50 dark:bg-[#0F2F35] text-gray-900 dark:text-[#F0F4F8] min-h-screen selection:bg-teal-200 dark:selection:bg-[#00FFC2] selection:text-teal-900 dark:selection:text-[#0F2F35] transition-colors duration-300;
   font-feature-settings: 'cv01', 'cv02', 'cv03';
 }
 
 body.dark {
-  background: radial-gradient(ellipse 120% 60% at 50% -10%, #0B2E3C 0%, #07101E 70%);
+  background: radial-gradient(circle at 50% 0%, #174b54 0%, #0F2F35 70%);
   background-attachment: fixed;
 }
 

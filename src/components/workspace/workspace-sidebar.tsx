@@ -48,14 +48,17 @@ export function WorkspaceSidebar() {
     return (
         <aside
             className={cn(
-                "border-r border-white/5 bg-black/20 backdrop-blur-xl flex flex-col h-full transition-all duration-300 relative group/sidebar",
+                "border-r border-white/5 bg-black/40 backdrop-blur-xl flex flex-col h-full transition-all duration-300 relative group/sidebar shadow-[4px_0_24px_rgba(0,0,0,0.5)]",
                 isCollapsed ? "w-[70px]" : "w-[240px]"
             )}
         >
+            {/* Tech Gallantry subtle right border glow */}
+            <div className="absolute top-0 bottom-0 right-0 w-px bg-gradient-to-b from-transparent via-teal-500/20 to-transparent pointer-events-none" />
+
             {/* Collapse Toggle Button */}
             <button
                 onClick={() => setIsCollapsed(!isCollapsed)}
-                className="absolute -right-3 top-20 w-6 h-6 rounded-full bg-[#0a0f1e] border border-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-all opacity-0 group-hover/sidebar:opacity-100 z-50 shadow-xl"
+                className="absolute -right-3 top-20 w-6 h-6 rounded-full bg-[#070b14] border border-white/10 flex items-center justify-center text-gray-400 hover:text-teal-400 hover:border-teal-500/50 hover:shadow-[0_0_10px_rgba(41,255,198,0.3)] transition-all opacity-0 group-hover/sidebar:opacity-100 z-50 shadow-xl"
             >
                 {isCollapsed ? <ChevronRight className="w-3.5 h-3.5" /> : <ChevronLeft className="w-3.5 h-3.5" />}
             </button>
@@ -81,7 +84,7 @@ export function WorkspaceSidebar() {
                 <Link
                     href="/dashboard"
                     className={cn(
-                        "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all",
+                        "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 hover:border-white/10 border border-transparent transition-all",
                         isCollapsed && "justify-center px-2"
                     )}
                     title="Regresar al Menú"
@@ -108,10 +111,10 @@ export function WorkspaceSidebar() {
                                         key={item.href}
                                         href={item.href}
                                         className={cn(
-                                            "flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all duration-200 group",
+                                            "flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all duration-200 group border relative overflow-hidden",
                                             isActive
-                                                ? "bg-teal-500/10 text-teal-400 font-medium"
-                                                : "text-gray-400 hover:text-white hover:bg-white/5",
+                                                ? "bg-teal-500/10 text-teal-300 font-medium border-teal-500/30 shadow-[inset_0_0_12px_rgba(41,255,198,0.05)]"
+                                                : "border-transparent text-gray-400 hover:text-white hover:bg-white/5 hover:border-white/10",
                                             isCollapsed && "justify-center px-2"
                                         )}
                                         title={item.title}

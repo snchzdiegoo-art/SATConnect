@@ -38,29 +38,31 @@ export function OkrCard({ objective }: { objective: Objective }) {
     const StatusIcon = statusConfig.icon;
 
     return (
-        <div className="flex flex-col p-6 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-300">
-            {/* Header */}
-            <div className="flex justify-between items-start mb-4">
-                <div className={cn("px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5 border", statusConfig.bg, statusConfig.color, statusConfig.border)}>
-                    <StatusIcon className="w-3 h-3" />
+        <div className="group flex flex-col p-6 rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-md hover:bg-white/[0.04] transition-all duration-300 relative overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
+            {/* Hover Circuit Accent */}
+            <div className="absolute top-0 right-0 w-24 h-24 bg-teal-500/5 blur-[40px] opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+            <div className="absolute top-0 left-4 right-4 h-px bg-gradient-to-r from-transparent via-teal-500/30 to-transparent opacity-30 group-hover:opacity-60 transition-opacity" />
+
+            <div className="flex justify-between items-start mb-5 relative z-10">
+                <div className={cn("px-3 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider flex items-center gap-2 border shadow-[0_0_10px_rgba(0,0,0,0.3)]", statusConfig.bg, statusConfig.color, statusConfig.border)}>
+                    <StatusIcon className="w-3.5 h-3.5 glow-current" />
                     {statusConfig.label}
                 </div>
-                <span className="text-xs font-medium text-gray-500">Q{objective.quarter} {objective.year}</span>
+                <span className="text-[10px] font-bold text-white/30 tracking-widest uppercase">Q{objective.quarter} {objective.year}</span>
             </div>
 
-            <h3 className="text-lg font-bold text-white font-syne mb-2 leading-tight">
+            <h3 className="text-lg font-bold text-gray-900 dark:text-white font-syne mb-2 leading-tight tracking-tight">
                 {objective.title}
             </h3>
 
-            {/* Overall Progress */}
-            <div className="mb-6">
-                <div className="flex justify-between text-xs text-gray-400 mb-1.5">
-                    <span>Overall Progress</span>
-                    <span className="font-mono text-white">{progressPercent}%</span>
+            <div className="mb-6 relative z-10">
+                <div className="flex justify-between text-[10px] font-bold uppercase tracking-wider text-white/40 mb-2">
+                    <span>Progreso Consolidado</span>
+                    <span className="font-mono text-white glow-white">{progressPercent}%</span>
                 </div>
-                <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden">
+                <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden border border-white/5 ring-1 ring-black/20">
                     <div
-                        className={cn("h-full rounded-full transition-all duration-1000", statusConfig.bg.replace('/10', ''))}
+                        className={cn("h-full rounded-full transition-all duration-1000 shadow-[0_0_12px_rgba(41,255,198,0.3)]", statusConfig.bg.replace('/10', ''))}
                         style={{ width: `${progressPercent}%` }}
                     />
                 </div>
@@ -72,15 +74,15 @@ export function OkrCard({ objective }: { objective: Objective }) {
                     const krProgress = Math.min((kr.current_value / kr.target_value) * 100, 100);
                     return (
                         <div key={kr.id} className="group">
-                            <div className="flex justify-between text-[11px] mb-1">
-                                <span className="text-gray-400 group-hover:text-gray-300 transition-colors truncate pr-4">{kr.title}</span>
-                                <span className="font-mono text-gray-500 group-hover:text-white transition-colors">
+                            <div className="flex justify-between text-[11px] mb-1 font-medium">
+                                <span className="text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-300 transition-colors truncate pr-4">{kr.title}</span>
+                                <span className="font-mono font-bold text-gray-600 dark:text-gray-500 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">
                                     {kr.current_value} / {kr.target_value} {kr.unit}
                                 </span>
                             </div>
-                            <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
+                            <div className="h-1.5 w-full bg-gray-100 dark:bg-white/5 rounded-full overflow-hidden">
                                 <div
-                                    className="h-full bg-gray-500 group-hover:bg-white transition-colors duration-300"
+                                    className="h-full bg-gray-400 dark:bg-gray-500 group-hover:bg-teal-500 dark:group-hover:bg-white transition-colors duration-300"
                                     style={{ width: `${krProgress}%` }}
                                 />
                             </div>

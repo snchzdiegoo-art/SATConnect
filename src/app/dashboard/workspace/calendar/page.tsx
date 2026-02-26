@@ -306,36 +306,44 @@ export default async function CalendarPage({
     ) : undefined;
 
     return (
-        <div className="flex flex-col h-[calc(100vh-8rem)] gap-3">
+        <div className="flex flex-col h-[calc(100vh-6rem)] bg-gradient-to-b from-black via-[#070b14] to-[#070b14] relative overflow-hidden">
+            {/* Tech Pattern Overlay */}
+            <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)' }} />
+
             {/* Top Bar */}
-            <div className="flex items-center gap-3">
-                <Button asChild variant="ghost" size="sm" className="text-gray-400 hover:text-white gap-2">
+            <div className="h-16 flex items-center px-8 border-b border-white/10 shrink-0 bg-black/40 backdrop-blur-xl sticky top-0 z-10 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
+                <Button asChild variant="ghost" size="sm" className="text-white/40 hover:text-white hover:bg-white/5 gap-2 mr-4 border border-transparent hover:border-white/10">
                     <Link href="/dashboard/workspace"><ArrowLeft className="h-4 w-4" />Workspace</Link>
                 </Button>
-                <h1 className="text-lg font-semibold text-white flex items-center gap-2">
-                    <Calendar className="h-5 w-5 text-teal-400" />
-                    Calendario
-                </h1>
-                <div className="ml-auto flex items-center gap-3">
+                <div className="flex items-center gap-3">
+                    <Calendar className="h-5 w-5 text-teal-400 glow-teal" />
+                    <h1 className="text-xl font-bold text-white font-syne tracking-tight uppercase">Calendario</h1>
+                </div>
+                <div className="ml-auto flex items-center gap-4">
                     <CreateEventButton />
+                    <div className="h-8 w-px bg-white/10 mx-1" />
                     <UserCard />
                 </div>
             </div>
 
-            {/* Resizable three-panel layout */}
-            <ResizableThreePanelLayout
-                defaultLeftWidth={208}
-                minLeft={140}
-                maxLeft={380}
-                defaultRightWidth={288}
-                minRight={220}
-                maxRight={480}
-                storageKeyLeft="cal-left-width"
-                storageKeyRight="cal-right-width"
-                left={sidebarPanel}
-                center={gridPanel}
-                right={detailPanel}
-            />
+            <div className="flex-1 overflow-hidden p-6 relative z-10">
+                {/* Resizable three-panel layout */}
+                <div className="h-full rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-md overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+                    <ResizableThreePanelLayout
+                        defaultLeftWidth={208}
+                        minLeft={140}
+                        maxLeft={380}
+                        defaultRightWidth={288}
+                        minRight={220}
+                        maxRight={480}
+                        storageKeyLeft="cal-left-width"
+                        storageKeyRight="cal-right-width"
+                        left={sidebarPanel}
+                        center={gridPanel}
+                        right={detailPanel}
+                    />
+                </div>
+            </div>
         </div>
     );
 }

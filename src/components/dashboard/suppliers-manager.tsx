@@ -154,23 +154,23 @@ export function SuppliersManager() {
     return (
         <div className="space-y-6">
             {/* Header */}
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-white/5">
                 <div className="flex items-center gap-3">
-                    <div className="p-2.5 rounded-xl bg-teal-500/10 border border-teal-500/20">
-                        <Building2 className="h-5 w-5 text-teal-500 dark:text-brand-primary" />
+                    <div className="p-2.5 rounded-xl bg-teal-100 dark:bg-teal-500/10 border border-teal-200 dark:border-teal-500/20">
+                        <Building2 className="h-5 w-5 text-teal-600 dark:text-teal-400" />
                     </div>
                     <div>
-                        <h2 className="text-xl font-bold text-gray-900 dark:text-white font-display">
-                            Suppliers
+                        <h2 className="text-xl font-bold text-gray-900 dark:text-white font-syne tracking-tight">
+                            Proveedores
                         </h2>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">
-                            {suppliers.length} registered · {suppliers.filter(s => s.profile_status === 'Incomplete Profile').length} incomplete
+                        <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mt-0.5">
+                            {suppliers.length} registrados · {suppliers.filter(s => s.profile_status === 'Incomplete Profile').length} incompletos
                         </p>
                     </div>
                 </div>
                 <button
                     onClick={openCreate}
-                    className="btn-teal"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-teal-500 text-gray-900 hover:bg-teal-400 transition-all shadow-sm"
                 >
                     <Plus className="h-4 w-4" />
                     Nuevo Proveedor
@@ -178,40 +178,40 @@ export function SuppliersManager() {
             </div>
 
             {/* Search */}
-            <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <div className="relative max-w-md">
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <input
                     type="text"
-                    placeholder="Search suppliers..."
+                    placeholder="Buscar proveedor..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500/40 text-sm"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 dark:border-white/5 bg-gray-50 dark:bg-black/20 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500/40 text-sm font-medium transition-all"
                 />
             </div>
 
             {/* Table */}
             {loading ? (
-                <div className="flex items-center justify-center py-16 text-gray-400">
-                    <Loader2 className="h-6 w-6 animate-spin mr-2" />
-                    Loading suppliers...
+                <div className="flex items-center justify-center py-16 text-gray-500 dark:text-gray-400 font-medium">
+                    <Loader2 className="h-5 w-5 animate-spin mr-2" />
+                    Cargando proveedores...
                 </div>
             ) : filtered.length === 0 ? (
-                <div className="text-center py-16 text-gray-400 border-2 border-dashed border-gray-200 dark:border-white/10 rounded-xl">
+                <div className="text-center py-16 text-gray-500 dark:text-gray-400 border-2 border-dashed border-gray-200 dark:border-white/10 rounded-2xl bg-gray-50/50 dark:bg-transparent">
                     <Building2 className="h-10 w-10 mx-auto mb-3 opacity-30" />
-                    <p className="font-medium">No suppliers found</p>
-                    <p className="text-sm mt-1">Create your first supplier or import a CSV.</p>
+                    <p className="font-semibold text-gray-900 dark:text-white">Sin resultados</p>
+                    <p className="text-sm mt-1">Intenta ajustando tu búsqueda o crea uno nuevo.</p>
                 </div>
             ) : (
-                <div className="overflow-hidden rounded-xl border border-gray-200 dark:border-white/10">
+                <div className="overflow-hidden bg-white dark:bg-white/[0.02] border border-gray-200 dark:border-white/5 rounded-2xl shadow-sm">
                     <table className="w-full text-sm">
                         <thead>
-                            <tr className="bg-gray-50 dark:bg-white/5 border-b border-gray-200 dark:border-white/10">
-                                <th className="text-left px-4 py-3 font-semibold text-gray-700 dark:text-gray-300">Name</th>
-                                <th className="text-left px-4 py-3 font-semibold text-gray-700 dark:text-gray-300">Contact</th>
-                                <th className="text-left px-4 py-3 font-semibold text-gray-700 dark:text-gray-300">Badges</th>
-                                <th className="text-center px-4 py-3 font-semibold text-gray-700 dark:text-gray-300">Tours</th>
-                                <th className="text-center px-4 py-3 font-semibold text-gray-700 dark:text-gray-300">Status</th>
-                                <th className="text-right px-4 py-3 font-semibold text-gray-700 dark:text-gray-300">Actions</th>
+                            <tr className="bg-gray-50 dark:bg-black/20 border-b border-gray-200 dark:border-white/5 uppercase tracking-wider text-[11px]">
+                                <th className="text-left px-5 py-3.5 font-bold text-gray-500 dark:text-gray-400">Proveedor</th>
+                                <th className="text-left px-5 py-3.5 font-bold text-gray-500 dark:text-gray-400">Contacto</th>
+                                <th className="text-left px-5 py-3.5 font-bold text-gray-500 dark:text-gray-400">Etiquetas</th>
+                                <th className="text-center px-5 py-3.5 font-bold text-gray-500 dark:text-gray-400">Tours</th>
+                                <th className="text-center px-5 py-3.5 font-bold text-gray-500 dark:text-gray-400">Estatus</th>
+                                <th className="text-right px-5 py-3.5 font-bold text-gray-500 dark:text-gray-400">Acciones</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-100 dark:divide-white/5">
@@ -220,82 +220,81 @@ export function SuppliersManager() {
                                 return (
                                     <tr
                                         key={supplier.id}
-                                        className={`transition-colors group ${isIncomplete
-                                                ? 'border-l-2 border-l-amber-400 dark:border-l-amber-500 hover:bg-amber-50/50 dark:hover:bg-amber-500/[0.05]'
-                                                : 'hover:bg-gray-50 dark:hover:bg-white/[0.04]'
+                                        className={`transition-colors duration-200 group ${isIncomplete
+                                            ? 'border-l-2 border-l-amber-400 dark:border-l-amber-500 hover:bg-amber-50/30 dark:hover:bg-amber-500/[0.03]'
+                                            : 'border-l-2 border-l-transparent hover:bg-gray-50/50 dark:hover:bg-white/[0.03]'
                                             }`}
                                     >
                                         {/* Name */}
-                                        <td className="px-4 py-3">
-                                            <div className="flex items-center gap-2">
+                                        <td className="px-5 py-4">
+                                            <div className="flex items-center gap-2.5">
                                                 {isIncomplete ? (
                                                     <AlertCircle className="h-4 w-4 text-amber-500 shrink-0" />
                                                 ) : (
-                                                    <CheckCircle2 className="h-4 w-4 text-teal-500 dark:text-[#29FFC6] shrink-0" />
+                                                    <CheckCircle2 className="h-4 w-4 text-teal-600 dark:text-[#29FFC6] shrink-0" />
                                                 )}
                                                 <div className="min-w-0">
-                                                    <span className="font-medium text-gray-900 dark:text-white block truncate">
+                                                    <span className="font-bold text-gray-900 dark:text-white block truncate tracking-tight text-[13px]">
                                                         {supplier.name}
                                                     </span>
                                                     {isIncomplete && (
-                                                        <span className="text-[10px] font-semibold text-amber-500 uppercase tracking-wide">Perfil Incompleto</span>
+                                                        <span className="text-[10px] font-bold text-amber-500 uppercase tracking-widest mt-0.5 inline-block">Perfil Incompleto</span>
                                                     )}
                                                 </div>
                                             </div>
                                         </td>
 
                                         {/* Contact */}
-                                        <td className="px-4 py-3 text-gray-500 dark:text-gray-400">
+                                        <td className="px-5 py-4 text-gray-600 dark:text-gray-400 font-medium text-[13px]">
                                             <div>{(supplier.contact_info as ContactInfo | null)?.email || '—'}</div>
-                                            <div className="text-xs">{(supplier.contact_info as ContactInfo | null)?.phone || ''}</div>
+                                            <div className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">{(supplier.contact_info as ContactInfo | null)?.phone || ''}</div>
                                         </td>
 
                                         {/* Badges */}
-                                        <td className="px-4 py-3">
-                                            <div className="flex flex-wrap gap-1">
+                                        <td className="px-5 py-4">
+                                            <div className="flex flex-wrap gap-1.5">
                                                 {supplier.badges.length > 0 ? supplier.badges.map((badge) => (
                                                     <span
                                                         key={badge}
-                                                        className="px-2 py-0.5 rounded-full text-xs font-medium bg-teal-50 dark:bg-brand-primary/10 text-teal-700 dark:text-brand-primary border border-teal-200 dark:border-brand-primary/20"
+                                                        className="px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wide uppercase bg-teal-100 dark:bg-teal-500/10 text-teal-700 dark:text-teal-400 border border-teal-200 dark:border-teal-500/20"
                                                     >
                                                         {badge}
                                                     </span>
-                                                )) : <span className="text-gray-400 text-xs">None</span>}
+                                                )) : <span className="text-gray-400 dark:text-gray-600 text-[11px] font-medium">Sin insignias</span>}
                                             </div>
                                         </td>
 
                                         {/* Tour count */}
-                                        <td className="px-4 py-3 text-center">
+                                        <td className="px-5 py-4 text-center">
                                             <div className="flex flex-col items-center">
-                                                <span className="font-bold tabular-nums text-gray-900 dark:text-white text-sm leading-none">
+                                                <span className="font-bold tabular-nums text-gray-900 dark:text-white text-sm leading-none bg-gray-100 dark:bg-white/10 px-2 py-1 rounded">
                                                     {supplier._count?.tours ?? 0}
                                                 </span>
-                                                <span className="text-[10px] text-gray-400 mt-0.5">tours</span>
                                             </div>
                                         </td>
 
                                         {/* Active */}
-                                        <td className="px-4 py-3 text-center">
+                                        <td className="px-5 py-4 text-center">
                                             <button
                                                 onClick={() => toggleActive(supplier)}
                                                 className="transition-all hover:scale-110 duration-150"
                                                 title={supplier.is_active ? 'Desactivar' : 'Activar'}
                                             >
                                                 {supplier.is_active ? (
-                                                    <ToggleRight className="h-6 w-6 text-[#29FFC6] drop-shadow-[0_0_4px_rgba(41,255,198,0.6)]" />
+                                                    <ToggleRight className="h-6 w-6 text-teal-500 dark:text-teal-400 drop-shadow-[0_0_8px_rgba(41,255,198,0.3)]" />
                                                 ) : (
-                                                    <ToggleLeft className="h-6 w-6 text-gray-400" />
+                                                    <ToggleLeft className="h-6 w-6 text-gray-300 dark:text-gray-600" />
                                                 )}
                                             </button>
                                         </td>
 
                                         {/* Actions */}
-                                        <td className="px-4 py-3 text-right">
+                                        <td className="px-5 py-4 text-right">
                                             <Button
                                                 size="sm"
                                                 variant="ghost"
                                                 onClick={() => openEdit(supplier)}
-                                                className="text-gray-400 hover:text-[#29FFC6] dark:hover:text-[#29FFC6] opacity-0 group-hover:opacity-100 transition-all"
+                                                className="text-gray-400 hover:text-teal-600 dark:hover:text-[#29FFC6] opacity-0 group-hover:opacity-100 transition-all hover:bg-teal-50 dark:hover:bg-teal-500/10"
                                             >
                                                 <Pencil className="h-4 w-4" />
                                             </Button>

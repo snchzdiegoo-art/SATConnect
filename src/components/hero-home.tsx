@@ -62,7 +62,7 @@ export function HeroHome() {
 
                 {/* CTAs */}
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up delay-300">
-                    <Link href="https://app.satconnect.travel/sign-up" className="w-full sm:w-auto">
+                    <Link href="/sign-up" className="w-full sm:w-auto">
                         <Button variant="primary" size="lg" className="h-14 px-8 text-lg w-full bg-teal-600 hover:bg-teal-500 shadow-lg shadow-teal-500/20 transition-all hover:scale-105">
                             Empezar Gratis
                         </Button>

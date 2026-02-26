@@ -16,20 +16,23 @@ export default async function DocsPage() {
     });
 
     return (
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-full bg-gradient-to-b from-black via-[#070b14] to-[#070b14] relative">
+            {/* Tech Pattern Overlay */}
+            <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)' }} />
+
             {/* Header */}
-            <div className="h-14 flex items-center px-8 border-b border-white/5 shrink-0 bg-white/5 backdrop-blur-md justify-between">
+            <div className="h-16 flex items-center px-8 border-b border-white/10 shrink-0 bg-black/40 backdrop-blur-xl sticky top-0 z-10 shadow-[0_4px_30px_rgba(0,0,0,0.5)] justify-between">
                 <div className="flex items-center">
-                    <FileText className="w-5 h-5 text-teal-400 mr-3" />
-                    <h1 className="text-lg font-bold text-white font-syne tracking-wide">Documents</h1>
-                    <span className="ml-3 text-xs bg-white/10 text-gray-400 px-2 py-0.5 rounded-full">
+                    <FileText className="w-5 h-5 text-teal-400 mr-3 glow-teal" />
+                    <h1 className="text-xl font-bold text-white font-syne tracking-tight uppercase">Documentos</h1>
+                    <span className="ml-3 text-xs bg-white/10 text-gray-400 px-2.5 py-0.5 rounded-full font-medium">
                         {docs.length}
                     </span>
                 </div>
 
-                <button className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-teal-500/10 hover:bg-teal-500/20 text-teal-400 text-xs font-medium transition-colors border border-teal-500/20">
-                    <Plus className="w-3.5 h-3.5" />
-                    New Doc
+                <button className="flex items-center gap-2 px-4 py-2 rounded-xl bg-teal-500/10 hover:bg-teal-500/20 text-teal-400 text-xs font-bold tracking-wider transition-all border border-teal-500/30 shadow-[0_0_15px_rgba(41,255,198,0.1)]">
+                    <Plus className="w-4 h-4" />
+                    NUEVO DOC
                 </button>
             </div>
 
@@ -46,19 +49,22 @@ export default async function DocsPage() {
                             <Link
                                 key={doc.id}
                                 href={`/dashboard/workspace/docs/${doc.id}`}
-                                className="group flex flex-col p-4 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-200 hover:border-white/10"
+                                className="group flex flex-col p-5 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-300 hover:border-teal-500/30 relative overflow-hidden backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
                             >
-                                <div className="flex items-start justify-between mb-3">
-                                    <div className="text-2xl">{doc.emoji}</div>
-                                    <span className="text-[10px] text-gray-500">
-                                        {new Date(doc.updated_at).toLocaleDateString()}
+                                {/* Inner glow on hover */}
+                                <div className="absolute inset-0 bg-gradient-to-br from-teal-500/0 via-transparent to-teal-500/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+
+                                <div className="flex items-start justify-between mb-4 relative z-10">
+                                    <div className="text-3xl drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]">{doc.emoji}</div>
+                                    <span className="text-[10px] font-bold text-white/30 tracking-widest uppercase">
+                                        {new Date(doc.updated_at).toLocaleDateString("es-MX", { day: 'numeric', month: 'short' })}
                                     </span>
                                 </div>
-                                <h3 className="text-sm font-medium text-white group-hover:text-teal-400 transition-colors truncate">
+                                <h3 className="text-sm font-bold text-white group-hover:text-teal-400 transition-colors truncate relative z-10 font-syne tracking-tight">
                                     {doc.title}
                                 </h3>
-                                <div className="text-xs text-gray-500 line-clamp-2 mt-1">
-                                    {(doc.content || "No content").slice(0, 100)}...
+                                <div className="text-xs text-gray-500 line-clamp-2 mt-2 leading-relaxed relative z-10">
+                                    {(doc.content || "Sin contenido").slice(0, 100)}...
                                 </div>
                             </Link>
                         ))}

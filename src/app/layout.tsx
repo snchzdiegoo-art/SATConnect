@@ -20,8 +20,8 @@ export const metadata: Metadata = {
 };
 
 import { ThemeProvider } from "@/components/theme-provider";
-
-import { ClerkProvider } from "@clerk/nextjs"; // Added ClerkProvider
+import { ClerkProvider } from "@clerk/nextjs";
+import { Toaster } from "sonner";
 
 export default function RootLayout({
   children,
@@ -40,6 +40,7 @@ export default function RootLayout({
           >
             {children}
             <Analytics />
+            <Toaster theme="dark" position="top-right" />
           </ThemeProvider>
         </body>
       </html>

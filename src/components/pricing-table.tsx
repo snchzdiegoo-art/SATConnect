@@ -4,10 +4,25 @@ import React, { useState } from "react"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { Check, Star, Hourglass, Info } from "lucide-react"
+import { Check, Star, Hourglass, Info, Navigation, CreditCard } from "lucide-react"
+import { toast } from "sonner"
 
 export function PricingTable() {
     // const [billingCycle, setBillingCycle] = useState("monthly") - Unused
+
+    const handleStripeCheckout = (planName: string) => {
+        toast.loading(`Conectando con Stripe API para el plan ${planName}...`, {
+            id: 'stripe-connect',
+        });
+
+        setTimeout(() => {
+            toast.error("Stripe API Key Pending", {
+                id: 'stripe-connect',
+                description: "La integración de pagos está en cola. Esperando credenciales de producción.",
+                icon: <CreditCard className="w-4 h-4 text-rose-500" />
+            });
+        }, 2000);
+    }
 
     return (
         <section id="pricing" className="py-20 bg-gray-900 relative">
@@ -109,11 +124,13 @@ export function PricingTable() {
                             </ul>
                         </div>
                         <div className="p-6 pt-0 mt-auto">
-                            <Link href="https://app.satconnect.travel/sign-up" className="w-full">
-                                <Button variant="secondary" className="w-full border-gray-600 text-gray-300 hover:border-white hover:text-white">
-                                    Empezar Ahora
-                                </Button>
-                            </Link>
+                            <Button
+                                onClick={() => handleStripeCheckout('Standard')}
+                                variant="secondary"
+                                className="w-full border-gray-600 text-gray-300 hover:border-white hover:text-white"
+                            >
+                                Empezar Ahora
+                            </Button>
                         </div>
                     </Card>
 
@@ -178,11 +195,13 @@ export function PricingTable() {
                                 </ul>
                             </div>
                             <div className="p-8 pt-0 mt-auto">
-                                <Link href="https://app.satconnect.travel/sign-up" className="w-full">
-                                    <Button variant="primary" className="w-full py-4 text-lg bg-teal-600 hover:bg-teal-500 shadow-lg shadow-teal-500/20">
-                                        Asegurar mi Precio
-                                    </Button>
-                                </Link>
+                                <Button
+                                    onClick={() => handleStripeCheckout('Pro')}
+                                    variant="primary"
+                                    className="w-full py-4 text-lg bg-teal-600 hover:bg-teal-500 shadow-lg shadow-teal-500/20"
+                                >
+                                    Asegurar mi Precio
+                                </Button>
                             </div>
                         </Card>
                     </div>
