@@ -582,6 +582,78 @@ model KeyResult {
   @@map("key_results")
 }
 
+// ============================================================================
+// LOAD CENTER: B2B Lead Scraper & HubSpot Enricher
+// ============================================================================
+
+enum ProspectBatchStatus {
+  PENDING
+  ENRICHING
+  DONE
+  FAILED
+}
+
+enum ProspectProfile {
+  STANDARD
+  PRO
+  PREMIUM
+}
+
+model ProspectBatch {
+  id         Int                 @id @default(autoincrement())
+  filename   String
+  status     ProspectBatchStatus @default(PENDING)
+  total      Int                 @default(0)
+  enriched   Int                 @default(0)
+  prospects  Prospect[]
+  created_at DateTime            @default(now())
+  updated_at DateTime            @updatedAt
+
+  @@map("prospect_batches")
+}
+
+model Prospect {
+  id                  Int             @id @default(autoincrement())
+  batch_id            Int
+  batch               ProspectBatch   @relation(fields: [batch_id], references: [id], onDelete: Cascade)
+
+  // ─── 17 Canonical Columns ───────────────────────────────────────────────
+  pais                String?
+  estado              String?
+  ciudad              String?
+  segmento            String[]        // e.g. ["Cultural", "Aventura"]
+  perfil              ProspectProfile @default(STANDARD)
+  empresa             String?
+  industria           String[]        // e.g. ["DMC", "Tour Operador"]
+  tamano_empresa      String?         // "1-3" | "3-10" | "10-50" | "50-100" | "100+" | "500+"
+  contacto            String?
+  puesto              String?
+  linkedin_contacto   String?
+  linkedin_empresa    String?
+  telefono            String?
+  email               String?
+  pagina_web          String?
+  motor_reservas      String?         // "Bókun" | "Rezdy" | "FareHarbor" | "SATConnect" | "n/a"
+  notas               String?         @db.Text
+
+  // ─── Enrichment Metadata ─────────────────────────────────────────────────
+  enrich_status       Json?           // { [fieldName]: "pending" | "found" | "not_found" }
+  is_enriched         Boolean         @default(false)
+
+  // ─── HubSpot Sync ─────────────────────────────────────────────────────────
+  hubspot_contact_id  String?
+  hubspot_company_id  String?
+  hubspot_synced_at   DateTime?
+
+  created_at          DateTime        @default(now())
+  updated_at          DateTime        @updatedAt
+
+  @@index([batch_id])
+  @@index([email])
+  @@index([empresa])
+  @@map("prospects")
+}
+
 model Doc {
   id          Int      @id @default(autoincrement())
   title       String

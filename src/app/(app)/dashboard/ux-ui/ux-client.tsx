@@ -10,14 +10,42 @@ import {
 } from "lucide-react"
 
 export function UXClient() {
-    const [activeTab, setActiveTab] = useState<'system' | 'preview'>('system')
+    const [activeTab, setActiveTab] = useState<'system' | 'preview' | 'glass'>('system')
     const [theme, setTheme] = useState<'gallantry' | 'motherboard'>('gallantry')
+
+    // Glassmorphism Lab state
+    const [glassBlur, setGlassBlur] = useState(12)
+    const [glassOpacity, setGlassOpacity] = useState(15)
+    const [glassBorder, setGlassBorder] = useState(10)
+    const [isSending, setIsSending] = useState(false)
+    const [sendSuccess, setSendSuccess] = useState(false)
 
     const [aiQuery, setAiQuery] = useState("")
     const [isThinking, setIsThinking] = useState(false)
     const [conversation, setConversation] = useState<{ role: 'user' | 'assistant', text: string }[]>([
         { role: 'assistant', text: 'Welcome to the SAT Connect Design Studio. Accessing the NotebookLM Master Blueprint... Context loaded. How can I assist with the V2026 UI/UX today?' }
     ])
+
+    const handleConfirmTheme = async () => {
+        setIsSending(true)
+        setSendSuccess(false)
+        try {
+            await fetch('/api/webhooks/theme', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    theme,
+                    glassmorphism: { blur: glassBlur, opacity: glassOpacity, border: glassBorder }
+                })
+            })
+            setSendSuccess(true)
+            setTimeout(() => setSendSuccess(false), 3000)
+        } catch (e) {
+            console.error('Theme webhook failed:', e)
+        } finally {
+            setIsSending(false)
+        }
+    }
 
     const handleAISubmit = (e: React.FormEvent) => {
         e.preventDefault()
@@ -150,8 +178,29 @@ export function UXClient() {
                             )} />
                         )}
                     </button>
+                    <button
+                        onClick={() => setActiveTab('glass')}
+                        className={cn(
+                            "pb-3 text-sm font-medium transition-colors relative",
+                            activeTab === 'glass'
+                                ? isMotherboard ? "text-[#22c55e]" : "text-fuchsia-400"
+                                : isMotherboard ? "text-[#22c55e]/40 hover:text-[#22c55e]/80" : "text-gray-500 hover:text-gray-300"
+                        )}
+                    >
+                        <span className="flex items-center gap-2 font-mono">
+                            <Layers className="w-4 h-4" />
+                            Glassmorphism Lab
+                        </span>
+                        {activeTab === 'glass' && (
+                            <motion.div layoutId="ux-tab" className={cn(
+                                "absolute bottom-0 left-0 right-0 h-0.5",
+                                isMotherboard ? "bg-[#22c55e] shadow-[0_0_8px_rgba(34,197,94,0.8)]" : "bg-fuchsia-500 shadow-[0_0_8px_rgba(217,70,239,0.5)]"
+                            )} />
+                        )}
+                    </button>
                 </div>
             </header>
+
 
             <main className="flex-1 p-8 relative z-10 w-full max-w-7xl mx-auto">
                 <AnimatePresence mode="wait">
@@ -333,9 +382,149 @@ export function UXClient() {
                                     </div>
                                 </div>
                             </div>
-                        ) : (
+                        ) : activeTab === 'preview' ? (
                             <div className="w-full flex justify-center items-center py-6 h-[800px]">
                                 <MiniSiteReplica theme={theme} />
+                            </div>
+                        ) : (
+                            // ── Glassmorphism Lab ─────────────────────────────────────────────
+                            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                                {/* Controls Panel */}
+                                <div className="lg:col-span-5 space-y-6">
+                                    <div className={cn(
+                                        "border rounded-2xl p-6 space-y-8 transition-colors duration-500",
+                                        isMotherboard ? "bg-[#08180d] border-[#22c55e]/30" : "bg-[#0c1322] border-white/[0.05]"
+                                    )}>
+                                        <div className="flex items-center gap-3">
+                                            <SlidersHorizontal className={cn("w-5 h-5", isMotherboard ? "text-[#22c55e]" : "text-fuchsia-400")} />
+                                            <h2 className={cn("text-sm font-bold uppercase tracking-wider", isMotherboard ? "text-[#22c55e]" : "text-white")}>Glass Controls</h2>
+                                        </div>
+
+                                        {/* Blur Slider */}
+                                        <div className="space-y-3">
+                                            <div className="flex justify-between">
+                                                <label className={cn("text-xs font-bold uppercase tracking-wider", isMotherboard ? "text-[#22c55e]/70" : "text-gray-400")}>Backdrop Blur</label>
+                                                <span className={cn("text-xs font-mono font-bold", isMotherboard ? "text-[#22c55e]" : "text-teal-400")}>{glassBlur}px</span>
+                                            </div>
+                                            <input
+                                                type="range" min={0} max={40} value={glassBlur}
+                                                onChange={e => setGlassBlur(Number(e.target.value))}
+                                                className={cn("w-full h-1.5 rounded-full appearance-none cursor-pointer",
+                                                    isMotherboard ? "accent-[#22c55e] bg-[#22c55e]/20" : "accent-teal-400 bg-white/10"
+                                                )}
+                                            />
+                                        </div>
+
+                                        {/* Opacity Slider */}
+                                        <div className="space-y-3">
+                                            <div className="flex justify-between">
+                                                <label className={cn("text-xs font-bold uppercase tracking-wider", isMotherboard ? "text-[#22c55e]/70" : "text-gray-400")}>Background Opacity</label>
+                                                <span className={cn("text-xs font-mono font-bold", isMotherboard ? "text-[#22c55e]" : "text-teal-400")}>{glassOpacity}%</span>
+                                            </div>
+                                            <input
+                                                type="range" min={0} max={80} value={glassOpacity}
+                                                onChange={e => setGlassOpacity(Number(e.target.value))}
+                                                className={cn("w-full h-1.5 rounded-full appearance-none cursor-pointer",
+                                                    isMotherboard ? "accent-[#22c55e] bg-[#22c55e]/20" : "accent-teal-400 bg-white/10"
+                                                )}
+                                            />
+                                        </div>
+
+                                        {/* Border Slider */}
+                                        <div className="space-y-3">
+                                            <div className="flex justify-between">
+                                                <label className={cn("text-xs font-bold uppercase tracking-wider", isMotherboard ? "text-[#22c55e]/70" : "text-gray-400")}>Border Opacity</label>
+                                                <span className={cn("text-xs font-mono font-bold", isMotherboard ? "text-[#22c55e]" : "text-teal-400")}>{glassBorder}%</span>
+                                            </div>
+                                            <input
+                                                type="range" min={0} max={50} value={glassBorder}
+                                                onChange={e => setGlassBorder(Number(e.target.value))}
+                                                className={cn("w-full h-1.5 rounded-full appearance-none cursor-pointer",
+                                                    isMotherboard ? "accent-[#22c55e] bg-[#22c55e]/20" : "accent-teal-400 bg-white/10"
+                                                )}
+                                            />
+                                        </div>
+
+                                        {/* CSS Output */}
+                                        <div className={cn("rounded-xl p-4 font-mono text-xs space-y-1 border",
+                                            isMotherboard ? "bg-black/40 border-[#22c55e]/20 text-[#22c55e]/80" : "bg-black/40 border-white/5 text-gray-400"
+                                        )}>
+                                            <p className={cn("text-[10px] uppercase tracking-wider mb-2 font-bold", isMotherboard ? "text-[#22c55e]/50" : "text-gray-500")}>Generated CSS</p>
+                                            <p>{`backdrop-filter: blur(${glassBlur}px);`}</p>
+                                            <p>{`background: rgba(0,0,0,${(glassOpacity / 100).toFixed(2)});`}</p>
+                                            <p>{`border: 1px solid rgba(255,255,255,${(glassBorder / 100).toFixed(2)});`}</p>
+                                        </div>
+
+                                        {/* Confirm & Deploy Button */}
+                                        <button
+                                            onClick={handleConfirmTheme}
+                                            disabled={isSending}
+                                            className={cn(
+                                                "w-full py-3.5 rounded-xl font-black text-sm uppercase tracking-widest flex items-center justify-center gap-2 transition-all duration-300",
+                                                sendSuccess
+                                                    ? isMotherboard ? "bg-[#22c55e]/30 text-[#22c55e] border border-[#22c55e]/50" : "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
+                                                    : isMotherboard
+                                                        ? "bg-[#22c55e] text-[#051008] hover:shadow-[0_0_25px_rgba(34,197,94,0.4)] disabled:opacity-50 cursor-pointer"
+                                                        : "bg-gradient-to-r from-teal-500 to-fuchsia-500 text-white hover:shadow-[0_0_20px_rgba(45,212,191,0.3)] disabled:opacity-50 cursor-pointer"
+                                            )}
+                                        >
+                                            {isSending ? (
+                                                <><Loader2 className="w-4 h-4 animate-spin" /> Syncing to n8n...</>
+                                            ) : sendSuccess ? (
+                                                <><Check className="w-4 h-4" /> Config Sent ✓</>
+                                            ) : (
+                                                <><Send className="w-4 h-4" /> Confirm &amp; Deploy Theme</>
+                                            )}
+                                        </button>
+                                    </div>
+                                </div>
+
+                                {/* Live Glass Preview */}
+                                <div className="lg:col-span-7">
+                                    <div className={cn(
+                                        "border rounded-2xl p-6 h-full transition-colors duration-500 relative overflow-hidden",
+                                        isMotherboard ? "bg-[#08180d] border-[#22c55e]/30" : "bg-[#0c1322] border-white/[0.05]"
+                                    )}>
+                                        <div className="flex items-center gap-2 mb-6">
+                                            <Eye className={cn("w-4 h-4", isMotherboard ? "text-[#22c55e]" : "text-fuchsia-400")} />
+                                            <h2 className={cn("text-sm font-bold uppercase tracking-wider", isMotherboard ? "text-[#22c55e]" : "text-white")}>Live Component Preview</h2>
+                                        </div>
+
+                                        <div className="relative h-80 rounded-xl overflow-hidden"
+                                            style={{ background: isMotherboard ? 'linear-gradient(135deg, #051008, #0a2012)' : 'linear-gradient(135deg, #0a1628, #111827)' }}
+                                        >
+                                            {/* Glass Card that responds to sliders */}
+                                            <div className="absolute inset-8 rounded-2xl flex flex-col items-center justify-center p-6 transition-all duration-200"
+                                                style={{
+                                                    backdropFilter: `blur(${glassBlur}px)`,
+                                                    backgroundColor: `rgba(${isMotherboard ? '34,197,94' : '45,212,191'},${glassOpacity / 100 * 0.15})`,
+                                                    border: `1px solid rgba(255,255,255,${glassBorder / 100})`,
+                                                    boxShadow: `0 8px 32px rgba(0,0,0,0.4)`
+                                                }}
+                                            >
+                                                <div className={cn("w-10 h-10 rounded-xl flex items-center justify-center mb-4",
+                                                    isMotherboard ? "bg-[#22c55e]/20 border border-[#22c55e]/30" : "bg-teal-500/20 border border-teal-400/30"
+                                                )}>
+                                                    <Palette className={cn("w-5 h-5", isMotherboard ? "text-[#22c55e]" : "text-teal-400")} />
+                                                </div>
+                                                <p className={cn("text-lg font-bold mb-1", isMotherboard ? "text-[#22c55e]" : "text-white")}>Glass Card</p>
+                                                <p className={cn("text-xs text-center font-mono", isMotherboard ? "text-[#22c55e]/60" : "text-gray-400")}>
+                                                    blur({glassBlur}px) · opacity({glassOpacity}%) · border({glassBorder}%)
+                                                </p>
+                                                <div className={cn("mt-4 px-6 py-2 rounded-lg text-xs font-bold",
+                                                    isMotherboard ? "bg-[#22c55e] text-[#051008]" : "bg-teal-500/20 text-teal-300 border border-teal-500/20"
+                                                )}>Live Preview</div>
+                                            </div>
+                                        </div>
+
+                                        <div className="mt-4 flex items-center gap-2">
+                                            <span className={cn("text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full border",
+                                                isMotherboard ? "bg-[#22c55e]/10 text-[#22c55e] border-[#22c55e]/30" : "bg-fuchsia-500/10 text-fuchsia-400 border-fuchsia-500/20"
+                                            )}>{theme === 'gallantry' ? 'Technological Gallantry' : 'Motherboard'}</span>
+                                            <span className="text-[10px] text-white/30">Active Theme</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         )}
                     </motion.div>

@@ -3093,3 +3093,54 @@
 
 [2026-02-25T05:43:30.993Z] Params: {"limit":"1000"}
 [2026-02-25T05:43:30.995Z] WHERE: {}
+
+[2026-03-10T16:01:09.077Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-03-10T16:01:09.079Z] WHERE: {}
+
+[2026-03-10T16:01:09.092Z] Params: {"limit":"1000"}
+[2026-03-10T16:01:09.094Z] WHERE: {}
+
+[2026-03-10T16:01:12.328Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-03-10T16:01:12.336Z] WHERE: {}
+
+[2026-03-10T16:01:13.055Z] Params: {"limit":"1000"}
+[2026-03-10T16:01:13.056Z] WHERE: {}
+
+[2026-03-10T16:01:13.252Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-03-10T16:01:13.254Z] WHERE: {}
+
+[2026-03-10T16:01:15.507Z] Params: {"page":"1","limit":"20","search":"co","sortBy":"name","sortOrder":"asc"}
+[2026-03-10T16:01:15.511Z] WHERE: {}
+
+[2026-03-10T16:01:15.712Z] Params: {"page":"1","limit":"20","search":"col","sortBy":"name","sortOrder":"asc"}
+[2026-03-10T16:01:15.713Z] WHERE: {}
+
+[2026-03-10T16:01:15.826Z] Params: {"page":"1","limit":"20","search":"colo","sortBy":"name","sortOrder":"asc"}
+[2026-03-10T16:01:15.828Z] WHERE: {}
+
+[2026-03-10T16:01:16.043Z] Params: {"page":"1","limit":"20","search":"coloni","sortBy":"name","sortOrder":"asc"}
+[2026-03-10T16:01:16.044Z] WHERE: {}
+
+[2026-03-10T16:01:16.134Z] Params: {"page":"1","limit":"20","search":"colonia","sortBy":"name","sortOrder":"asc"}
+[2026-03-10T16:01:16.136Z] WHERE: {}
+
+[2026-03-10T16:01:16.292Z] Params: {"page":"1","limit":"20","search":"colonial","sortBy":"name","sortOrder":"asc"}
+[2026-03-10T16:01:16.293Z] WHERE: {}
+
+[2026-03-10T16:01:31.559Z] Params: {"page":"1","limit":"20","search":"colonial","providers":"-","sortBy":"name","sortOrder":"asc"}
+[2026-03-10T16:01:31.560Z] WHERE: {"supplier":{"in":["-"]}}
+
+[2026-03-10T16:02:53.085Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-03-10T16:02:53.086Z] WHERE: {}
+
+[2026-03-10T16:02:53.095Z] Params: {"limit":"1000"}
+[2026-03-10T16:02:53.099Z] WHERE: {}
+
+[2026-03-10T16:02:53.641Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-03-10T16:02:53.643Z] WHERE: {}
+
+[2026-03-10T16:02:53.706Z] Params: {"limit":"1000"}
+[2026-03-10T16:02:53.707Z] WHERE: {}
+
+[2026-03-10T16:02:54.187Z] Params: {"page":"1","limit":"20","sortBy":"name","sortOrder":"asc"}
+[2026-03-10T16:02:54.189Z] WHERE: {}
